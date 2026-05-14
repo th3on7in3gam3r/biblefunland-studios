@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFL Runner | BibleFunLand Studios</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #f5f5f5;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .game-header h1 {
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .game-header p {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .game-container {
+            position: relative;
+            width: 700px;
+            height: 200px;
+            border: 3px solid #1a1a1a;
+            background: #fff;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .game-container::after {
+            content: '';
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #1a1a1a;
+        }
+
+        /* Player */
+        .player {
+            position: absolute;
+            bottom: 32px;
+            left: 60px;
+            width: 30px;
+            height: 40px;
+            transition: none;
+        }
+
+        .player-body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Pixel art player using box shadows */
+        .player-body::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #1a1a1a;
+            box-shadow:
+                /* Head */
+                4px 0 #1a1a1a, 8px 0 #1a1a1a, 12px 0 #1a1a1a,
+                0 4px #1a1a1a, 4px 4px #1a1a1a, 8px 4px #1a1a1a, 12px 4px #1a1a1a, 16px 4px #1a1a1a,
+                0 8px #1a1a1a, 4px 8px #fff, 8px 8px #1a1a1a, 12px 8px #fff, 16px 8px #1a1a1a,
+                0 12px #1a1a1a, 4px 12px #1a1a1a, 8px 12px #1a1a1a, 12px 12px #1a1a1a, 16px 12px #1a1a1a,
+                /* Body */
+                4px 16px #1a1a1a, 8px 16px #1a1a1a, 12px 16px #1a1a1a,
+                0px 20px #1a1a1a, 4px 20px #1a1a1a, 8px 20px #1a1a1a, 12px 20px #1a1a1a, 16px 20px #1a1a1a,
+                0px 24px #1a1a1a, 4px 24px #1a1a1a, 8px 24px #1a1a1a, 12px 24px #1a1a1a, 16px 24px #1a1a1a,
+                4px 28px #1a1a1a, 8px 28px #1a1a1a, 12px 28px #1a1a1a,
+                /* Legs */
+                4px 32px #1a1a1a, 12px 32px #1a1a1a,
+                4px 36px #1a1a1a, 12px 36px #1a1a1a;
+        }
+
+        .player.jumping {
+            animation: jump 0.5s ease-out;
+        }
+
+        @keyframes jump {
+            0% { bottom: 32px; }
+            50% { bottom: 130px; }
+            100% { bottom: 32px; }
+        }
+
+        /* Obstacles */
+        .obstacle {
+            position: absolute;
+            bottom: 32px;
+            right: -40px;
+            width: 20px;
+            height: 35px;
+            animation: moveObstacle linear forwards;
+        }
+
+        /* Cross obstacle pixel art */
+        .obstacle::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #1a1a1a;
+            box-shadow:
+                /* Vertical beam */
+                4px 0 #1a1a1a, 4px 4px #1a1a1a, 4px 8px #1a1a1a,
+                4px 12px #1a1a1a, 4px 16px #1a1a1a, 4px 20px #1a1a1a,
+                4px 24px #1a1a1a, 4px 28px #1a1a1a,
+                /* Horizontal beam */
+                0 8px #1a1a1a, 8px 8px #1a1a1a, 12px 8px #1a1a1a;
+        }
+
+        /* Rock obstacle */
+        .obstacle.rock::before {
+            box-shadow:
+                4px 20px #1a1a1a, 8px 20px #1a1a1a,
+                0 24px #1a1a1a, 4px 24px #1a1a1a, 8px 24px #1a1a1a, 12px 24px #1a1a1a,
+                0 28px #1a1a1a, 4px 28px #1a1a1a, 8px 28px #1a1a1a, 12px 28px #1a1a1a, 16px 28px #1a1a1a,
+                4px 32px #1a1a1a, 8px 32px #1a1a1a, 12px 32px #1a1a1a;
+        }
+
+        /* Scroll obstacle */
+        .obstacle.scroll::before {
+            box-shadow:
+                0 8px #1a1a1a, 4px 8px #1a1a1a, 8px 8px #1a1a1a, 12px 8px #1a1a1a,
+                0 12px #1a1a1a, 12px 12px #1a1a1a,
+                0 16px #1a1a1a, 12px 16px #1a1a1a,
+                0 20px #1a1a1a, 12px 20px #1a1a1a,
+                0 24px #1a1a1a, 4px 24px #1a1a1a, 8px 24px #1a1a1a, 12px 24px #1a1a1a,
+                0 28px #1a1a1a, 4px 28px #1a1a1a, 8px 28px #1a1a1a, 12px 28px #1a1a1a;
+        }
+
+        @keyframes moveObstacle {
+            0% { right: -40px; }
+            100% { right: 720px; }
+        }
+
+        /* Score */
+        .score-display {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+        }
+
+        .high-score {
+            position: absolute;
+            top: 12px;
+            right: 120px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* Game Over */
+        .game-over {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .game-over.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .game-over h2 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .game-over p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .game-over .restart-hint {
+            margin-top: 16px;
+            font-size: 0.75rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Start screen */
+        .start-screen {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .start-screen.hidden { display: none; }
+
+        .start-screen h2 {
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .start-screen p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .start-screen .controls {
+            margin-top: 16px;
+            font-size: 0.7rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Ground decoration */
+        .ground-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 200%;
+            height: 16px;
+            animation: scrollGround linear infinite;
+        }
+
+        .ground-dots::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ccc;
+            box-shadow:
+                20px 0 #ddd, 50px 4px #ccc, 80px 0 #ddd, 120px 6px #ccc,
+                160px 2px #ddd, 200px 0 #ccc, 250px 4px #ddd, 300px 0 #ccc,
+                340px 6px #ddd, 380px 2px #ccc, 420px 0 #ddd, 470px 4px #ccc,
+                510px 0 #ddd, 560px 6px #ccc, 600px 2px #ddd, 650px 0 #ccc;
+        }
+
+        @keyframes scrollGround {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Footer */
+        .game-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .game-footer a {
+            color: #999;
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .game-footer a:hover { color: #1a1a1a; }
+
+        /* Responsive */
+        @media (max-width: 740px) {
+            .game-container {
+                width: 95vw;
+                height: 180px;
+            }
+        }
+
+        /* Power-ups */
+        .powerup {
+            position: absolute;
+            bottom: 60px;
+            right: -30px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border-radius: 50%;
+            animation: moveObstacle linear forwards;
+            z-index: 5;
+        }
+
+        .powerup-shield {
+            background: rgba(100, 200, 255, 0.2);
+            border: 2px solid #4fc3f7;
+            box-shadow: 0 0 8px rgba(79, 195, 247, 0.4);
+            animation: moveObstacle linear forwards, powerGlow 0.6s ease-in-out infinite alternate;
+        }
+
+        .powerup-slow {
+            background: rgba(255, 200, 50, 0.2);
+            border: 2px solid #ffc107;
+            box-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
+            animation: moveObstacle linear forwards, powerGlow 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes powerGlow {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        /* Shield active state */
+        .player.shielded .player-body::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px solid #4fc3f7;
+            box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+            animation: shieldPulse 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes shieldPulse {
+            from { opacity: 0.5; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Slow-mo active indicator */
+        .game-container.slow-mo::before {
+            content: '⏳ SLOW';
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: #ffc107;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .game-container.shielded-active::before {
+            content: '🛡️ SHIELD';
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: #4fc3f7;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-header">
+        <h1>✦ BFL Runner</h1>
+        <p>A BibleFunLand Studios Mini Game</p>
+    </div>
+
+    <div class="game-container" id="game">
+        <div class="ground-dots" id="ground"></div>
+        <div class="player" id="player">
+            <div class="player-body"></div>
+        </div>
+        <span class="high-score" id="highScore">HI 0</span>
+        <span class="score-display" id="score">0</span>
+
+        <div class="start-screen" id="startScreen">
+            <h2>BFL Runner</h2>
+            <p>Jump over the obstacles!</p>
+            <span class="controls">Press SPACE or TAP to start</span>
+        </div>
+
+        <div class="game-over" id="gameOver">
+            <h2>Game Over</h2>
+            <p id="finalScore">Score: 0</p>
+            <span class="restart-hint">Press SPACE or TAP to restart</span>
+        </div>
+    </div>
+
+    <div class="game-footer">
+        <a href="index.html">← Back to BibleFunLand Studios</a>
+    </div>
+
+    <script>
+        const game = document.getElementById('game');
+        const player = document.getElementById('player');
+        const scoreDisplay = document.getElementById('score');
+        const highScoreDisplay = document.getElementById('highScore');
+        const gameOverScreen = document.getElementById('gameOver');
+        const finalScoreEl = document.getElementById('finalScore');
+        const startScreen = document.getElementById('startScreen');
+        const ground = document.getElementById('ground');
+
+        let isJumping = false;
+        let isGameRunning = false;
+        let score = 0;
+        let highScore = parseInt(localStorage.getItem('bfl-runner-high') || '0');
+        let speed = 3;
+        let obstacleInterval;
+        let scoreInterval;
+        let obstacles = [];
+        let isShielded = false;
+        let isSlowMo = false;
+        let powerupTimeout;
+
+        highScoreDisplay.textContent = 'HI ' + highScore;
+
+        // ===== SOUND EFFECTS (Web Audio API — no files needed) =====
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playJumpSound() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.15);
+        }
+
+        function playHitSound() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        function playMilestoneSound() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(700, audioCtx.currentTime + 0.1);
+            osc.frequency.setValueAtTime(900, audioCtx.currentTime + 0.2);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        function playPowerupSound() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime + 0.05);
+            osc.frequency.setValueAtTime(1000, audioCtx.currentTime + 0.1);
+            osc.frequency.setValueAtTime(1200, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.25);
+        }
+
+        // ===== GAME LOGIC =====
+        function startGame() {
+            startScreen.classList.add('hidden');
+            gameOverScreen.classList.remove('show');
+            isGameRunning = true;
+            score = 0;
+            speed = 3;
+            isShielded = false;
+            isSlowMo = false;
+            player.classList.remove('shielded');
+            game.classList.remove('slow-mo', 'shielded-active');
+            scoreDisplay.textContent = '0';
+
+            // Resume audio context (needed for mobile)
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            // Clear existing obstacles and powerups
+            obstacles.forEach(ob => ob.remove());
+            obstacles = [];
+            document.querySelectorAll('.powerup').forEach(p => p.remove());
+            clearTimeout(powerupTimeout);
+
+            // Start ground animation
+            ground.style.animationDuration = '8s';
+            ground.style.animationPlayState = 'running';
+
+            // Spawn first obstacle
+            spawnObstacle();
+
+            // Schedule first power-up
+            schedulePowerup();
+
+            // Score counter
+            scoreInterval = setInterval(() => {
+                if (isGameRunning) {
+                    score++;
+                    scoreDisplay.textContent = score;
+
+                    // Speed up every 50 points (aggressive)
+                    if (score % 50 === 0 && !isSlowMo) {
+                        speed += 0.5;
+                        // Speed up ground too
+                        const groundSpeed = Math.max(8 - (speed * 0.4), 3);
+                        ground.style.animationDuration = groundSpeed + 's';
+                    }
+
+                    // Milestone sound every 100
+                    if (score % 100 === 0) {
+                        playMilestoneSound();
+                    }
+                }
+            }, 100);
+        }
+
+        // Jump
+        function jump() {
+            if (!isGameRunning) {
+                startGame();
+                return;
+            }
+
+            if (isJumping) return;
+            isJumping = true;
+            player.classList.add('jumping');
+            playJumpSound();
+
+            setTimeout(() => {
+                player.classList.remove('jumping');
+                isJumping = false;
+            }, 500);
+        }
+
+        // Spawn obstacle
+        function spawnObstacle() {
+            if (!isGameRunning) return;
+
+            const obstacle = document.createElement('div');
+            const types = ['', 'rock', 'scroll'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            obstacle.className = 'obstacle' + (type ? ' ' + type : '');
+
+            // Obstacles get faster as speed increases
+            const duration = Math.max(2.2 - (speed * 0.12), 0.8);
+            obstacle.style.animationDuration = duration + 's';
+
+            game.appendChild(obstacle);
+            obstacles.push(obstacle);
+
+            // Collision detection
+            const checkCollision = setInterval(() => {
+                if (!isGameRunning) {
+                    clearInterval(checkCollision);
+                    return;
+                }
+
+                const playerRect = player.getBoundingClientRect();
+                const obstacleRect = obstacle.getBoundingClientRect();
+
+                const px = { left: playerRect.left + 6, right: playerRect.right - 6, top: playerRect.top + 4, bottom: playerRect.bottom };
+                const ox = { left: obstacleRect.left + 4, right: obstacleRect.right - 4, top: obstacleRect.top + 8, bottom: obstacleRect.bottom };
+
+                if (px.right > ox.left && px.left < ox.right && px.bottom > ox.top && px.top < ox.bottom) {
+                    if (isShielded) {
+                        // Shield absorbs the hit — destroy obstacle
+                        obstacle.remove();
+                        clearInterval(checkCollision);
+                    } else {
+                        gameOver();
+                        clearInterval(checkCollision);
+                    }
+                }
+
+                if (obstacleRect.right < 0) {
+                    obstacle.remove();
+                    clearInterval(checkCollision);
+                }
+            }, 16);
+
+            // Next obstacle — spawns faster as speed increases
+            const minDelay = Math.max(600 - (speed * 30), 300);
+            const maxDelay = Math.max(1400 - (speed * 60), 500);
+            const nextDelay = minDelay + Math.random() * (maxDelay - minDelay);
+
+            obstacleInterval = setTimeout(() => {
+                if (isGameRunning) spawnObstacle();
+            }, nextDelay);
+        }
+
+        // ===== POWER-UPS =====
+        function schedulePowerup() {
+            if (!isGameRunning) return;
+            // Spawn a power-up every 8-15 seconds
+            const delay = 8000 + Math.random() * 7000;
+            powerupTimeout = setTimeout(() => {
+                if (isGameRunning) {
+                    spawnPowerup();
+                    schedulePowerup();
+                }
+            }, delay);
+        }
+
+        function spawnPowerup() {
+            const powerup = document.createElement('div');
+            const type = Math.random() > 0.5 ? 'shield' : 'slow';
+            powerup.className = 'powerup powerup-' + type;
+            powerup.dataset.type = type;
+            powerup.textContent = type === 'shield' ? '🛡️' : '⏳';
+
+            const duration = Math.max(2.5 - (speed * 0.1), 1.2);
+            powerup.style.animationDuration = duration + 's';
+
+            game.appendChild(powerup);
+
+            // Check if player collects it
+            const checkCollect = setInterval(() => {
+                if (!isGameRunning) { clearInterval(checkCollect); powerup.remove(); return; }
+
+                const pr = player.getBoundingClientRect();
+                const pwr = powerup.getBoundingClientRect();
+
+                if (pr.right - 4 > pwr.left && pr.left + 4 < pwr.right && pr.bottom > pwr.top && pr.top < pwr.bottom) {
+                    collectPowerup(type);
+                    powerup.remove();
+                    clearInterval(checkCollect);
+                }
+
+                if (pwr.right < 0) { powerup.remove(); clearInterval(checkCollect); }
+            }, 16);
+        }
+
+        function collectPowerup(type) {
+            playPowerupSound();
+
+            if (type === 'shield') {
+                isShielded = true;
+                player.classList.add('shielded');
+                game.classList.add('shielded-active');
+                game.classList.remove('slow-mo');
+
+                // Shield lasts 4 seconds
+                setTimeout(() => {
+                    isShielded = false;
+                    player.classList.remove('shielded');
+                    game.classList.remove('shielded-active');
+                }, 4000);
+
+            } else if (type === 'slow') {
+                isSlowMo = true;
+                game.classList.add('slow-mo');
+                game.classList.remove('shielded-active');
+
+                // Slow down current obstacles
+                const savedSpeed = speed;
+                speed = Math.max(speed * 0.4, 1.5);
+                ground.style.animationDuration = '12s';
+
+                // Slow-mo lasts 3 seconds
+                setTimeout(() => {
+                    isSlowMo = false;
+                    speed = savedSpeed;
+                    game.classList.remove('slow-mo');
+                    const groundSpeed = Math.max(8 - (speed * 0.4), 3);
+                    ground.style.animationDuration = groundSpeed + 's';
+                }, 3000);
+            }
+        }
+
+        // Game over
+        function gameOver() {
+            isGameRunning = false;
+            isShielded = false;
+            isSlowMo = false;
+            player.classList.remove('shielded');
+            game.classList.remove('slow-mo', 'shielded-active');
+            clearInterval(scoreInterval);
+            clearTimeout(obstacleInterval);
+            clearTimeout(powerupTimeout);
+            ground.style.animationPlayState = 'paused';
+            playHitSound();
+
+            // Stop all obstacle and powerup animations
+            document.querySelectorAll('.obstacle, .powerup').forEach(ob => {
+                ob.style.animationPlayState = 'paused';
+            });
+
+            // Update high score
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('bfl-runner-high', highScore.toString());
+                highScoreDisplay.textContent = 'HI ' + highScore;
+            }
+
+            finalScoreEl.textContent = 'Score: ' + score;
+            gameOverScreen.classList.add('show');
+        }
+
+        // Controls
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowUp') {
+                e.preventDefault();
+                if (gameOverScreen.classList.contains('show')) {
+                    startGame();
+                } else {
+                    jump();
+                }
+            }
+        });
+
+        game.addEventListener('click', () => {
+            if (gameOverScreen.classList.contains('show')) {
+                startGame();
+            } else {
+                jump();
+            }
+        });
+
+        game.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (gameOverScreen.classList.contains('show')) {
+                startGame();
+            } else {
+                jump();
+            }
+        });
+    </script>
+</body>
+</html>

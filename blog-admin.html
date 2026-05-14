@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Studio | BibleFunLand Studios</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #1a2e5a;
+            --accent: #e8a838;
+            --bg: #fdfbf7;
+            --card: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --radius: 16px;
+            --border: #e5e7eb;
+        }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 32px 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .back-link { display: inline-block; margin-bottom: 20px; font-size: 0.82rem; color: var(--text-light); text-decoration: none; }
+        .back-link:hover { color: var(--primary); }
+
+        .header { text-align: center; margin-bottom: 32px; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); }
+        .header p { color: var(--text-light); font-size: 0.88rem; margin-top: 4px; }
+
+        .card { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: 0 2px 16px rgba(0,0,0,0.04); margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.03); }
+        .card h2 { font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+        .form-field { margin-bottom: 12px; }
+        .form-field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+        .form-field input, .form-field select, .form-field textarea {
+            width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+            font-family: inherit; font-size: 0.88rem; background: var(--bg); transition: border-color 0.2s;
+        }
+        .form-field input:focus, .form-field select:focus, .form-field textarea:focus { outline: none; border-color: var(--accent); }
+        .form-field textarea { min-height: 80px; resize: vertical; line-height: 1.6; }
+
+        .btn { display: inline-flex; align-items: center; gap: 6px; padding: 11px 22px; border-radius: 50px; font-weight: 700; font-size: 0.82rem; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #2d4a8a; }
+        .btn-accent { background: var(--accent); color: var(--primary); }
+        .btn-accent:hover { background: #d4920a; }
+        .btn-ghost { background: #f3f4f6; color: var(--text-light); }
+        .btn-ghost:hover { background: #e5e7eb; }
+        .btn-danger { background: #fee2e2; color: #dc2626; }
+        .btn-danger:hover { background: #fecaca; }
+        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .status { margin-top: 12px; padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; display: none; }
+        .status.success { display: block; background: #d1fae5; color: #065f46; }
+        .status.error { display: block; background: #fee2e2; color: #991b1b; }
+        .status.loading { display: block; background: #dbeafe; color: #1e40af; }
+
+        /* WYSIWYG Toolbar */
+        .editor-toolbar { display: flex; gap: 4px; flex-wrap: wrap; padding: 8px; background: #f9fafb; border: 1.5px solid var(--border); border-bottom: none; border-radius: 10px 10px 0 0; }
+        .toolbar-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; background: none; cursor: pointer; border-radius: 6px; font-size: 0.85rem; font-weight: 700; color: var(--text); transition: all 0.15s; }
+        .toolbar-btn:hover { background: #e5e7eb; }
+        .toolbar-btn.active { background: var(--primary); color: white; }
+        .toolbar-sep { width: 1px; height: 24px; background: var(--border); margin: 4px 4px; }
+
+        .editor-content { min-height: 300px; padding: 16px; border: 1.5px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; font-size: 0.92rem; line-height: 1.8; color: var(--text); outline: none; background: white; overflow-y: auto; }
+        .editor-content h2 { font-size: 1.3rem; margin: 16px 0 8px; color: var(--primary); }
+        .editor-content h3 { font-size: 1.1rem; margin: 12px 0 6px; color: var(--primary); }
+        .editor-content p { margin-bottom: 12px; }
+        .editor-content blockquote { border-left: 3px solid var(--accent); padding-left: 16px; margin: 12px 0; font-style: italic; color: var(--text-light); }
+        .editor-content ul, .editor-content ol { margin: 8px 0 8px 20px; }
+
+        /* AI Provider Setup */
+        .provider-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+        .provider-card { padding: 14px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; text-align: center; }
+        .provider-card:hover { border-color: var(--accent); }
+        .provider-card.selected { border-color: var(--primary); background: #f0f4ff; }
+        .provider-card .provider-name { font-weight: 700; font-size: 0.88rem; margin-bottom: 2px; }
+        .provider-card .provider-desc { font-size: 0.72rem; color: var(--text-light); }
+
+        .hidden { display: none; }
+
+        /* Posts list */
+        .post-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f3f4f6; }
+        .post-item-info { flex: 1; }
+        .post-item-title { font-weight: 600; font-size: 0.88rem; }
+        .post-item-meta { font-size: 0.72rem; color: var(--text-light); margin-top: 2px; }
+        .post-item-actions { display: flex; gap: 8px; }
+        .post-item-actions button { background: none; border: none; cursor: pointer; font-size: 0.75rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; }
+        .post-item-actions .edit-btn { color: var(--primary); }
+        .post-item-actions .delete-btn { color: #dc2626; }
+        .post-item-actions .delete-btn:hover { background: #fee2e2; }
+
+        /* Feature image preview */
+        .image-preview { margin-top: 8px; border-radius: 8px; overflow: hidden; max-height: 150px; }
+        .image-preview img { width: 100%; height: 150px; object-fit: cover; }
+
+        @media (max-width: 640px) {
+            .form-row { grid-template-columns: 1fr; }
+            .card { padding: 20px; }
+            .provider-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="index.html" class="back-link">← Back to site</a>
+    <div class="header">
+        <h1>✦ Blog Studio</h1>
+        <p>Generate, write, and publish blog posts with AI assistance.</p>
+    </div>
+
+    <!-- AI Provider Settings -->
+    <div class="card" id="settingsCard">
+        <h2>⚙️ AI Provider</h2>
+        <div class="provider-grid" id="providerGrid">
+            <div class="provider-card selected" data-provider="gemini" onclick="selectProvider('gemini')">
+                <div class="provider-name">Google Gemini</div>
+                <div class="provider-desc">Free tier available</div>
+            </div>
+            <div class="provider-card" data-provider="openai" onclick="selectProvider('openai')">
+                <div class="provider-name">OpenAI (GPT)</div>
+                <div class="provider-desc">GPT-4o / GPT-3.5</div>
+            </div>
+            <div class="provider-card" data-provider="claude" onclick="selectProvider('claude')">
+                <div class="provider-name">Anthropic (Claude)</div>
+                <div class="provider-desc">Claude 3.5 Sonnet</div>
+            </div>
+        </div>
+        <div class="form-field">
+            <label id="apiKeyLabel">API Key</label>
+            <input type="password" id="apiKey" placeholder="Paste your API key here...">
+        </div>
+        <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+        <span id="settingsStatus" style="margin-left:12px;font-size:0.8rem;color:#065f46;"></span>
+    </div>
+
+    <!-- Step 1: Generate -->
+    <div class="card">
+        <h2>1. Generate with AI</h2>
+        <div class="form-row">
+            <div class="form-field">
+                <label>Category</label>
+                <select id="category">
+                    <option value="devotional">Devotional</option>
+                    <option value="insight">Insight</option>
+                    <option value="behind">Behind the Scenes</option>
+                    <option value="tutorial">Tutorial</option>
+                    <option value="testimony">Testimony</option>
+                    <option value="announcement">Announcement</option>
+                    <option value="bible-study">Bible Study</option>
+                    <option value="creative-process">Creative Process</option>
+                    <option value="ministry">Ministry</option>
+                    <option value="tech">Tech & Tools</option>
+                    <option value="family">Family & Faith</option>
+                    <option value="review">Review</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label>Tone</label>
+                <select id="tone">
+                    <option value="warm and personal">Warm & Personal</option>
+                    <option value="professional and informative">Professional</option>
+                    <option value="encouraging and uplifting">Encouraging</option>
+                    <option value="casual and conversational">Casual</option>
+                    <option value="passionate and bold">Passionate & Bold</option>
+                    <option value="reflective and contemplative">Reflective</option>
+                    <option value="humorous and lighthearted">Humorous</option>
+                    <option value="authoritative and educational">Educational</option>
+                    <option value="storytelling and narrative">Storytelling</option>
+                    <option value="urgent and prophetic">Prophetic</option>
+                    <option value="vulnerable and transparent">Vulnerable</option>
+                    <option value="celebratory and joyful">Celebratory</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-field">
+            <label>Topic, Bible verse, or idea</label>
+            <input type="text" id="topic" placeholder="e.g., Psalm 23, Why I built BFL Letter, 5 branding tips for churches...">
+        </div>
+        <div class="form-field">
+            <label>Additional notes (optional)</label>
+            <textarea id="notes" placeholder="Specific points, Scripture references, or context to include..."></textarea>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-primary" id="generateBtn" onclick="generatePost()">✨ Generate Draft</button>
+        </div>
+        <div class="status" id="generateStatus"></div>
+    </div>
+
+    <!-- Step 2: Edit -->
+    <div class="card hidden" id="editCard">
+        <h2>2. Edit & Format</h2>
+        <div class="form-row">
+            <div class="form-field">
+                <label>Post Title</label>
+                <input type="text" id="postTitle" placeholder="Your blog post title...">
+            </div>
+            <div class="form-field">
+                <label>Feature Image URL (optional)</label>
+                <input type="text" id="postImage" placeholder="https://..." oninput="previewImage()">
+            </div>
+        </div>
+        <div id="imagePreview" class="image-preview hidden"></div>
+
+        <!-- WYSIWYG Editor -->
+        <div style="margin-top:12px;">
+            <label style="display:block;font-size:0.78rem;font-weight:600;color:var(--primary);margin-bottom:6px;">Post Content</label>
+            <div class="editor-toolbar">
+                <button class="toolbar-btn" onclick="execCmd('bold')" title="Bold"><b>B</b></button>
+                <button class="toolbar-btn" onclick="execCmd('italic')" title="Italic"><i>I</i></button>
+                <button class="toolbar-btn" onclick="execCmd('underline')" title="Underline"><u>U</u></button>
+                <div class="toolbar-sep"></div>
+                <button class="toolbar-btn" onclick="execCmd('formatBlock','H2')" title="Heading 2">H2</button>
+                <button class="toolbar-btn" onclick="execCmd('formatBlock','H3')" title="Heading 3">H3</button>
+                <button class="toolbar-btn" onclick="execCmd('formatBlock','P')" title="Paragraph">¶</button>
+                <div class="toolbar-sep"></div>
+                <button class="toolbar-btn" onclick="execCmd('insertUnorderedList')" title="Bullet List">•</button>
+                <button class="toolbar-btn" onclick="execCmd('insertOrderedList')" title="Numbered List">1.</button>
+                <button class="toolbar-btn" onclick="execCmd('formatBlock','BLOCKQUOTE')" title="Quote">"</button>
+                <div class="toolbar-sep"></div>
+                <button class="toolbar-btn" onclick="insertLink()" title="Link">🔗</button>
+                <button class="toolbar-btn" onclick="execCmd('removeFormat')" title="Clear Formatting">✕</button>
+            </div>
+            <div class="editor-content" id="editor" contenteditable="true"></div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-accent" onclick="publishPost()">📤 Publish</button>
+            <button class="btn btn-primary" onclick="generatePost()">🔄 Regenerate</button>
+            <button class="btn btn-ghost" onclick="clearEditor()">Clear</button>
+        </div>
+        <div class="status" id="publishStatus"></div>
+    </div>
+
+    <!-- Published Posts -->
+    <div class="card">
+        <h2>📋 Published Posts</h2>
+        <div id="postsList"></div>
+    </div>
+</div>
+
+<script>
+// ===== STATE =====
+let currentProvider = localStorage.getItem('bfl-ai-provider') || 'gemini';
+let apiKeys = JSON.parse(localStorage.getItem('bfl-api-keys') || '{}');
+
+// Init UI
+document.querySelectorAll('.provider-card').forEach(card => {
+    card.classList.toggle('selected', card.dataset.provider === currentProvider);
+});
+document.getElementById('apiKey').value = apiKeys[currentProvider] || '';
+loadPosts();
+
+// ===== PROVIDER SELECTION =====
+function selectProvider(provider) {
+    currentProvider = provider;
+    localStorage.setItem('bfl-ai-provider', provider);
+    document.querySelectorAll('.provider-card').forEach(c => c.classList.toggle('selected', c.dataset.provider === provider));
+    document.getElementById('apiKey').value = apiKeys[provider] || '';
+    document.getElementById('apiKeyLabel').textContent = provider.charAt(0).toUpperCase() + provider.slice(1) + ' API Key';
+}
+
+function saveSettings() {
+    const key = document.getElementById('apiKey').value.trim();
+    if (key) {
+        apiKeys[currentProvider] = key;
+        localStorage.setItem('bfl-api-keys', JSON.stringify(apiKeys));
+        document.getElementById('settingsStatus').textContent = '✓ Saved';
+        setTimeout(() => document.getElementById('settingsStatus').textContent = '', 2000);
+    }
+}
+
+// ===== WYSIWYG =====
+function execCmd(cmd, value) {
+    document.execCommand(cmd, false, value || null);
+    document.getElementById('editor').focus();
+}
+
+function insertLink() {
+    const url = prompt('Enter URL:');
+    if (url) document.execCommand('createLink', false, url);
+}
+
+function previewImage() {
+    const url = document.getElementById('postImage').value.trim();
+    const preview = document.getElementById('imagePreview');
+    if (url) {
+        preview.innerHTML = '<img src="' + url + '" alt="Preview">';
+        preview.classList.remove('hidden');
+    } else {
+        preview.classList.add('hidden');
+    }
+}
+
+// ===== AI GENERATION =====
+async function generatePost() {
+    const key = apiKeys[currentProvider];
+    if (!key) { showStatus('generateStatus', 'Please save your API key first.', 'error'); return; }
+
+    const topic = document.getElementById('topic').value.trim();
+    if (!topic) { showStatus('generateStatus', 'Enter a topic or idea.', 'error'); return; }
+
+    const category = document.getElementById('category').value;
+    const tone = document.getElementById('tone').value;
+    const notes = document.getElementById('notes').value.trim();
+
+    const prompt = `You are a blog writer for BibleFunLand Studios, a faith-inspired creative media studio. Write a blog post:
+
+Topic: ${topic}
+Category: ${category}
+Tone: ${tone}
+${notes ? 'Notes: ' + notes : ''}
+
+Write as Jerless, the founder. The post should be:
+- 400-600 words
+- Compelling title on the first line prefixed with "TITLE: "
+- Engaging introduction
+- 2-3 sections with subheadings (use <h3> tags)
+- Encouraging conclusion with a call-to-action
+- Faith-centered, authentic, creative
+- Use Scripture naturally
+
+Format: First line is TITLE: [title], then a blank line, then the full HTML-formatted blog content using <p>, <h3>, <blockquote>, <ul> tags.`;
+
+    showStatus('generateStatus', '✨ Generating with ' + currentProvider + '...', 'loading');
+    document.getElementById('generateBtn').disabled = true;
+
+    try {
+        let result;
+        if (currentProvider === 'gemini') result = await callGemini(key, prompt);
+        else if (currentProvider === 'openai') result = await callOpenAI(key, prompt);
+        else if (currentProvider === 'claude') result = await callClaude(key, prompt);
+
+        if (result) {
+            let title = '';
+            let content = result;
+            if (result.includes('TITLE:')) {
+                const lines = result.split('\n');
+                title = lines[0].replace('TITLE:', '').trim();
+                content = lines.slice(1).join('\n').trim();
+            }
+            document.getElementById('postTitle').value = title;
+            document.getElementById('editor').innerHTML = content;
+            document.getElementById('editCard').classList.remove('hidden');
+            showStatus('generateStatus', '✓ Draft ready! Edit below.', 'success');
+        }
+    } catch (err) {
+        showStatus('generateStatus', 'Error: ' + err.message, 'error');
+    }
+    document.getElementById('generateBtn').disabled = false;
+}
+
+// ===== API CALLS =====
+async function callGemini(key, prompt) {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + key, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+    });
+    const data = await res.json();
+    if (data.candidates?.[0]) return data.candidates[0].content.parts[0].text;
+    throw new Error(data.error?.message || 'Gemini error');
+}
+
+async function callOpenAI(key, prompt) {
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+        body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }], max_tokens: 2000 })
+    });
+    const data = await res.json();
+    if (data.choices?.[0]) return data.choices[0].message.content;
+    throw new Error(data.error?.message || 'OpenAI error');
+}
+
+async function callClaude(key, prompt) {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+        body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await res.json();
+    if (data.content?.[0]) return data.content[0].text;
+    throw new Error(data.error?.message || 'Claude error');
+}
+
+// ===== PUBLISH =====
+function publishPost() {
+    const title = document.getElementById('postTitle').value.trim();
+    const content = document.getElementById('editor').innerHTML.trim();
+    const image = document.getElementById('postImage').value.trim();
+    const category = document.getElementById('category').value;
+
+    if (!title || !content) { showStatus('publishStatus', 'Title and content required.', 'error'); return; }
+
+    let posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
+    posts.unshift({
+        id: Date.now(),
+        title, content, image: image || '', category,
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+        readTime: Math.ceil(content.split(/\s+/).length / 200) + ' min read'
+    });
+    localStorage.setItem('bfl-blog-posts', JSON.stringify(posts));
+    showStatus('publishStatus', '✓ Published! View it on your blog page.', 'success');
+    clearEditor();
+    loadPosts();
+}
+
+// ===== POSTS LIST =====
+function loadPosts() {
+    const posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
+    const el = document.getElementById('postsList');
+    if (!posts.length) { el.innerHTML = '<p style="color:var(--text-light);font-size:0.85rem;">No posts yet.</p>'; return; }
+    el.innerHTML = posts.map(p => `
+        <div class="post-item">
+            <div class="post-item-info">
+                <div class="post-item-title">${p.title}</div>
+                <div class="post-item-meta">${p.date} · ${p.category} · ${p.readTime}</div>
+            </div>
+            <div class="post-item-actions">
+                <button class="edit-btn" onclick="editPost(${p.id})">Edit</button>
+                <button class="delete-btn" onclick="deletePost(${p.id})">Delete</button>
+            </div>
+        </div>`).join('');
+}
+
+function deletePost(id) {
+    if (!confirm('Delete this post?')) return;
+    let posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
+    posts = posts.filter(p => p.id !== id);
+    localStorage.setItem('bfl-blog-posts', JSON.stringify(posts));
+    loadPosts();
+}
+
+function editPost(id) {
+    const posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
+    const post = posts.find(p => p.id === id);
+    if (!post) return;
+    document.getElementById('postTitle').value = post.title;
+    document.getElementById('postImage').value = post.image;
+    document.getElementById('editor').innerHTML = post.content;
+    document.getElementById('category').value = post.category;
+    document.getElementById('editCard').classList.remove('hidden');
+    previewImage();
+    // Remove old version
+    deletePost(id);
+}
+
+// ===== HELPERS =====
+function clearEditor() {
+    document.getElementById('postTitle').value = '';
+    document.getElementById('postImage').value = '';
+    document.getElementById('editor').innerHTML = '';
+    document.getElementById('editCard').classList.add('hidden');
+    document.getElementById('imagePreview').classList.add('hidden');
+}
+
+function showStatus(id, msg, type) {
+    const el = document.getElementById(id);
+    el.textContent = msg; el.className = 'status ' + type;
+}
+</script>
+</body>
+</html>

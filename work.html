@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Work | BibleFunLand Studios</title>
+    <meta name="description" content="See the brands and projects built by BibleFunLand Studios — from web platforms to ministry apps.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="themes.css">
+    <style>
+        .work-hero { padding: 160px 0 80px; text-align: center; }
+        .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; padding-bottom: 120px; }
+        .work-card { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); transition: var(--transition); }
+        .work-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .work-card img { width: 100%; height: 220px; object-fit: cover; object-position: top; }
+        .work-body { padding: 28px; }
+        .work-body h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 8px; color: var(--primary); }
+        .work-body p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; margin-bottom: 16px; }
+        .work-tag { display: inline-block; background: var(--bg-alt); color: var(--text-light); font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
+        .work-link { display: inline-block; margin-top: 12px; font-size: 0.85rem; font-weight: 700; color: var(--accent-dark); }
+        @media (max-width: 640px) { .work-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <script src="theme-loader.js"></script>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#brands">Brands</a></li>
+                <li><a href="work.html" class="active">Work</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="index.html#contact" class="btn btn-nav">Get In Touch</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="work-hero">
+        <div class="container">
+            <span class="section-tag">Our Work</span>
+            <h1 style="margin-top:16px;">Projects We've <span class="highlight">Built</span></h1>
+            <p class="section-desc">Real brands, real platforms, real impact. Here's what we've shipped.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="work-grid">
+                <article class="work-card">
+                    <img src="brands/biblefunland.png" alt="BibleFunLand">
+                    <div class="work-body">
+                        <h3>BibleFunLand</h3>
+                        <p>The flagship interactive Bible learning platform. Built from the ground up to make Scripture engaging and accessible for all ages.</p>
+                        <span class="work-tag">Web Platform</span><span class="work-tag">React</span><span class="work-tag">Education</span>
+                        <br><a href="https://www.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <img src="brands/jr.biblefunland.png" alt="BFL Junior">
+                    <div class="work-body">
+                        <h3>BFL Junior</h3>
+                        <p>A dedicated platform for young believers. Age-appropriate content designed to plant seeds of faith early.</p>
+                        <span class="work-tag">Kids</span><span class="work-tag">Web App</span><span class="work-tag">Content</span>
+                        <br><a href="https://junior.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <img src="brands/homeschool.png" alt="BFL Homeschool">
+                    <div class="work-body">
+                        <h3>BFL Homeschool</h3>
+                        <p>Complete faith-integrated curriculum for homeschooling families. Structured learning with biblical foundations.</p>
+                        <span class="work-tag">Education</span><span class="work-tag">Curriculum</span>
+                        <br><a href="https://homeschool.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <img src="brands/bible_letters.png" alt="BFL Letter">
+                    <div class="work-body">
+                        <h3>BFL Letter</h3>
+                        <p>Kids learn their letters the biblical way — A is for Adam, spell the word, earn points. Gamified learning meets faith.</p>
+                        <span class="work-tag">Kids Game</span><span class="work-tag">Gamification</span>
+                        <br><a href="https://letter.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <img src="brands/rhemanotes.png" alt="Rhema Notes">
+                    <div class="work-body">
+                        <h3>Rhema Notes</h3>
+                        <p>Deep-dive Bible study notes and revelatory insights. For seekers who want to go deeper in the Word.</p>
+                        <span class="work-tag">Bible Study</span><span class="work-tag">Content</span>
+                        <br><a href="https://rhemanotes.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <img src="brands/vesper.png" alt="Vesper">
+                    <div class="work-body">
+                        <h3>Vesper</h3>
+                        <p>Evening reflections and meditative content for winding down in faith. Peaceful, purposeful, personal.</p>
+                        <span class="work-tag">Devotional</span><span class="work-tag">Wellness</span>
+                        <br><a href="https://vesper.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <img src="brands/awc_main.png" alt="AWC Main">
+                    <div class="work-body">
+                        <h3>AWC — Anointed Worship Center</h3>
+                        <p>The official website for Anointed Worship Center. Their digital front door to the community — designed and built by us.</p>
+                        <span class="work-tag">Church</span><span class="work-tag">Web Design</span><span class="work-tag">Partner</span>
+                        <br><a href="https://anointedworshipcenter.com" target="_blank" class="work-link">Visit Site →</a>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <img src="brands/awc_vault.png" alt="AWC Vault">
+                    <div class="work-body">
+                        <h3>AWC Vault</h3>
+                        <p>A secure members-only platform for resources, media, and ministry content. Built for the AWC community.</p>
+                        <span class="work-tag">Members App</span><span class="work-tag">Secure</span><span class="work-tag">Partner</span>
+                        <br><a href="#" class="work-link">Private Access</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo"><span class="logo-icon">✦</span><span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span></a>
+                    <p>Faith-inspired creative media that brings stories to life.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#brands">Brands</a>
+                    <a href="work.html">Work</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 BibleFunLand Studios. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+    </script>
+</body>
+</html>

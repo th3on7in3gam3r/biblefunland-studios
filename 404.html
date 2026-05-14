@@ -264,7 +264,7 @@
     <div class="error-info">
         <div class="error-code">404</div>
         <p class="error-message">Page not found</p>
-        <p class="game-hint">Press SPACE or tap to play</p>
+        <p class="game-hint">Press SPACE or TAP anywhere to play</p>
     </div>
 
     <div class="game-container" id="game">
@@ -448,6 +448,17 @@
             e.preventDefault();
             gameOverScreen.classList.contains('show') ? startGame() : jump();
         });
+
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.page-footer')) return;
+            if (gameOverScreen.classList.contains('show')) {
+                startGame();
+            } else if (isGameRunning) {
+                jump();
+            } else {
+                startGame();
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>

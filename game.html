@@ -397,7 +397,7 @@
         <div class="start-screen" id="startScreen">
             <h2>BFL Runner</h2>
             <p>Jump over the obstacles!</p>
-            <span class="controls">Press SPACE or TAP to start</span>
+            <span class="controls">Press SPACE or TAP anywhere to start</span>
         </div>
 
         <div class="game-over" id="gameOver">
@@ -761,6 +761,18 @@
                 jump();
             }
         });
+
+        // Also listen on the whole document for mobile tap
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.game-footer')) return; // Don't trigger on back link
+            if (!isGameRunning && !startScreen.classList.contains('hidden')) {
+                startGame();
+            } else if (gameOverScreen.classList.contains('show')) {
+                startGame();
+            } else if (isGameRunning) {
+                jump();
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>

@@ -63,7 +63,7 @@ img {
 /* ===== NAVIGATION ===== */
 .navbar {
     position: fixed;
-    top: 0;
+    top: 36px;
     left: 0;
     right: 0;
     z-index: 1000;
@@ -2461,4 +2461,37 @@ img {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+
+/* ===== TOP BANNER ===== */
+.top-banner {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+}
+
+.top-banner:hover {
+    background: var(--accent-dark);
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .top-banner {
+        font-size: 0.7rem;
+        padding: 8px 16px;
+    }
 }

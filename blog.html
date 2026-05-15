@@ -15,6 +15,10 @@
 </head>
 <body>
     <script src="theme-loader.js"></script>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="readingProgress"></div>
+    </div>
     <!-- Navigation -->
     <nav class="navbar scrolled" id="navbar">
         <div class="container nav-container">
@@ -39,11 +43,25 @@
 
     <!-- Blog Hero -->
     <section class="blog-hero">
+        <div class="hero-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
         <div class="container">
-            <span class="section-tag">Blog & Devotionals</span>
-            <h1 class="blog-hero-title">Where <span class="highlight">Faith</span> Meets the <span class="highlight">Page</span></h1>
-            <p class="blog-hero-desc">Reflections, insights, and behind-the-scenes from the studio. Where creativity meets calling.</p>
-            <div class="blog-hero-stats">
+            <span class="section-tag animate-up">Blog & Devotionals</span>
+            <h1 class="blog-hero-title animate-up" style="animation-delay: 0.1s;">Where <span class="highlight">Faith</span> Meets the <span class="highlight">Page</span></h1>
+            <p class="blog-hero-desc animate-up" style="animation-delay: 0.2s;">Reflections, insights, and behind-the-scenes from the studio. Where creativity meets calling.</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container animate-up" style="animation-delay: 0.3s;">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="blogSearch" placeholder="Search for inspiration, tutorials, or stories...">
+                </div>
+            </div>
+
+            <div class="blog-hero-stats animate-up" style="animation-delay: 0.4s;">
                 <div class="blog-stat">
                     <span class="blog-stat-number" id="postCount">0</span>
                     <span class="blog-stat-label">Posts</span>
@@ -64,9 +82,9 @@
     <section class="blog-featured">
         <div class="container">
             <article class="featured-card">
-                <div class="featured-thumb" style="background: linear-gradient(135deg, #667eea, #764ba2);">
-                    <span class="featured-emoji">✍️</span>
-                    <span class="featured-badge">Featured</span>
+                <div class="featured-thumb">
+                    <img src="/Users/yahweh/.gemini/antigravity/brain/1e2fb3d4-01ba-440f-8fc0-609664dcd3ce/featured_blog_post_1778876422904.png" alt="Featured Post">
+                    <span class="featured-badge">Featured Article</span>
                 </div>
                 <div class="featured-body">
                     <div class="featured-meta">
@@ -99,113 +117,15 @@
     <section class="blog-posts">
         <div class="container">
             <div class="blog-grid">
-                <article class="blog-card" data-category="insight">
-                    <div class="blog-thumb" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
-                        <span class="blog-emoji">🎨</span>
-                    </div>
-                    <div class="blog-body">
-                        <div class="blog-meta">
-                            <span class="blog-category cat-insight">Insight</span>
-                            <span class="blog-date">April 28, 2026</span>
-                        </div>
-                        <h3>Designing for Kids: Lessons from BFL Junior</h3>
-                        <p>What we learned building a platform for young believers — and how it changed our approach to design forever.</p>
-                        <div class="blog-footer">
-                            <span class="blog-read">4 min read</span>
-                            <a href="#" class="blog-link">Read →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="blog-card" data-category="devotional">
-                    <div class="blog-thumb" style="background: linear-gradient(135deg, #4ECDC4, #2eb8a8);">
-                        <span class="blog-emoji">📖</span>
-                    </div>
-                    <div class="blog-body">
-                        <div class="blog-meta">
-                            <span class="blog-category cat-devotional">Devotional</span>
-                            <span class="blog-date">April 15, 2026</span>
-                        </div>
-                        <h3>Creating with Purpose: A Colossians 3:23 Reflection</h3>
-                        <p>"Whatever you do, work at it with all your heart." What does this mean for those of us called to create?</p>
-                        <div class="blog-footer">
-                            <span class="blog-read">3 min read</span>
-                            <a href="#" class="blog-link">Read →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="blog-card" data-category="behind">
-                    <div class="blog-thumb" style="background: linear-gradient(135deg, #e8a838, #d4920a);">
-                        <span class="blog-emoji">🚀</span>
-                    </div>
-                    <div class="blog-body">
-                        <div class="blog-meta">
-                            <span class="blog-category cat-behind">Behind the Scenes</span>
-                            <span class="blog-date">March 30, 2026</span>
-                        </div>
-                        <h3>From One Idea to Six Brands: The BFL Story</h3>
-                        <p>The story of how BibleFunLand Studios grew from a single project into a family of faith-based platforms.</p>
-                        <div class="blog-footer">
-                            <span class="blog-read">6 min read</span>
-                            <a href="#" class="blog-link">Read →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="blog-card" data-category="tutorial">
-                    <div class="blog-thumb" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">
-                        <span class="blog-emoji">💡</span>
-                    </div>
-                    <div class="blog-body">
-                        <div class="blog-meta">
-                            <span class="blog-category cat-tutorial">Tutorial</span>
-                            <span class="blog-date">March 15, 2026</span>
-                        </div>
-                        <h3>5 Branding Mistakes Churches Make (And How to Fix Them)</h3>
-                        <p>Your church's visual identity matters more than you think. Here are the most common pitfalls and practical solutions.</p>
-                        <div class="blog-footer">
-                            <span class="blog-read">7 min read</span>
-                            <a href="#" class="blog-link">Read →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="blog-card" data-category="devotional">
-                    <div class="blog-thumb" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
-                        <span class="blog-emoji">🙏</span>
-                    </div>
-                    <div class="blog-body">
-                        <div class="blog-meta">
-                            <span class="blog-category cat-devotional">Devotional</span>
-                            <span class="blog-date">March 1, 2026</span>
-                        </div>
-                        <h3>When God Gives You a Vision Bigger Than Your Skill</h3>
-                        <p>A devotional on trusting the process, growing into your calling, and letting God fill the gaps in your ability.</p>
-                        <div class="blog-footer">
-                            <span class="blog-read">4 min read</span>
-                            <a href="#" class="blog-link">Read →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="blog-card" data-category="behind">
-                    <div class="blog-thumb" style="background: linear-gradient(135deg, #fa709a, #fee140);">
-                        <span class="blog-emoji">🎬</span>
-                    </div>
-                    <div class="blog-body">
-                        <div class="blog-meta">
-                            <span class="blog-category cat-behind">Behind the Scenes</span>
-                            <span class="blog-date">February 14, 2026</span>
-                        </div>
-                        <h3>Building AWC Connect: A Ministry App Case Study</h3>
-                        <p>How we designed and developed a community app for Anointed Worship Center — from wireframes to launch day.</p>
-                        <div class="blog-footer">
-                            <span class="blog-read">8 min read</span>
-                            <a href="#" class="blog-link">Read →</a>
-                        </div>
-                    </div>
-                </article>
+                <!-- Posts will be injected here -->
+            </div>
+            
+            <!-- Empty Search State -->
+            <div id="emptySearch" class="empty-search animate-up" style="display: none;">
+                <div class="empty-icon">🏜️</div>
+                <h3>No inspiration found</h3>
+                <p>We couldn't find any posts matching your search. Try a different keyword or category!</p>
+                <button class="btn btn-secondary" onclick="resetSearch()">View All Posts</button>
             </div>
         </div>
     </section>
@@ -258,15 +178,23 @@
         navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
         navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
 
+        // Reading Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + "%";
+        });
+
         // ===== LOAD DYNAMIC POSTS =====
         const blogGrid = document.querySelector('.blog-grid');
         const posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
 
         const categoryColors = {
-            devotional: { bg: '#d1fae5', color: '#065f46' },
-            insight: { bg: '#ede9fe', color: '#6d28d9' },
-            behind: { bg: '#fef3c7', color: '#92400e' },
-            tutorial: { bg: '#dbeafe', color: '#1e40af' }
+            devotional: { bg: 'rgba(6, 95, 70, 0.15)', color: '#065f46' },
+            insight: { bg: 'rgba(109, 40, 217, 0.15)', color: '#6d28d9' },
+            behind: { bg: 'rgba(146, 64, 14, 0.15)', color: '#92400e' },
+            tutorial: { bg: 'rgba(30, 64, 175, 0.15)', color: '#1e40af' }
         };
 
         const categoryGradients = {
@@ -277,7 +205,6 @@
         };
 
         if (posts.length > 0) {
-            // Insert dynamic posts at the top of the grid
             posts.forEach(post => {
                 const cat = categoryColors[post.category] || categoryColors.insight;
                 const grad = categoryGradients[post.category] || categoryGradients.insight;
@@ -294,14 +221,14 @@
                     </div>
                     <div class="blog-body">
                         <div class="blog-meta">
-                            <span class="blog-category" style="background:${cat.bg};color:${cat.color};">${post.category}</span>
+                            <span class="blog-category cat-${post.category || 'insight'}">${post.category}</span>
                             <span class="blog-date">${post.date}</span>
                         </div>
                         <h3>${post.title}</h3>
                         <p>${post.content.substring(0, 120).replace(/(<([^>]+)>)/gi, '').replace(/[#*]/g, '')}...</p>
                         <div class="blog-footer">
                             <span class="blog-read">${post.readTime}</span>
-                            <a href="post.html?id=${post.id}" class="blog-link">Read →</a>
+                            <a href="post.html?id=${post.id}" class="blog-link">Read Article →</a>
                         </div>
                     </div>
                 `;
@@ -309,28 +236,97 @@
             });
         }
 
-        // Category filter
+        const searchInput = document.getElementById('blogSearch');
+        const emptySearch = document.getElementById('emptySearch');
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const allCards = document.querySelectorAll('.blog-card[data-category]');
+        const postCountDisplay = document.getElementById('postCount');
 
-        // Update post count
-        document.getElementById('postCount').textContent = allCards.length;
+        // Pre-defined static posts to ensure grid is never empty if localStorage is empty
+        const staticPosts = [
+            { id: '1', category: 'insight', emoji: '🎨', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min read', content: 'What we learned building a platform for young believers — and how it changed our approach to design forever.' },
+            { id: '2', category: 'devotional', emoji: '📖', title: 'Creating with Purpose: A Colossians 3:23 Reflection', date: 'April 15, 2026', readTime: '3 min read', content: '"Whatever you do, work at it with all your heart." What does this mean for those of us called to create?' },
+            { id: '3', category: 'behind', emoji: '🚀', title: 'From One Idea to Six Brands: The BFL Story', date: 'March 30, 2026', readTime: '6 min read', content: 'The story of how BibleFunLand Studios grew from a single project into a family of faith-based platforms.' },
+            { id: '4', category: 'tutorial', emoji: '💡', title: '5 Branding Mistakes Churches Make (And How to Fix Them)', date: 'March 15, 2026', readTime: '7 min read', content: 'Your church\'s visual identity matters more than you think. Here are the most common pitfalls and practical solutions.' },
+            { id: '5', category: 'devotional', emoji: '🙏', title: 'When God Gives You a Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min read', content: 'A devotional on trusting the process, growing into your calling, and letting God fill the gaps in your ability.' },
+            { id: '6', category: 'behind', emoji: '🎬', title: 'Building AWC Connect: A Ministry App Case Study', date: 'February 14, 2026', readTime: '8 min read', content: 'How we designed and developed a community app for Anointed Worship Center — from wireframes to launch day.' }
+        ];
+
+        function renderPosts(filteredPosts) {
+            blogGrid.innerHTML = '';
+            filteredPosts.forEach(post => {
+                const cat = categoryColors[post.category] || categoryColors.insight;
+                const grad = categoryGradients[post.category] || categoryGradients.insight;
+                const thumbStyle = post.image
+                    ? `background-image: url('${post.image}'); background-size: cover; background-position: center;`
+                    : `background: ${grad};`;
+
+                const card = document.createElement('article');
+                card.className = 'blog-card';
+                card.dataset.category = post.category;
+                card.innerHTML = `
+                    <div class="blog-thumb" style="${thumbStyle}">
+                        ${!post.image ? `<span class="blog-emoji">${post.emoji || '✍️'}</span>` : ''}
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span class="blog-category cat-${post.category || 'insight'}">${post.category}</span>
+                            <span class="blog-date">${post.date}</span>
+                        </div>
+                        <h3>${post.title}</h3>
+                        <p>${post.content.substring(0, 120).replace(/(<([^>]+)>)/gi, '').replace(/[#*]/g, '')}...</p>
+                        <div class="blog-footer">
+                            <span class="blog-read">${post.readTime}</span>
+                            <a href="post.html?id=${post.id}" class="blog-link">Read Article →</a>
+                        </div>
+                    </div>
+                `;
+                blogGrid.appendChild(card);
+                // Setup observer for newly created card
+                observer.observe(card);
+            });
+
+            if (filteredPosts.length === 0) {
+                emptySearch.style.display = 'block';
+                blogGrid.style.display = 'none';
+            } else {
+                emptySearch.style.display = 'none';
+                blogGrid.style.display = 'grid';
+            }
+            
+            postCountDisplay.textContent = filteredPosts.length;
+        }
+
+        const allAvailablePosts = [...posts, ...staticPosts];
+
+        function filterPosts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            
+            const filtered = allAvailablePosts.filter(post => {
+                const title = post.title.toLowerCase();
+                const content = post.content.toLowerCase();
+                const matchesSearch = title.includes(searchTerm) || content.includes(searchTerm);
+                const matchesFilter = activeFilter === 'all' || post.category === activeFilter;
+                return matchesSearch && matchesFilter;
+            });
+
+            renderPosts(filtered);
+        }
+
+        function resetSearch() {
+            searchInput.value = '';
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            filterBtns[0].classList.add('active');
+            filterPosts();
+        }
+
+        searchInput.addEventListener('input', filterPosts);
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
-                const filter = btn.dataset.filter;
-
-                allCards.forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
-                        card.style.display = '';
-                        card.style.animation = 'fadeInUp 0.4s ease forwards';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                filterPosts();
             });
         });
 
@@ -338,14 +334,33 @@
         document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
+            const originalText = btn.textContent;
             btn.textContent = '✓ Subscribed!';
-            btn.style.background = '#4ECDC4';
+            btn.classList.add('subscribed');
             e.target.querySelector('input').value = '';
             setTimeout(() => {
-                btn.textContent = 'Subscribe';
-                btn.style.background = '';
+                btn.textContent = originalText;
+                btn.classList.remove('subscribed');
             }, 3000);
         });
+
+        // Reveal on scroll setup
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Initial render
+        renderPosts(allAvailablePosts);
     </script>
 </body>
 </html>

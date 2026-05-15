@@ -8,17 +8,19 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="themes.css">
     <link rel="stylesheet" href="blog.css">
 </head>
 <body>
     <script src="theme-loader.js"></script>
+
     <!-- Reading Progress Bar -->
     <div class="reading-progress-container">
         <div class="reading-progress-bar" id="readingProgress"></div>
     </div>
+
     <!-- Navigation -->
     <nav class="navbar scrolled" id="navbar">
         <div class="container nav-container">
@@ -34,9 +36,9 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#brands">Brands</a></li>
-                <li><a href="index.html#services">Services</a></li>
                 <li><a href="blog.html" class="active">Blog</a></li>
-                <li><a href="index.html#contact" class="btn btn-nav">Get In Touch</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="#" class="search-trigger">🔍</a></li>
             </ul>
         </div>
     </nav>
@@ -46,77 +48,63 @@
         <div class="hero-blobs">
             <div class="blob blob-1"></div>
             <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
         </div>
         <div class="container">
-            <span class="section-tag animate-up">Blog & Devotionals</span>
-            <h1 class="blog-hero-title animate-up" style="animation-delay: 0.1s;">Where <span class="highlight">Faith</span> Meets the <span class="highlight">Page</span></h1>
-            <p class="blog-hero-desc animate-up" style="animation-delay: 0.2s;">Reflections, insights, and behind-the-scenes from the studio. Where creativity meets calling.</p>
-            
-            <!-- Search Bar -->
-            <div class="search-container animate-up" style="animation-delay: 0.3s;">
-                <div class="search-box">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="blogSearch" placeholder="Search for inspiration, tutorials, or stories...">
+            <div class="hero-content-grid">
+                <div class="hero-text">
+                    <h1 class="animate-up">Where <span class="highlight">Faith</span> Meets the <span class="highlight">Page</span></h1>
+                    <p class="animate-up" style="animation-delay: 0.1s;">Reflections, insights, and behind-the-scenes from the studio. Where creativity meets calling.</p>
+                    <a href="#posts" class="btn btn-primary animate-up" style="animation-delay: 0.2s; background: var(--accent); color: var(--primary); padding: 16px 40px;">Browse Posts</a>
+                </div>
+                <div class="hero-image animate-up" style="animation-delay: 0.3s;">
+                    <!-- Illustrated Bible Placeholder -->
+                    <img src="https://img.freepik.com/premium-photo/open-bible-with-glowing-light-rays-ethereal-atmosphere_963339-16474.jpg" alt="Faith Meets the Page">
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="blog-hero-stats animate-up" style="animation-delay: 0.4s;">
-                <div class="blog-stat">
-                    <span class="blog-stat-number" id="postCount">0</span>
-                    <span class="blog-stat-label">Posts</span>
+    <!-- Search & Stats Row -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-row animate-up" style="animation-delay: 0.4s;">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="blogSearch" placeholder="Search for inspiration...">
                 </div>
-                <div class="blog-stat">
-                    <span class="blog-stat-number">4</span>
-                    <span class="blog-stat-label">Categories</span>
-                </div>
-                <div class="blog-stat">
-                    <span class="blog-stat-number">Weekly</span>
-                    <span class="blog-stat-label">New Content</span>
+                <div class="stats-row">
+                    <div><span>12</span> Posts</div>
+                    <div><span>4</span> Categories</div>
+                    <div><span>Weekly</span> New Content</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Featured Post -->
-    <section class="blog-featured">
+    <section class="blog-featured" id="posts">
         <div class="container">
-            <article class="featured-card">
+            <article class="featured-card animate-up">
                 <div class="featured-thumb">
                     <img src="/Users/yahweh/.gemini/antigravity/brain/1e2fb3d4-01ba-440f-8fc0-609664dcd3ce/featured_blog_post_1778876422904.png" alt="Featured Post">
-                    <span class="featured-badge">Featured Article</span>
                 </div>
                 <div class="featured-body">
                     <div class="featured-meta">
                         <span class="blog-category cat-insight">Insight</span>
                         <span class="blog-date">May 10, 2026</span>
-                        <span class="blog-read">5 min read</span>
                     </div>
                     <h2>Why Faith-Based Media Matters More Than Ever</h2>
-                    <p>In a world saturated with content, the stories we tell and how we tell them carry weight. The quality of our media reflects the quality of our message. Here's why investing in creative excellence isn't optional for ministries — it's essential.</p>
-                    <a href="#" class="btn btn-primary">Read Article →</a>
+                    <p>In a world saturated with content, the stories we tell and how we tell them carry weight. The quality of our media reflects the quality of our message.</p>
+                    <a href="#" class="blog-link" style="font-size: 1rem;">Read Article →</a>
                 </div>
             </article>
-        </div>
-    </section>
-
-    <!-- Category Filter -->
-    <section class="blog-filters">
-        <div class="container">
-            <div class="filter-bar">
-                <button class="filter-btn active" data-filter="all">All Posts</button>
-                <button class="filter-btn" data-filter="devotional">Devotionals</button>
-                <button class="filter-btn" data-filter="insight">Insights</button>
-                <button class="filter-btn" data-filter="behind">Behind the Scenes</button>
-                <button class="filter-btn" data-filter="tutorial">Tutorials</button>
-            </div>
         </div>
     </section>
 
     <!-- Blog Grid -->
     <section class="blog-posts">
         <div class="container">
-            <div class="blog-grid">
+            <div class="blog-grid" id="blogGrid">
                 <!-- Posts will be injected here -->
             </div>
             
@@ -124,19 +112,19 @@
             <div id="emptySearch" class="empty-search animate-up" style="display: none;">
                 <div class="empty-icon">🏜️</div>
                 <h3>No inspiration found</h3>
-                <p>We couldn't find any posts matching your search. Try a different keyword or category!</p>
-                <button class="btn btn-secondary" onclick="resetSearch()">View All Posts</button>
+                <p>Try a different keyword or category!</p>
+                <button class="btn btn-primary" onclick="resetSearch()" style="background: var(--accent); color: var(--primary);">View All Posts</button>
             </div>
         </div>
     </section>
 
-    <!-- Newsletter Signup -->
+    <!-- Newsletter -->
     <section class="blog-newsletter">
         <div class="container">
-            <div class="newsletter-card">
+            <div class="newsletter-card animate-up">
                 <div class="newsletter-content">
                     <h3>Stay Inspired</h3>
-                    <p>Get devotionals, creative insights, and studio updates delivered to your inbox. No spam — just purpose.</p>
+                    <p>Get devotionals, creative insights, and studio updates. No spam — just purpose.</p>
                 </div>
                 <form class="newsletter-form">
                     <input type="email" placeholder="Your email address" required>
@@ -149,22 +137,6 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="index.html" class="logo">
-                        <span class="logo-icon">✦</span>
-                        <span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span>
-                    </a>
-                    <p>Faith-inspired creative media that brings stories to life.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="index.html#brands">Brands</a>
-                    <a href="index.html#services">Services</a>
-                    <a href="blog.html">Blog</a>
-                    <a href="index.html#contact">Contact</a>
-                </div>
-            </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 BibleFunLand Studios. All rights reserved. Made with ❤️ and faith.</p>
             </div>
@@ -172,12 +144,6 @@
     </footer>
 
     <script>
-        // Mobile nav toggle
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
-
         // Reading Progress Bar
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -186,102 +152,43 @@
             document.getElementById('readingProgress').style.width = scrolled + "%";
         });
 
-        // ===== LOAD DYNAMIC POSTS =====
-        const blogGrid = document.querySelector('.blog-grid');
-        const posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
-
-        const categoryColors = {
-            devotional: { bg: 'rgba(6, 95, 70, 0.15)', color: '#065f46' },
-            insight: { bg: 'rgba(109, 40, 217, 0.15)', color: '#6d28d9' },
-            behind: { bg: 'rgba(146, 64, 14, 0.15)', color: '#92400e' },
-            tutorial: { bg: 'rgba(30, 64, 175, 0.15)', color: '#1e40af' }
-        };
-
-        const categoryGradients = {
-            devotional: 'linear-gradient(135deg, #4ECDC4, #2eb8a8)',
-            insight: 'linear-gradient(135deg, #a78bfa, #7c3aed)',
-            behind: 'linear-gradient(135deg, #e8a838, #d4920a)',
-            tutorial: 'linear-gradient(135deg, #4facfe, #00f2fe)'
-        };
-
-        if (posts.length > 0) {
-            posts.forEach(post => {
-                const cat = categoryColors[post.category] || categoryColors.insight;
-                const grad = categoryGradients[post.category] || categoryGradients.insight;
-                const thumbStyle = post.image
-                    ? `background-image: url('${post.image}'); background-size: cover; background-position: center;`
-                    : `background: ${grad};`;
-
-                const card = document.createElement('article');
-                card.className = 'blog-card';
-                card.dataset.category = post.category;
-                card.innerHTML = `
-                    <div class="blog-thumb" style="${thumbStyle}">
-                        ${!post.image ? '<span class="blog-emoji">✍️</span>' : ''}
-                    </div>
-                    <div class="blog-body">
-                        <div class="blog-meta">
-                            <span class="blog-category cat-${post.category || 'insight'}">${post.category}</span>
-                            <span class="blog-date">${post.date}</span>
-                        </div>
-                        <h3>${post.title}</h3>
-                        <p>${post.content.substring(0, 120).replace(/(<([^>]+)>)/gi, '').replace(/[#*]/g, '')}...</p>
-                        <div class="blog-footer">
-                            <span class="blog-read">${post.readTime}</span>
-                            <a href="post.html?id=${post.id}" class="blog-link">Read Article →</a>
-                        </div>
-                    </div>
-                `;
-                blogGrid.insertBefore(card, blogGrid.firstChild);
-            });
-        }
-
+        // Dynamic Post Loading
+        const blogGrid = document.getElementById('blogGrid');
         const searchInput = document.getElementById('blogSearch');
         const emptySearch = document.getElementById('emptySearch');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const postCountDisplay = document.getElementById('postCount');
 
-        // Pre-defined static posts to ensure grid is never empty if localStorage is empty
         const staticPosts = [
-            { id: '1', category: 'insight', emoji: '🎨', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min read', content: 'What we learned building a platform for young believers — and how it changed our approach to design forever.' },
-            { id: '2', category: 'devotional', emoji: '📖', title: 'Creating with Purpose: A Colossians 3:23 Reflection', date: 'April 15, 2026', readTime: '3 min read', content: '"Whatever you do, work at it with all your heart." What does this mean for those of us called to create?' },
-            { id: '3', category: 'behind', emoji: '🚀', title: 'From One Idea to Six Brands: The BFL Story', date: 'March 30, 2026', readTime: '6 min read', content: 'The story of how BibleFunLand Studios grew from a single project into a family of faith-based platforms.' },
-            { id: '4', category: 'tutorial', emoji: '💡', title: '5 Branding Mistakes Churches Make (And How to Fix Them)', date: 'March 15, 2026', readTime: '7 min read', content: 'Your church\'s visual identity matters more than you think. Here are the most common pitfalls and practical solutions.' },
-            { id: '5', category: 'devotional', emoji: '🙏', title: 'When God Gives You a Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min read', content: 'A devotional on trusting the process, growing into your calling, and letting God fill the gaps in your ability.' },
-            { id: '6', category: 'behind', emoji: '🎬', title: 'Building AWC Connect: A Ministry App Case Study', date: 'February 14, 2026', readTime: '8 min read', content: 'How we designed and developed a community app for Anointed Worship Center — from wireframes to launch day.' }
+            { id: '1', category: 'insight', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min', content: 'What we learned building a platform for young believers...', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800' },
+            { id: '2', category: 'devotional', title: 'Creating with Purpose: Colossians 3:23', date: 'April 15, 2026', readTime: '3 min', content: 'Whatever you do, work at it with all your heart...', image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800' },
+            { id: '3', category: 'behind', title: 'From One Idea to Six Brands', date: 'March 30, 2026', readTime: '6 min', content: 'The story of how BibleFunLand Studios grew...', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800' },
+            { id: '4', category: 'tutorial', title: '5 Branding Mistakes Churches Make', date: 'March 15, 2026', readTime: '7 min', content: 'Practical solutions for your ministry\'s visual identity...', image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800' },
+            { id: '5', category: 'devotional', title: 'Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min', content: 'Trusting the process when God calls you to more...', image: 'https://images.unsplash.com/photo-1499209974431-9dac3e74a1e4?auto=format&fit=crop&w=800' },
+            { id: '6', category: 'behind', title: 'Building AWC Connect', date: 'Feb 14, 2026', readTime: '8 min', content: 'A ministry app case study from wireframe to launch...', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800' }
         ];
 
         function renderPosts(filteredPosts) {
             blogGrid.innerHTML = '';
             filteredPosts.forEach(post => {
-                const cat = categoryColors[post.category] || categoryColors.insight;
-                const grad = categoryGradients[post.category] || categoryGradients.insight;
-                const thumbStyle = post.image
-                    ? `background-image: url('${post.image}'); background-size: cover; background-position: center;`
-                    : `background: ${grad};`;
-
                 const card = document.createElement('article');
                 card.className = 'blog-card';
-                card.dataset.category = post.category;
                 card.innerHTML = `
-                    <div class="blog-thumb" style="${thumbStyle}">
-                        ${!post.image ? `<span class="blog-emoji">${post.emoji || '✍️'}</span>` : ''}
+                    <div class="blog-thumb-sm">
+                        <img src="${post.image}" alt="${post.title}">
                     </div>
-                    <div class="blog-body">
+                    <div class="blog-card-body">
                         <div class="blog-meta">
-                            <span class="blog-category cat-${post.category || 'insight'}">${post.category}</span>
-                            <span class="blog-date">${post.date}</span>
+                            <span class="blog-category cat-${post.category}">${post.category}</span>
+                            <span style="font-size: 0.75rem; color: var(--text-light); font-weight: 500;">${post.date}</span>
                         </div>
                         <h3>${post.title}</h3>
-                        <p>${post.content.substring(0, 120).replace(/(<([^>]+)>)/gi, '').replace(/[#*]/g, '')}...</p>
-                        <div class="blog-footer">
-                            <span class="blog-read">${post.readTime}</span>
-                            <a href="post.html?id=${post.id}" class="blog-link">Read Article →</a>
+                        <p>${post.content}</p>
+                        <div class="blog-card-footer">
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-light);">${post.readTime} read</span>
+                            <a href="post.html?id=${post.id}" class="blog-link">Read More →</a>
                         </div>
                     </div>
                 `;
                 blogGrid.appendChild(card);
-                // Setup observer for newly created card
                 observer.observe(card);
             });
 
@@ -292,63 +199,7 @@
                 emptySearch.style.display = 'none';
                 blogGrid.style.display = 'grid';
             }
-            
-            postCountDisplay.textContent = filteredPosts.length;
         }
-
-        const allAvailablePosts = [...posts, ...staticPosts];
-
-        function filterPosts() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-            
-            const filtered = allAvailablePosts.filter(post => {
-                const title = post.title.toLowerCase();
-                const content = post.content.toLowerCase();
-                const matchesSearch = title.includes(searchTerm) || content.includes(searchTerm);
-                const matchesFilter = activeFilter === 'all' || post.category === activeFilter;
-                return matchesSearch && matchesFilter;
-            });
-
-            renderPosts(filtered);
-        }
-
-        function resetSearch() {
-            searchInput.value = '';
-            filterBtns.forEach(btn => btn.classList.remove('active'));
-            filterBtns[0].classList.add('active');
-            filterPosts();
-        }
-
-        searchInput.addEventListener('input', filterPosts);
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                filterPosts();
-            });
-        });
-
-        // Newsletter form
-        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.textContent;
-            btn.textContent = '✓ Subscribed!';
-            btn.classList.add('subscribed');
-            e.target.querySelector('input').value = '';
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.classList.remove('subscribed');
-            }, 3000);
-        });
-
-        // Reveal on scroll setup
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -357,10 +208,21 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        // Initial render
-        renderPosts(allAvailablePosts);
+        function filterPosts() {
+            const term = searchInput.value.toLowerCase();
+            const filtered = staticPosts.filter(p => p.title.toLowerCase().includes(term) || p.content.toLowerCase().includes(term));
+            renderPosts(filtered);
+        }
+
+        function resetSearch() {
+            searchInput.value = '';
+            renderPosts(staticPosts);
+        }
+
+        searchInput.addEventListener('input', filterPosts);
+        renderPosts(staticPosts);
     </script>
 </body>
 </html>

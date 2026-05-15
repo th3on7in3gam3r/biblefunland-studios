@@ -54,78 +54,74 @@ body {
     transition: width 0.1s ease;
 }
 
-/* Blog Hero — Exact Mockup Design */
+/* Blog Hero — Clean Integration Design */
 .blog-hero {
-    padding: 180px 0 120px;
+    padding: 160px 0 80px;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #fdfbf7 60%, #1a2e5a 100%);
+    background: #fdfbf7; /* Matches the image background more closely */
 }
 
 .hero-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
     align-items: center;
-    justify-content: space-between;
     position: relative;
     z-index: 10;
 }
 
 .hero-text {
-    max-width: 600px;
+    max-width: 550px;
+    padding-right: 20px;
 }
 
 .hero-text h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 7vw, 4.8rem);
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
     font-weight: 900;
     color: var(--primary);
-    line-height: 1.05;
-    margin-bottom: 30px;
+    line-height: 1.1;
+    margin-bottom: 24px;
     letter-spacing: -2px;
 }
 
-.hero-text .btn-primary {
-    background: #e8a838;
-    color: white;
-    padding: 14px 35px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    box-shadow: 0 10px 20px rgba(232, 168, 56, 0.2);
-    display: inline-block;
+.hero-text .highlight {
+    color: var(--primary);
+    border-bottom: 4px solid var(--accent);
+}
+
+.hero-text p {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    margin-bottom: 40px;
+    line-height: 1.7;
 }
 
 .hero-image-wrapper {
-    position: absolute;
-    right: -50px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 60%;
-    max-width: 850px;
-    z-index: 5;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .hero-image-wrapper img {
-    width: 100%;
-    filter: drop-shadow(-30px 40px 60px rgba(0,0,0,0.15));
-    animation: float 8s ease-in-out infinite;
+    width: 110%; /* Slightly larger to feel cinematic */
+    max-width: 750px;
+    border-radius: 30px;
+    filter: drop-shadow(0 20px 50px rgba(0,0,0,0.1));
+    animation: float 6s ease-in-out infinite;
+    mask-image: linear-gradient(to right, transparent, black 15%); /* Fades the left edge into the site */
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(1deg); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
-/* Navbar adjustments for mockup */
+/* Navbar adjustments */
 .navbar {
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 30px 0;
-}
-
-.navbar .logo-text {
-    font-weight: 800;
-    color: var(--primary);
+    background: #fdfbf7 !important;
+    padding: 20px 0;
 }
 
 /* Search Bar & Stats */

@@ -415,15 +415,88 @@ body {
 
 /* Responsive */
 @media (max-width: 968px) {
-    .hero-content-grid, .featured-card { grid-template-columns: 1fr; text-align: center; }
-    .hero-text p { margin-left: auto; margin-right: auto; }
-    .blog-grid { grid-template-columns: repeat(2, 1fr); }
-    .featured-body { padding: 40px 30px; }
-    .newsletter-card { padding: 60px 30px; }
-    .newsletter-form { flex-direction: column; }
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .hero-text {
+        max-width: 100%;
+        padding-right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-text h1 {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+    }
+    
+    .hero-text br {
+        display: none; /* Let text wrap naturally on mobile */
+    }
+
+    .hero-image-wrapper {
+        justify-content: center;
+    }
+
+    .hero-image-wrapper img {
+        width: 100%;
+        max-width: 500px;
+        mask-image: none; /* Remove fading edge on mobile since it's stacked */
+    }
+
+    .featured-card { 
+        grid-template-columns: 1fr; 
+        text-align: center; 
+    }
+    
+    .featured-meta {
+        justify-content: center;
+    }
+
+    .featured-thumb {
+        min-height: 300px;
+    }
+
+    .blog-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    
+    .featured-body { 
+        padding: 40px 30px; 
+    }
+    
+    .newsletter-card { 
+        padding: 60px 30px; 
+    }
+    
+    .newsletter-form { 
+        flex-direction: column; 
+    }
+    
+    .newsletter-form .btn-primary {
+        padding: 15px 40px;
+    }
 }
 
 @media (max-width: 640px) {
-    .blog-grid { grid-template-columns: 1fr; }
-    .stats-row { flex-direction: column; gap: 10px; }
+    .blog-hero {
+        padding: 120px 0 60px;
+    }
+
+    .blog-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .stats-row { 
+        flex-direction: column; 
+        gap: 10px; 
+    }
+
+    .featured-body h2 {
+        font-size: 2rem;
+    }
 }
+

@@ -285,7 +285,9 @@
                     <option value="insight">Insight</option>
                     <option value="behind">Behind the Scenes</option>
                     <option value="tutorial">Tutorial</option>
+                    <option value="other">Other...</option>
                 </select>
+                <input type="text" id="customCategory" class="hidden" placeholder="Type custom category..." style="margin-top: 10px;">
             </div>
             <div class="form-field">
                 <label>Voice & Tone</label>
@@ -417,6 +419,16 @@ function insertLink() {
     if (url) document.execCommand('createLink', false, url);
 }
 
+document.getElementById('category').addEventListener('change', function() {
+    const customInput = document.getElementById('customCategory');
+    if (this.value === 'other') {
+        customInput.classList.remove('hidden');
+        customInput.focus();
+    } else {
+        customInput.classList.add('hidden');
+    }
+});
+
 function previewImage() {
     const url = document.getElementById('postImage').value.trim();
     const preview = document.getElementById('imagePreview');
@@ -510,7 +522,10 @@ async function publishPost() {
     const title = document.getElementById('postTitle').value.trim();
     const content = document.getElementById('editor').innerHTML.trim();
     const image = document.getElementById('postImage').value.trim();
-    const category = document.getElementById('category').value;
+    let category = document.getElementById('category').value;
+    if (category === 'other') {
+        category = document.getElementById('customCategory').value.trim().toLowerCase() || 'insight';
+    }
     const excerpt = content.replace(/<[^>]+>/g, '').slice(0, 200) + '...';
     const wordCount = content.replace(/<[^>]+>/g, '').split(/\s+/).length;
     const readTime = Math.ceil(wordCount / 200) + ' min';
@@ -588,7 +603,20 @@ async function editPost(id) {
         document.getElementById('postTitle').value = posts.title || '';
         document.getElementById('postImage').value = posts.imageUrl || '';
         document.getElementById('editor').innerHTML = posts.content || '';
-        document.getElementById('category').value = posts.category || 'insight';
+        
+        const catSelect = document.getElementById('category');
+        const customCat = document.getElementById('customCategory');
+        const options = Array.from(catSelect.options).map(o => o.value);
+        
+        if (options.includes(posts.category)) {
+            catSelect.value = posts.category || 'insight';
+            customCat.classList.add('hidden');
+        } else {
+            catSelect.value = 'other';
+            customCat.value = posts.category || '';
+            customCat.classList.remove('hidden');
+        }
+        
         document.getElementById('editCard').classList.remove('hidden');
         previewImage();
         // Delete old version so re-publish creates a fresh one

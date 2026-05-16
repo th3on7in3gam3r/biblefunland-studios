@@ -162,13 +162,18 @@
 
         // Normalize a Sanity post to the same shape as a static post
         function normalizeSanityPost(p) {
+            // Decode HTML entities and strip any remaining tags for clean preview text
+            const textarea = document.createElement('textarea');
+            textarea.innerHTML = p.excerpt || '';
+            const cleanExcerpt = textarea.value.replace(/<[^>]+>/g, '').slice(0, 160);
+
             return {
                 id: p._id,
                 category: p.category || 'insight',
                 title: p.title,
                 date: p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
                 readTime: p.readTime || '3 min',
-                content: p.excerpt || '',
+                content: cleanExcerpt,
                 image: p.imageUrl || 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'
             };
         }

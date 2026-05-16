@@ -7,7 +7,7 @@
 const SANITY_PROJECT_ID = 'lrxq2sck';
 const SANITY_DATASET = 'production';
 const SANITY_API_VERSION = '2024-01-01';
-const SANITY_CDN = `https://${SANITY_PROJECT_ID}.apicdn.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}`;
+const SANITY_CDN = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}`;
 
 // ---- PUBLIC READ (no token needed) ----
 

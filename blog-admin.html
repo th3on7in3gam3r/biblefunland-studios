@@ -341,7 +341,30 @@
 </div>
 
 <script>
-// ===== LOGIC (Kept same as original for functionality) =====
+// ===== SANITY CMS CONFIG =====
+const SANITY_TOKEN = 'skCC83q6V1bi2WpBYrDVsRA2MiIStk6dvusKVL1p1rR7LRJEAWrYefCjAP83LxgXbaUir76AuahC2mvOvXe7INFQY4GQaUVrieYXE81wSoRnu0isjgTJAlh6vjCBWPyQvlugJyicFrlvNV4Iw1L924ljcdrDDdgPlKX4bB8umiDdYEsOG48P';
+const SANITY_WRITE_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/mutate/production';
+const SANITY_QUERY_URL = 'https://lrxq2sck.apicdn.sanity.io/v2024-01-01/data/query/production';
+
+async function sanityMutate(mutations) {
+    const res = await fetch(SANITY_WRITE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SANITY_TOKEN}` },
+        body: JSON.stringify({ mutations })
+    });
+    if (!res.ok) { const err = await res.json(); throw new Error(err.error?.description || 'Sanity write failed'); }
+    return res.json();
+}
+
+async function sanityQuery(groq) {
+    const res = await fetch(`${SANITY_QUERY_URL}?query=${encodeURIComponent(groq)}`, {
+        headers: { 'Authorization': `Bearer ${SANITY_TOKEN}` }
+    });
+    const data = await res.json();
+    return data.result;
+}
+
+// ===== LOGIC =====
 let currentProvider = localStorage.getItem('bfl-ai-provider') || 'gemini';
 let apiKeys = JSON.parse(localStorage.getItem('bfl-api-keys') || '{}');
 
@@ -468,36 +491,7 @@ async function callClaude(key, prompt) {
     return data.content[0].text;
 }
 
-// =============================================
-// Sanity Write Client (Editor token)
-// =============================================
-const SANITY_TOKEN = 'skCC83q6V1bi2WpBYrDVsRA2MiIStk6dvusKVL1p1rR7LRJEAWrYefCjAP83LxgXbaUir76AuahC2mvOvXe7INFQY4GQaUVrieYXE81wSoRnu0isjgTJAlh6vjCBWPyQvlugJyicFrlvNV4Iw1L924ljcdrDDdgPlKX4bB8umiDdYEsOG48P';
-const SANITY_WRITE_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/mutate/production';
-const SANITY_QUERY_URL = 'https://lrxq2sck.apicdn.sanity.io/v2024-01-01/data/query/production';
 
-async function sanityMutate(mutations) {
-    const res = await fetch(SANITY_WRITE_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${SANITY_TOKEN}`
-        },
-        body: JSON.stringify({ mutations })
-    });
-    if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error?.description || 'Sanity write failed');
-    }
-    return res.json();
-}
-
-async function sanityQuery(groq) {
-    const res = await fetch(`${SANITY_QUERY_URL}?query=${encodeURIComponent(groq)}`, {
-        headers: { 'Authorization': `Bearer ${SANITY_TOKEN}` }
-    });
-    const data = await res.json();
-    return data.result;
-}
 
 async function publishPost() {
     const title = document.getElementById('postTitle').value.trim();

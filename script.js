@@ -73,9 +73,6 @@ if (themeToggle && themeDropdown) {
     themeToggle.addEventListener('click', (e) => {
         e.stopPropagation();
         themeDropdown.classList.toggle('open');
-        // Close mobile nav when opening theme picker
-        const navLinks = document.getElementById('navLinks');
-        if (navLinks) navLinks.classList.remove('active');
     });
 }
 

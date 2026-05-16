@@ -522,6 +522,8 @@ async function callClaude(key, prompt) {
 
 
 
+let editingPostId = null;
+
 async function publishPost() {
     const title = document.getElementById('postTitle').value.trim();
     const content = document.getElementById('editor').innerHTML.trim();
@@ -555,7 +557,13 @@ async function publishPost() {
     };
 
     try {
-        await sanityMutate([{ create: doc }]);
+        if (editingPostId) {
+            doc._id = editingPostId;
+            await sanityMutate([{ createOrReplace: doc }]);
+            editingPostId = null;
+        } else {
+            await sanityMutate([{ create: doc }]);
+        }
         showStatus('publishStatus', '✓ Published to Sanity! Your post is now live for everyone.', 'success');
         setTimeout(clearEditor, 2000);
         loadPosts();
@@ -626,8 +634,10 @@ async function editPost(id) {
         
         document.getElementById('editCard').classList.remove('hidden');
         previewImage();
-        // Delete old version so re-publish creates a fresh one
-        await sanityMutate([{ delete: { id } }]);
+        
+        // Track the ID being edited instead of deleting it immediately
+        editingPostId = id;
+        
         window.scrollTo({ top: document.getElementById('editCard').offsetTop - 100, behavior: 'smooth' });
     } catch (err) {
         alert('Could not load post for editing: ' + err.message);
@@ -641,6 +651,7 @@ function clearEditor() {
     document.getElementById('isFeatured').checked = false;
     document.getElementById('editCard').classList.add('hidden');
     document.getElementById('publishStatus').textContent = '';
+    editingPostId = null;
 }
 
 function showStatus(id, msg, type) {

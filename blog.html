@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="themes.css">
     <link rel="stylesheet" href="blog.css">
+    <script src="sanity.js"></script>
 </head>
 <body>
     <script src="theme-loader.js"></script>
@@ -145,11 +146,11 @@
             document.getElementById('readingProgress').style.width = scrolled + "%";
         });
 
-        // Dynamic Post Loading
         const blogGrid = document.getElementById('blogGrid');
         const searchInput = document.getElementById('blogSearch');
         const emptySearch = document.getElementById('emptySearch');
 
+        // Static fallback posts (shown if Sanity has no content yet)
         const staticPosts = [
             { id: '1', category: 'insight', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min', content: 'What we learned building a platform for young believers...', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800' },
             { id: '2', category: 'devotional', title: 'Creating with Purpose: Colossians 3:23', date: 'April 15, 2026', readTime: '3 min', content: 'Whatever you do, work at it with all your heart...', image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800' },
@@ -159,6 +160,21 @@
             { id: '6', category: 'behind', title: 'Building AWC Connect', date: 'Feb 14, 2026', readTime: '8 min', content: 'A ministry app case study from wireframe to launch...', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800' }
         ];
 
+        // Normalize a Sanity post to the same shape as a static post
+        function normalizeSanityPost(p) {
+            return {
+                id: p._id,
+                category: p.category || 'insight',
+                title: p.title,
+                date: p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
+                readTime: p.readTime || '3 min',
+                content: p.excerpt || '',
+                image: p.imageUrl || 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'
+            };
+        }
+
+        let allPosts = [];
+
         function renderPosts(filteredPosts) {
             blogGrid.innerHTML = '';
             filteredPosts.forEach(post => {
@@ -166,7 +182,7 @@
                 card.className = 'blog-card';
                 card.innerHTML = `
                     <div class="blog-thumb-sm">
-                        <img src="${post.image}" alt="${post.title}">
+                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'">
                     </div>
                     <div class="blog-card-body">
                         <div class="blog-meta">
@@ -205,17 +221,35 @@
 
         function filterPosts() {
             const term = searchInput.value.toLowerCase();
-            const filtered = staticPosts.filter(p => p.title.toLowerCase().includes(term) || p.content.toLowerCase().includes(term));
+            const filtered = allPosts.filter(p => p.title.toLowerCase().includes(term) || p.content.toLowerCase().includes(term));
             renderPosts(filtered);
         }
 
         function resetSearch() {
             searchInput.value = '';
-            renderPosts(staticPosts);
+            renderPosts(allPosts);
         }
 
         searchInput.addEventListener('input', filterPosts);
-        renderPosts(staticPosts);
+
+        // Load posts: try Sanity first, fall back to static
+        async function loadPosts() {
+            try {
+                const sanityPosts = await getAllPosts();
+                if (sanityPosts && sanityPosts.length > 0) {
+                    allPosts = sanityPosts.map(normalizeSanityPost);
+                } else {
+                    // No Sanity content yet — show static demo posts
+                    allPosts = staticPosts;
+                }
+            } catch (err) {
+                console.warn('Sanity unavailable, using static posts:', err);
+                allPosts = staticPosts;
+            }
+            renderPosts(allPosts);
+        }
+
+        loadPosts();
     </script>
 </body>
 </html>

@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="themes.css">
+    <script src="sanity.js"></script>
     <link rel="stylesheet" href="blog.css">
     <style>
         .post-page { 
@@ -241,65 +242,80 @@
             document.getElementById('readingProgress').style.width = scrolled + "%";
         });
 
-        // Get post ID from URL
         const params = new URLSearchParams(window.location.search);
         const postId = params.get('id');
         const container = document.getElementById('postContainer');
 
-        const posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
-        
-        // Static posts for fallback
+        // Static fallback posts
         const staticPosts = [
             { id: '1', category: 'insight', emoji: '🎨', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min read', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800', content: '<p>What we learned building a platform for young believers — and how it changed our approach to design forever.</p><h2>The Core Lessons</h2><p>Designing for children requires a unique blend of simplicity and engagement. We found that bold colors and clear iconography aren\'t just aesthetic choices—they are functional requirements.</p><blockquote>"Let the little children come to me, and do not hinder them, for the kingdom of heaven belongs to such as these." — Matthew 19:14</blockquote><p>Our approach was always kingdom-first. We wanted to create a space where the gospel was accessible, fun, and beautiful.</p>' },
             { id: '2', category: 'devotional', emoji: '📖', title: 'Creating with Purpose: A Colossians 3:23 Reflection', date: 'April 15, 2026', readTime: '3 min read', image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800', content: '<p>"Whatever you do, work at it with all your heart." What does this mean for those of us called to create?</p><h2>Excellence as Worship</h2><p>In our studio, we believe that every pixel and every line of code can be an act of worship. When we strive for excellence, we reflect the nature of the Creator.</p><blockquote>"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters." — Colossians 3:23</blockquote>' },
             { id: '3', category: 'behind', emoji: '🚀', title: 'From One Idea to Six Brands: The BFL Story', date: 'March 30, 2026', readTime: '6 min read', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800', content: '<p>The story of how BibleFunLand Studios grew from a single project into a family of faith-based platforms.</p><h2>The Humble Beginnings</h2><p>It started with a simple vision to make Bible learning fun. One brand led to another as we saw the vast need for quality Christian media across different niches.</p>' },
             { id: '4', category: 'tutorial', emoji: '💡', title: '5 Branding Mistakes Churches Make (And How to Fix Them)', date: 'March 15, 2026', readTime: '7 min read', image: '5-branding-mistakes-churches-make.png', content: '<p>Your church\'s visual identity matters more than you think. Here are the most common pitfalls and practical solutions.</p><h2>1. Inconsistency</h2><p>Using different logos and fonts across social media, bulletins, and your website creates confusion. A unified identity builds trust.</p>' },
             { id: '5', category: 'devotional', emoji: '🙏', title: 'When God Gives You a Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min read', image: 'vision-bigger-than-your-skill.png', content: '<p>A devotional on trusting the process, growing into your calling, and letting God fill the gaps in your ability.</p><h2>Trusting the Process</h2><p>Often, God calls us to things we don\'t feel prepared for. That\'s where faith steps in. He provides the strength for the vision He provides.</p>' },
-            { id: '6', category: 'behind', emoji: '🎬', title: 'Building AWC Connect: A Ministry App Case study', date: 'February 14, 2026', readTime: '8 min read', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800', content: '<p>How we designed and developed a community app for Anointed Worship Center — from wireframes to launch day.</p><h2>The Challenge</h2><p>Building a space for a church community to stay connected through the week was the goal. We focused on simplicity and daily engagement features.</p>' }
+            { id: '6', category: 'behind', emoji: '🎥', title: 'Building AWC Connect: A Ministry App Case study', date: 'February 14, 2026', readTime: '8 min read', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800', content: '<p>How we designed and developed a community app for Anointed Worship Center — from wireframes to launch day.</p><h2>The Challenge</h2><p>Building a space for a church community to stay connected through the week was the goal. We focused on simplicity and daily engagement features.</p>' }
         ];
 
-        const allAvailablePosts = [...posts, ...staticPosts];
-        const post = allAvailablePosts.find(p => p.id == postId);
-
-        if (post) {
+        function renderPost(post) {
             const catClass = 'cat-' + (post.category || 'insight');
             document.title = post.title + ' | BibleFunLand Studios';
-
             container.innerHTML = `
-                <a href="blog.html" class="post-back">← Back to Blog</a>
+                <a href="/blog.html" class="post-back">← Back to Blog</a>
                 <article class="post-content-wrapper animate-up">
                     <div class="post-meta">
                         <span class="post-category ${catClass}">${post.category}</span>
-                        <span class="post-date">${post.date}</span>
+                        <span class="post-date">${post.date || post.publishedAt ? new Date(post.publishedAt || post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</span>
                         <span class="post-read-time">${post.readTime}</span>
                     </div>
                     <h1 class="post-title">${post.title}</h1>
-                    ${post.image ? `
+                    ${(post.image || post.imageUrl) ? `
                         <div class="post-image-container">
-                            <img class="post-image" src="${post.image}" alt="${post.title}">
+                            <img class="post-image" src="${post.image || post.imageUrl}" alt="${post.title}">
                         </div>
                     ` : ''}
                     <div class="post-body">${post.content}</div>
                     <div class="post-footer">
-                        <a href="blog.html" class="btn btn-secondary">← Back to Blog</a>
+                        <a href="/blog.html" class="btn btn-secondary">← Back to Blog</a>
                         <div class="share-buttons">
                             <button class="share-btn" title="Share on Twitter">𝕏</button>
                             <button class="share-btn" title="Share on Facebook">f</button>
-                            <button class="share-btn" title="Copy Link">🔗</button>
+                            <button class="share-btn" onclick="navigator.clipboard.writeText(location.href); this.textContent='✓ Copied!'" title="Copy Link">🔗</button>
                         </div>
                     </div>
                 </article>
             `;
-        } else {
+        }
+
+        function renderNotFound() {
             container.innerHTML = `
                 <div class="post-not-found animate-up">
-                    <div class="empty-icon">🏜️</div>
+                    <div class="empty-icon">🏙️</div>
                     <h2>Post not found</h2>
                     <p>This post may have been removed or the link is incorrect.</p>
-                    <br><a href="blog.html" class="btn btn-primary">Back to Blog</a>
+                    <br><a href="/blog.html" class="btn btn-primary">Back to Blog</a>
                 </div>
             `;
         }
+
+        async function loadPost() {
+            if (!postId) { renderNotFound(); return; }
+
+            // Try Sanity first (live posts)
+            try {
+                const sanityPost = await getPostById(postId);
+                if (sanityPost) { renderPost(sanityPost); return; }
+            } catch (e) {
+                console.warn('Sanity lookup failed, trying static:', e);
+            }
+
+            // Fall back to static demo posts
+            const staticPost = staticPosts.find(p => p.id == postId);
+            if (staticPost) { renderPost(staticPost); return; }
+
+            renderNotFound();
+        }
+
+        loadPost();
     </script>
 </body>
 </html>

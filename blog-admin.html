@@ -468,64 +468,128 @@ async function callClaude(key, prompt) {
     return data.content[0].text;
 }
 
-function publishPost() {
+// =============================================
+// Sanity Write Client (Editor token)
+// =============================================
+const SANITY_TOKEN = 'skCC83q6V1bi2WpBYrDVsRA2MiIStk6dvusKVL1p1rR7LRJEAWrYefCjAP83LxgXbaUir76AuahC2mvOvXe7INFQY4GQaUVrieYXE81wSoRnu0isjgTJAlh6vjCBWPyQvlugJyicFrlvNV4Iw1L924ljcdrDDdgPlKX4bB8umiDdYEsOG48P';
+const SANITY_WRITE_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/mutate/production';
+const SANITY_QUERY_URL = 'https://lrxq2sck.apicdn.sanity.io/v2024-01-01/data/query/production';
+
+async function sanityMutate(mutations) {
+    const res = await fetch(SANITY_WRITE_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SANITY_TOKEN}`
+        },
+        body: JSON.stringify({ mutations })
+    });
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error?.description || 'Sanity write failed');
+    }
+    return res.json();
+}
+
+async function sanityQuery(groq) {
+    const res = await fetch(`${SANITY_QUERY_URL}?query=${encodeURIComponent(groq)}`, {
+        headers: { 'Authorization': `Bearer ${SANITY_TOKEN}` }
+    });
+    const data = await res.json();
+    return data.result;
+}
+
+async function publishPost() {
     const title = document.getElementById('postTitle').value.trim();
     const content = document.getElementById('editor').innerHTML.trim();
     const image = document.getElementById('postImage').value.trim();
     const category = document.getElementById('category').value;
+    const excerpt = content.replace(/<[^>]+>/g, '').slice(0, 200) + '...';
+    const wordCount = content.replace(/<[^>]+>/g, '').split(/\s+/).length;
+    const readTime = Math.ceil(wordCount / 200) + ' min';
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
     if (!title || !content) { showStatus('publishStatus', 'Title and content are required.', 'error'); return; }
 
-    let posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
-    posts.unshift({
-        id: Date.now().toString(),
-        title, content, image: image || '', category,
-        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-        readTime: Math.ceil(content.split(/\s+/).length / 200) + ' min read'
-    });
-    localStorage.setItem('bfl-blog-posts', JSON.stringify(posts));
-    showStatus('publishStatus', '✓ Published! The world can now read your story.', 'success');
-    setTimeout(clearEditor, 2000);
-    loadPosts();
+    showStatus('publishStatus', '📡 Publishing to Sanity...', 'loading');
+
+    const doc = {
+        _type: 'blogPost',
+        title,
+        slug,
+        category,
+        excerpt,
+        content,
+        imageUrl: image || '',
+        publishedAt: new Date().toISOString(),
+        readTime,
+        published: true
+    };
+
+    try {
+        await sanityMutate([{ create: doc }]);
+        showStatus('publishStatus', '✓ Published to Sanity! Your post is now live for everyone.', 'success');
+        setTimeout(clearEditor, 2000);
+        loadPosts();
+    } catch (err) {
+        showStatus('publishStatus', 'Error: ' + err.message, 'error');
+    }
 }
 
-function loadPosts() {
-    const posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
+async function loadPosts() {
     const el = document.getElementById('postsList');
-    if (!posts.length) { el.innerHTML = '<p style="color:var(--text-light);">Your studio archive is empty.</p>'; return; }
-    el.innerHTML = posts.map(p => `
-        <div class="post-item">
-            <div class="post-item-info">
-                <div style="font-weight:800; color:var(--primary);">${p.title}</div>
-                <div style="font-size:0.75rem; color:var(--text-light); margin-top:4px;">${p.date} · ${p.category}</div>
-            </div>
-            <div style="display:flex; gap:12px;">
-                <button class="btn" style="padding:8px 16px; background:rgba(26,46,90,0.05); color:var(--primary);" onclick="editPost('${p.id}')">Edit</button>
-                <button class="btn" style="padding:8px 16px; background:rgba(220,38,38,0.05); color:#dc2626;" onclick="deletePost('${p.id}')">Delete</button>
-            </div>
-        </div>`).join('');
+    el.innerHTML = '<p style="color:var(--text-light);">Loading posts...</p>';
+    try {
+        const posts = await sanityQuery(`*[_type == "blogPost"] | order(publishedAt desc) { _id, title, publishedAt, category, published }`);
+        if (!posts || !posts.length) {
+            el.innerHTML = '<p style="color:var(--text-light);">Your studio archive is empty. Publish your first post!</p>';
+            return;
+        }
+        el.innerHTML = posts.map(p => `
+            <div class="post-item">
+                <div class="post-item-info">
+                    <div style="font-weight:800; color:var(--primary);">${p.title}</div>
+                    <div style="font-size:0.75rem; color:var(--text-light); margin-top:4px;">
+                        ${p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'No date'} · ${p.category}
+                        <span style="color: ${p.published ? '#10b981' : '#f59e0b'}; margin-left:8px;">${p.published ? '● Live' : '○ Draft'}</span>
+                    </div>
+                </div>
+                <div style="display:flex; gap:12px;">
+                    <button class="btn" style="padding:8px 16px; background:rgba(26,46,90,0.05); color:var(--primary);" onclick="editPost('${p._id}')">Edit</button>
+                    <button class="btn" style="padding:8px 16px; background:rgba(220,38,38,0.05); color:#dc2626;" onclick="deletePost('${p._id}')">Delete</button>
+                </div>
+            </div>`).join('');
+    } catch (err) {
+        el.innerHTML = `<p style="color:#ef4444;">Could not load posts: ${err.message}</p>`;
+    }
 }
 
-function deletePost(id) {
-    if (!confirm('Archive this post forever?')) return;
-    let posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
-    posts = posts.filter(p => p.id != id);
-    localStorage.setItem('bfl-blog-posts', JSON.stringify(posts));
-    loadPosts();
+async function deletePost(id) {
+    if (!confirm('Permanently delete this post from Sanity?')) return;
+    try {
+        await sanityMutate([{ delete: { id } }]);
+        loadPosts();
+    } catch (err) {
+        alert('Delete failed: ' + err.message);
+    }
 }
 
-function editPost(id) {
-    const posts = JSON.parse(localStorage.getItem('bfl-blog-posts') || '[]');
-    const post = posts.find(p => p.id == id);
-    if (!post) return;
-    document.getElementById('postTitle').value = post.title;
-    document.getElementById('postImage').value = post.image;
-    document.getElementById('editor').innerHTML = post.content;
-    document.getElementById('category').value = post.category;
-    document.getElementById('editCard').classList.remove('hidden');
-    previewImage();
-    deletePost(id);
-    window.scrollTo({ top: document.getElementById('editCard').offsetTop - 100, behavior: 'smooth' });
+async function editPost(id) {
+    try {
+        const posts = await sanityQuery(`*[_type == "blogPost" && _id == "${id}"][0]`);
+        if (!posts) return;
+        document.getElementById('postTitle').value = posts.title || '';
+        document.getElementById('postImage').value = posts.imageUrl || '';
+        document.getElementById('editor').innerHTML = posts.content || '';
+        document.getElementById('category').value = posts.category || 'insight';
+        document.getElementById('editCard').classList.remove('hidden');
+        previewImage();
+        // Delete old version so re-publish creates a fresh one
+        await sanityMutate([{ delete: { id } }]);
+        window.scrollTo({ top: document.getElementById('editCard').offsetTop - 100, behavior: 'smooth' });
+    } catch (err) {
+        alert('Could not load post for editing: ' + err.message);
+    }
 }
 
 function clearEditor() {

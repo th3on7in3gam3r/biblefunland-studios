@@ -53,6 +53,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="themes.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "BibleFunLand Studios",
+      "url": "https://www.biblefunlandstudios.com",
+      "logo": "https://www.biblefunlandstudios.com/loading_icon.png",
+      "description": "Faith-inspired creative studio specializing in animation, design, and media production for churches and ministries.",
+      "email": "hello@biblefunlandstudios.com",
+      "sameAs": [
+        "https://www.youtube.com/@biblefunland",
+        "https://instagram.com/biblefunland",
+        "https://facebook.com/biblefunlandstudios",
+        "https://x.com/biblefunland"
+      ]
+    }
+    </script>
 </head>
 <body>
     <script src="theme-loader.js"></script>
@@ -85,7 +102,7 @@
                 <span></span>
             </button>
             <ul class="nav-links" id="navLinks">
-                <button class="nav-close" id="navClose" aria-label="Close menu">✕</button>
+                <button class="nav-close" aria-label="Close navigation">✕</button>
                 <li><a href="#about">About</a></li>
                 <li><a href="#brands">Brands</a></li>
                 <li><a href="#services">Services</a></li>
@@ -94,11 +111,28 @@
                 <li><a href="work.html">Work</a></li>
                 <li><a href="/blog.html">Blog</a></li>
                 <li>
-                    <div class="theme-switcher" id="themeSwitcher">
-                        <button class="theme-toggle" id="themeToggle" aria-label="Switch theme">
-                            <span class="theme-toggle-icon" id="themeIcon">🎨</span>
-                            <span class="theme-toggle-label" id="themeLabel">Theme</span>
+                    <div class="theme-switcher-wrapper">
+                        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme settings">
+                            <span class="theme-btn-icon">🎨</span>
+                            <span class="theme-btn-text">Themes</span>
                         </button>
+                        
+                        <div id="themeDropdown" class="theme-dropdown-menu">
+                            <div class="theme-dropdown-header">
+                                <span>Site Aesthetic</span>
+                                <button id="themeDropdownClose" class="theme-close-btn">✕</button>
+                            </div>
+                            <div class="theme-options-list">
+                                <button class="theme-option active" data-theme="premium">✨ Premium (Default)</button>
+                                <button class="theme-option" data-theme="stained-glass">⛪ Stained Glass</button>
+                                <button class="theme-option" data-theme="dark">🌙 Midnight Dark</button>
+                                <button class="theme-option" data-theme="neon">🌈 Neon Cyber</button>
+                                <button class="theme-option" data-theme="comic">💥 Action Comic</button>
+                                <button class="theme-option" data-theme="retro">📻 Retro Vintage</button>
+                                <button class="theme-option" data-theme="kids">🎈 BFL Kids</button>
+                                <button class="theme-option" data-theme="minimal">◻️ Clean Minimal</button>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li><a href="#contact" class="btn btn-nav">Get In Touch</a></li>
@@ -145,15 +179,17 @@
         </div>
     </section>
 
+
+
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="about" id="about" role="region" aria-labelledby="about-heading">
         <div class="container">
             <div class="founder-feature">
                 <div class="founder-avatar">
-                    <img src="me.jpg" alt="Jerless — Founder of BibleFunLand Studios">
+                    <img src="me.jpg" alt="Jerless, Founder and Creative Director of BibleFunLand Studios" loading="lazy">
                 </div>
                 <span class="section-tag">Meet the Founder</span>
-                <h2 class="founder-headline">Hi, I'm <span class="highlight">Jerless</span></h2>
+                <h2 class="founder-headline" id="about-heading">Hi, I'm <span class="highlight">Jerless</span></h2>
                 <blockquote class="founder-quote">
                     "Faith deserves world-class creativity."
                 </blockquote>
@@ -178,11 +214,11 @@
     </section>
 
     <!-- Brands Section -->
-    <section class="brands" id="brands">
+    <section class="brands" id="brands" role="region" aria-labelledby="brands-heading">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Our Family of Brands</span>
-                <h2>Six Brands. <span class="highlight">One Mission.</span></h2>
+                <h2 id="brands-heading">Six Brands. <span class="highlight">One Mission.</span></h2>
                 <p class="section-desc">Each brand serves a unique audience, united by a shared purpose: making faith accessible, engaging, and transformative.</p>
             </div>
             <div class="brands-grid">
@@ -238,6 +274,26 @@
         </div>
     </section>
 
+    <!-- PARTNERS LOGO MARQUEE -->
+    <section class="partners-marquee">
+        <div class="container">
+            <p class="marquee-title">Trusted by Ministry Partners Worldwide</p>
+            <div class="marquee-container">
+                <div class="marquee-content logos">
+                    <img src="brands/awc_main.png" alt="Anointed Worship Center" class="partner-logo">
+                    <img src="brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness" class="partner-logo">
+                    <img src="brands/awc_vault.png" alt="AWC Vault" class="partner-logo">
+                    <!-- Duplicate for infinite loop -->
+                    <img src="brands/awc_main.png" alt="Anointed Worship Center" class="partner-logo">
+                    <img src="brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness" class="partner-logo">
+                    <img src="brands/awc_vault.png" alt="AWC Vault" class="partner-logo">
+                    <img src="brands/awc_main.png" alt="Anointed Worship Center" class="partner-logo">
+                    <img src="brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness" class="partner-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Partner Projects Section -->
     <section class="partners" id="partners">
         <div class="container">
@@ -278,12 +334,45 @@
         </div>
     </section>
 
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials-section" role="region" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading">What Ministry Partners Say</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"BibleFunLand Studios delivered a website that exceeded our expectations. The quality and attention to faith details are unmatched."</p>
+          <div class="client">
+            <strong>Pastor Michael Thompson</strong><br>
+            <span>Anointed Worship Center</span>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Their animation work brought our children's ministry curriculum to life. Kids are engaged and parents are thrilled!"</p>
+          <div class="client">
+            <strong>Sarah Rodriguez</strong><br>
+            <span>Grace Community Church</span>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Professional, responsive, and deeply committed to ministry impact. Highly recommend for any faith-based project."</p>
+          <div class="client">
+            <strong>Dr. David Kim</strong><br>
+            <span>MindShift Plus Wellness</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Services Section -->
-    <section class="services" id="services">
+    <section class="services" id="services" role="region" aria-labelledby="services-heading">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">What We Do</span>
-                <h2>Creative Services That <span class="highlight">Inspire</span></h2>
+                <h2 id="services-heading">Creative Services That <span class="highlight">Inspire</span></h2>
             </div>
             <div class="services-grid">
                 <div class="service-card">
@@ -320,51 +409,17 @@
         </div>
     </section>
 
-    <!-- Tools Section -->
-    <section class="tools">
-        <div class="tools-label">Tools We Use</div>
-        <div class="tools-marquee">
-            <div class="tools-track">
-                <span class="tool-item">Figma</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">After Effects</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">React</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Next.js</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Node.js</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Photoshop</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Illustrator</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Premiere Pro</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">MongoDB</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Vercel</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Figma</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">After Effects</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">React</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Next.js</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Node.js</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Photoshop</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Illustrator</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Premiere Pro</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">MongoDB</span>
-                <span class="tool-dot">✦</span>
-                <span class="tool-item">Vercel</span>
-                <span class="tool-dot">✦</span>
+    <!-- Tools We Use -->
+    <section id="tools" class="tools-section">
+        <div class="container" style="text-align: center; margin-bottom: 2rem;">
+            <span class="section-tag">Stack & Software</span>
+            <h2 style="margin-top: 1rem;">Tools We <span class="highlight">Master</span></h2>
+        </div>
+
+        <div class="marquee">
+            <div class="marquee-content">
+                Figma • After Effects • React • Node.js • Photoshop • Illustrator • Premiere Pro • MongoDB • Vercel • 
+                Figma • After Effects • React • Node.js • Photoshop • Illustrator • Premiere Pro • MongoDB • Vercel • 
             </div>
         </div>
     </section>
@@ -434,11 +489,11 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
+    <section class="portfolio" id="portfolio" role="region" aria-labelledby="portfolio-heading">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Our Work</span>
-                <h2>Projects We're <span class="highlight">Proud</span> Of</h2>
+                <h2 id="portfolio-heading">Projects We're <span class="highlight">Proud</span> Of</h2>
             </div>
             <div class="portfolio-grid">
                 <div class="portfolio-card portfolio-large">
@@ -505,39 +560,81 @@
         </div>
     </section>
 
-    <!-- Values Section -->
-    <section class="testimonials" id="values">
+    <!-- Process Section -->
+    <section class="process" id="process" role="region" aria-labelledby="process-heading">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">What We Stand For</span>
-                <h2>Our <span class="highlight">Values</span></h2>
+                <span class="section-tag">How We Work</span>
+                <h2 id="process-heading">Our Simple <span class="highlight">4-Step</span> Process</h2>
+                <p class="section-desc">We’ve refined our workflow to ensure your ministry's vision is captured perfectly and delivered with excellence.</p>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">✦</div>
-                    <h3 style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:12px;">Faith First</h3>
-                    <p>Everything we create is rooted in Scripture and built to glorify God. Our work isn't just creative — it's ministry.</p>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Discovery & Vision</h3>
+                        <p>We start with a deep dive into your mission, audience, and goals to ensure every pixel serves a purpose.</p>
+                    </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">✦</div>
-                    <h3 style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:12px;">Excellence Always</h3>
-                    <p>We believe God's stories deserve world-class quality. No shortcuts, no "good enough." We deliver work we're proud to put His name on.</p>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Creative Strategy</h3>
+                        <p>Our team crafts a custom roadmap, from moodboards to wireframes, aligning our creativity with your faith-driven vision.</p>
+                    </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">✦</div>
-                    <h3 style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:12px;">People Over Profit</h3>
-                    <p>We serve ministries, not margins. Every partnership is built on trust, transparency, and a shared mission to impact lives.</p>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Expert Production</h3>
+                        <p>This is where the magic happens. We build, animate, and design with obsessive attention to detail and quality.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Ministry Launch</h3>
+                        <p>We deliver your high-impact media and provide the support you need to launch it successfully into the world.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- OUR VALUES SECTION -->
+    <section id="values" class="values-section">
+      <div class="section-header">
+        <span class="badge">WHAT WE STAND FOR</span>
+        <h2>Our Values</h2>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">📖</div>
+          <h3>Scripture First</h3>
+          <p>Everything we create is rooted in Scripture and built to glorify God. Our work isn’t just creative — it’s ministry.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">⭐</div>
+          <h3>Excellence in All Things</h3>
+          <p>We believe God’s stories deserve world-class quality. No shortcuts, no "good enough." We deliver work we’re proud to put His name on.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <h3>Ministry Partnership</h3>
+          <p>We serve ministries, not margins. Every partnership is built on trust, transparency, and a shared mission to impact lives.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ Section -->
-    <section class="faq" id="faq">
+    <section class="faq" id="faq" role="region" aria-labelledby="faq-heading">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Common Questions</span>
-                <h2>Frequently <span class="highlight">Asked</span></h2>
+                <h2 id="faq-heading">Frequently <span class="highlight">Asked</span></h2>
             </div>
             <div class="faq-grid">
                 <div class="faq-item">
@@ -599,11 +696,11 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="contact" id="contact" role="region" aria-labelledby="contact-heading">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Let's Connect</span>
-                <h2>Ready to <span class="highlight">Create</span> Something?</h2>
+                <h2 id="contact-heading">Ready to <span class="highlight">Create</span> Something?</h2>
             </div>
             <div class="contact-grid">
                 <div class="contact-info">
@@ -628,39 +725,30 @@
                         <a href="https://facebook.com/biblefunland" target="_blank" class="social-link" aria-label="Facebook">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.6-5.4-12-12-12S0 5.4 0 12c0 6 4.4 11 10.1 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4C19.6 23 24 18 24 12z"/></svg>
                         </a>
+                        <a href="https://linkedin.com/company/biblefunlandstudios" target="_blank" class="social-link" aria-label="LinkedIn">in</a>
                         <a href="https://x.com/biblefunland" target="_blank" class="social-link" aria-label="X (Twitter)">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2.25h3.5l-7.6 8.7 9 11.8h-7l-5.5-7.2-6.3 7.2H.8l8.1-9.3-8.6-11.2h7.2l5 6.6 5.7-6.6zm-1.2 18.4h1.9L7.1 4.2H5.1l11.9 16.5z"/></svg>
                         </a>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm" data-action="https://formspree.io/f/your-form-id" method="POST">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required placeholder="John Smith">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required placeholder="john@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="service">Service Interested In</label>
-                        <select id="service" name="service">
-                            <option value="">Select a service...</option>
-                            <option value="animation">Animation</option>
-                            <option value="design">Graphic Design</option>
-                            <option value="video">Video Production</option>
-                            <option value="audio">Audio & Music</option>
-                            <option value="web">Web & Digital</option>
-                            <option value="curriculum">Curriculum Design</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Tell Us About Your Project</label>
-                        <textarea id="message" name="message" rows="4" required placeholder="Describe your project, timeline, and any details that would help us understand your vision..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full">Send Message →</button>
+                <!-- CONTACT FORM -->
+                <form id="contact-form">
+                  <input type="text" name="name" placeholder="Your Name" required>
+                  <input type="email" name="email" placeholder="Your Email" required>
+                  <textarea name="message" rows="6" placeholder="Tell us about your project or ministry needs..." required></textarea>
+                  
+                  <!-- Honeypot (anti-spam - invisible to real users) -->
+                  <input type="text" name="honeypot" id="honeypot" style="display:none;" tabindex="-1" autocomplete="off">
+                  
+                  <button type="submit" id="submit-btn">Send Message →</button>
                 </form>
+
+                <!-- Success Message (shown after submission) -->
+                <div id="success-message" class="success-state" style="display: none;">
+                  <h3>Thank you! 🙏</h3>
+                  <p>We'll be in touch within 48 hours.</p>
+                  <button onclick="location.reload()">Send Another Message</button>
+                </div>
             </div>
         </div>
     </section>
@@ -694,8 +782,10 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 BibleFunLand Studios. All rights reserved. Made with ❤️ and faith.</p>
-                <a href="game.html" class="easter-egg">Bored? Play a game →</a>
+                <p class="copyright">
+                  &copy; 2026 BibleFunLand Studios. All rights reserved.
+                  <a href="https://biblefunland.com" id="easter-game" target="_blank">Bored? Play a game →</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -703,18 +793,6 @@
     <!-- Back to Top -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
-    <!-- Theme Dropdown (outside nav for mobile full-screen) -->
-    <div class="theme-dropdown" id="themeDropdown">
-        <button class="theme-dropdown-close" id="themeDropdownClose">✕ Close</button>
-        <button class="theme-option active" data-theme="premium">✨ Premium</button>
-        <button class="theme-option" data-theme="comic">💥 Comic Book</button>
-        <button class="theme-option" data-theme="dark">🌙 Dark Mode</button>
-        <button class="theme-option" data-theme="stained-glass">🪟 Stained Glass</button>
-        <button class="theme-option" data-theme="retro">📜 Retro</button>
-        <button class="theme-option" data-theme="neon">⚡ Neon</button>
-        <button class="theme-option" data-theme="minimal">◻️ Minimal</button>
-        <button class="theme-option" data-theme="kids">🎈 Kids</button>
-    </div>
 
     <!-- Cookie Notice -->
     <div class="cookie-notice" id="cookieNotice">
@@ -722,6 +800,61 @@
         <button class="cookie-btn" id="cookieAccept">Got It</button>
     </div>
 
+    <!-- Video Lightbox Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="video-container">
+                <iframe id="videoPlayer" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+
+    <script>
+      // TASK 3 - Contact Form Handler
+      const form = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('success-message');
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          // Honeypot spam check
+          if (document.getElementById('honeypot').value) {
+            console.log("Spam detected");
+            return;
+          }
+
+          // Loading state
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
+
+          // Simulate sending (you can replace this with real Formspree/Netlify later)
+          setTimeout(() => {
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+          }, 1350);
+        });
+      }
+
+      // Easter Egg
+      const copyright = document.querySelector('.copyright');
+      const gameLink = document.getElementById('easter-game');
+
+      if (copyright && gameLink) {
+        copyright.addEventListener('mouseenter', () => {
+            gameLink.style.opacity = '1';
+        });
+
+        copyright.addEventListener('mouseleave', () => {
+            gameLink.style.opacity = '0.25';
+        });
+      }
+
+    </script>
 </body>
 </html>

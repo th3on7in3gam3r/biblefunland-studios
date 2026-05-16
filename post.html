@@ -259,6 +259,15 @@
         function renderPost(post) {
             const catClass = 'cat-' + (post.category || 'insight');
             document.title = post.title + ' | BibleFunLand Studios';
+
+            // Decode HTML entities so stored content like &lt;p&gt; renders as real HTML
+            function decodeContent(raw) {
+                const textarea = document.createElement('textarea');
+                textarea.innerHTML = raw || '';
+                return textarea.value;
+            }
+
+            const renderedContent = decodeContent(post.content);
             container.innerHTML = `
                 <a href="/blog.html" class="post-back">← Back to Blog</a>
                 <article class="post-content-wrapper animate-up">
@@ -273,7 +282,7 @@
                             <img class="post-image" src="${post.image || post.imageUrl}" alt="${post.title}">
                         </div>
                     ` : ''}
-                    <div class="post-body">${post.content}</div>
+                    <div class="post-body">${renderedContent}</div>
                     <div class="post-footer">
                         <a href="/blog.html" class="btn btn-secondary">← Back to Blog</a>
                         <div class="share-buttons">

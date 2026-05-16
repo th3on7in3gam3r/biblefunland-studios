@@ -29,7 +29,8 @@ async function getAllPosts() {
         excerpt,
         imageUrl,
         publishedAt,
-        readTime
+        readTime,
+        isFeatured
     }`;
     return sanityFetch(groq);
 }
@@ -45,7 +46,8 @@ async function getPostBySlug(slug) {
         content,
         imageUrl,
         publishedAt,
-        readTime
+        readTime,
+        isFeatured
     }`;
     return sanityFetch(groq);
 }
@@ -61,7 +63,8 @@ async function getPostById(id) {
         content,
         imageUrl,
         publishedAt,
-        readTime
+        readTime,
+        isFeatured
     }`;
     return sanityFetch(groq);
 }

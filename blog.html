@@ -76,22 +76,8 @@
 
     <!-- Featured Post -->
     <section class="blog-featured" id="posts">
-        <div class="container">
-            <article class="featured-card animate-up">
-                <div class="featured-thumb">
-                    <img src="why-faith-based-media-matters.png" alt="Featured Post">
-                </div>
-                <div class="featured-body">
-                    <div class="featured-meta">
-                        <span class="blog-category cat-insight" style="background: #ede9fe; color: #6d28d9; text-transform: uppercase;">Insight</span>
-                        <span class="blog-date">May 10, 2026</span>
-                    </div>
-                    <div style="font-size: 0.65rem; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px;">Premium Cards</div>
-                    <h2>Why Faith-Based Media Matters More Than Ever</h2>
-                    <p>In a world saturated with content, the stories we tell and how we tell them carry weight. The quality of our media reflects the quality of our message.</p>
-                    <a href="#" class="blog-link" style="font-size: 1rem;">Read More ›</a>
-                </div>
-            </article>
+        <div class="container" id="featuredContainer">
+            <!-- Featured post injected here -->
         </div>
     </section>
 
@@ -174,11 +160,38 @@
                 date: p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
                 readTime: p.readTime || '3 min',
                 content: cleanExcerpt,
-                image: p.imageUrl || 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'
+                image: p.imageUrl || 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800',
+                isFeatured: !!p.isFeatured
             };
         }
 
         let allPosts = [];
+        let featuredPost = null;
+
+        function renderFeatured(post) {
+            const container = document.getElementById('featuredContainer');
+            if (!post) {
+                container.innerHTML = '';
+                return;
+            }
+            container.innerHTML = `
+                <article class="featured-card animate-up">
+                    <div class="featured-thumb">
+                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'">
+                    </div>
+                    <div class="featured-body">
+                        <div class="featured-meta">
+                            <span class="blog-category cat-${post.category}" style="text-transform: uppercase;">${post.category}</span>
+                            <span class="blog-date">${post.date}</span>
+                        </div>
+                        <div style="font-size: 0.65rem; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px;">Featured Post</div>
+                        <h2>${post.title}</h2>
+                        <p>${post.content}</p>
+                        <a href="post.html?id=${post.id}" class="blog-link" style="font-size: 1rem;">Read More ›</a>
+                    </div>
+                </article>
+            `;
+        }
 
         function renderPosts(filteredPosts) {
             blogGrid.innerHTML = '';
@@ -226,13 +239,24 @@
 
         function filterPosts() {
             const term = searchInput.value.toLowerCase();
-            const filtered = allPosts.filter(p => p.title.toLowerCase().includes(term) || p.content.toLowerCase().includes(term));
+            let filtered = allPosts.filter(p => p.title.toLowerCase().includes(term) || p.content.toLowerCase().includes(term));
+            
+            // If searching, hide featured, else show featured and remove it from grid
+            if (term) {
+                document.getElementById('posts').style.display = 'none';
+            } else {
+                document.getElementById('posts').style.display = 'block';
+                if (featuredPost) {
+                    filtered = filtered.filter(p => p.id !== featuredPost.id);
+                }
+            }
+            
             renderPosts(filtered);
         }
 
         function resetSearch() {
             searchInput.value = '';
-            renderPosts(allPosts);
+            filterPosts();
         }
 
         searchInput.addEventListener('input', filterPosts);
@@ -247,11 +271,18 @@
                     // No Sanity content yet — show static demo posts
                     allPosts = staticPosts;
                 }
+                
+                // Find featured post (first marked, or fallback to latest)
+                featuredPost = allPosts.find(p => p.isFeatured) || allPosts[0];
+                renderFeatured(featuredPost);
+                filterPosts(); // Handles rendering the grid without the featured post
             } catch (err) {
-                console.warn('Sanity unavailable, using static posts:', err);
+                console.error(err);
                 allPosts = staticPosts;
+                featuredPost = allPosts[0];
+                renderFeatured(featuredPost);
+                filterPosts();
             }
-            renderPosts(allPosts);
         }
 
         loadPosts();

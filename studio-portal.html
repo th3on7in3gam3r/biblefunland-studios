@@ -297,6 +297,10 @@
                     <option value="encouraging and uplifting">Encouraging</option>
                     <option value="storytelling and narrative">Storytelling</option>
                 </select>
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-top: 15px; font-size: 0.9rem; color: var(--text);">
+                    <input type="checkbox" id="isFeatured" style="width: 20px; height: 20px; margin: 0; cursor: pointer;">
+                    🌟 Set as Featured Post
+                </label>
             </div>
         </div>
         <div class="form-field">
@@ -522,6 +526,7 @@ async function publishPost() {
     const title = document.getElementById('postTitle').value.trim();
     const content = document.getElementById('editor').innerHTML.trim();
     const image = document.getElementById('postImage').value.trim();
+    const isFeatured = document.getElementById('isFeatured').checked;
     let category = document.getElementById('category').value;
     if (category === 'other') {
         category = document.getElementById('customCategory').value.trim().toLowerCase() || 'insight';
@@ -545,7 +550,8 @@ async function publishPost() {
         imageUrl: image || '',
         publishedAt: new Date().toISOString(),
         readTime,
-        published: true
+        published: true,
+        isFeatured
     };
 
     try {
@@ -603,6 +609,7 @@ async function editPost(id) {
         document.getElementById('postTitle').value = posts.title || '';
         document.getElementById('postImage').value = posts.imageUrl || '';
         document.getElementById('editor').innerHTML = posts.content || '';
+        document.getElementById('isFeatured').checked = posts.isFeatured || false;
         
         const catSelect = document.getElementById('category');
         const customCat = document.getElementById('customCategory');
@@ -631,6 +638,7 @@ function clearEditor() {
     document.getElementById('postTitle').value = '';
     document.getElementById('postImage').value = '';
     document.getElementById('editor').innerHTML = '';
+    document.getElementById('isFeatured').checked = false;
     document.getElementById('editCard').classList.add('hidden');
     document.getElementById('publishStatus').textContent = '';
 }

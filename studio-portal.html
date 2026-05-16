@@ -218,6 +218,19 @@
     </style>
 </head>
 <body>
+    <script>
+        // Simple client-side gate to deter casual visitors
+        const gate = sessionStorage.getItem('bfl_studio_access');
+        if (gate !== 'granted') {
+            const pwd = prompt('Studio Access Required:');
+            if (pwd === 'bflstudio2026') {
+                sessionStorage.setItem('bfl_studio_access', 'granted');
+            } else {
+                document.body.innerHTML = '<h1 style="text-align:center; padding:100px; font-family:sans-serif;">404 Not Found</h1>';
+                throw new Error('Unauthorized');
+            }
+        }
+    </script>
     <!-- Hero Blobs -->
     <div class="hero-blobs">
         <div class="blob blob-1"></div>

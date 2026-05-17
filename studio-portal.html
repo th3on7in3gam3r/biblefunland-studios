@@ -226,8 +226,8 @@
             if (pwd === 'bflstudio2026') {
                 sessionStorage.setItem('bfl_studio_access', 'granted');
             } else {
-                document.body.innerHTML = '<h1 style="text-align:center; padding:100px; font-family:sans-serif;">404 Not Found</h1>';
-                throw new Error('Unauthorized');
+                alert('Access Denied');
+                window.location.href = 'index.html';
             }
         }
     </script>

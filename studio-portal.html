@@ -268,7 +268,11 @@
         </div>
         <div class="form-field">
             <label id="apiKeyLabel">Gemini API Key</label>
-            <input type="password" id="apiKey" placeholder="Securely paste your studio key...">
+            <input type="password" id="apiKey" placeholder="Securely paste your AI studio key...">
+        </div>
+        <div class="form-field">
+            <label>Sanity API Token (Required to Publish)</label>
+            <input type="password" id="sanityKey" placeholder="Securely paste your Sanity Write Token...">
         </div>
         <button class="btn btn-primary" onclick="saveSettings()">Save Studio Settings</button>
         <span id="settingsStatus" style="margin-left:12px;font-weight:700;"></span>
@@ -361,14 +365,20 @@
 
 <script>
 // ===== SANITY CMS CONFIG =====
-const SANITY_TOKEN = 'skCC83q6V1bi2WpBYrDVsRA2MiIStk6dvusKVL1p1rR7LRJEAWrYefCjAP83LxgXbaUir76AuahC2mvOvXe7INFQY4GQaUVrieYXE81wSoRnu0isjgTJAlh6vjCBWPyQvlugJyicFrlvNV4Iw1L924ljcdrDDdgPlKX4bB8umiDdYEsOG48P';
 const SANITY_WRITE_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/mutate/production';
 const SANITY_QUERY_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/query/production';
 
+function getSanityToken() {
+    return localStorage.getItem('bfl-sanity-token') || '';
+}
+
 async function sanityMutate(mutations) {
+    const token = getSanityToken();
+    if (!token) throw new Error('Sanity Token is missing. Please save it in Studio Settings.');
+    
     const res = await fetch(SANITY_WRITE_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SANITY_TOKEN}` },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ mutations })
     });
     if (!res.ok) { const err = await res.json(); throw new Error(err.error?.description || 'Sanity write failed'); }
@@ -376,9 +386,7 @@ async function sanityMutate(mutations) {
 }
 
 async function sanityQuery(groq) {
-    const res = await fetch(`${SANITY_QUERY_URL}?query=${encodeURIComponent(groq)}`, {
-        headers: { 'Authorization': `Bearer ${SANITY_TOKEN}` }
-    });
+    const res = await fetch(`${SANITY_QUERY_URL}?query=${encodeURIComponent(groq)}`);
     const data = await res.json();
     return data.result;
 }
@@ -391,6 +399,7 @@ document.querySelectorAll('.provider-card').forEach(card => {
     card.classList.toggle('selected', card.dataset.provider === currentProvider);
 });
 document.getElementById('apiKey').value = apiKeys[currentProvider] || '';
+document.getElementById('sanityKey').value = getSanityToken();
 loadPosts();
 
 function selectProvider(provider) {
@@ -403,14 +412,21 @@ function selectProvider(provider) {
 
 function saveSettings() {
     const key = document.getElementById('apiKey').value.trim();
+    const sanityToken = document.getElementById('sanityKey').value.trim();
+    
     if (key) {
         apiKeys[currentProvider] = key;
         localStorage.setItem('bfl-api-keys', JSON.stringify(apiKeys));
-        const status = document.getElementById('settingsStatus');
-        status.textContent = '✓ Studio Settings Saved';
-        status.style.color = '#10b981';
-        setTimeout(() => status.textContent = '', 2000);
     }
+    
+    if (sanityToken) {
+        localStorage.setItem('bfl-sanity-token', sanityToken);
+    }
+
+    const status = document.getElementById('settingsStatus');
+    status.textContent = '✓ Studio Settings Saved';
+    status.style.color = '#10b981';
+    setTimeout(() => status.textContent = '', 2000);
 }
 
 function execCmd(cmd, value) {

@@ -2988,17 +2988,23 @@ body.theme-dark .partner-logo:hover { filter: grayscale(0) invert(0) opacity(1);
 .video-container {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
 }
 
-.video-container iframe {
-    width: 100%;
-    height: 100%;
+.video-container img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
-/* Play Icon on Portfolio Cards */
-.portfolio-card { position: relative; cursor: pointer; }
+/* Enlarge Icon on Portfolio Cards */
+.portfolio-card { position: relative; cursor: zoom-in; }
 .portfolio-thumb::after {
-    content: '▶';
+    content: '+';
     position: absolute;
     top: 50%;
     left: 50%;
@@ -3011,7 +3017,8 @@ body.theme-dark .partner-logo:hover { filter: grayscale(0) invert(0) opacity(1);
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    font-size: 1.2rem;
+    font-size: 2rem;
+    font-weight: 300;
     opacity: 0;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);

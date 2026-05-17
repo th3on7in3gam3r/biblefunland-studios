@@ -399,18 +399,18 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== VIDEO MODAL =====
+// ===== IMAGE LIGHTBOX MODAL =====
 const videoModal = document.getElementById('videoModal');
-const videoPlayer = document.getElementById('videoPlayer');
+const lightboxImage = document.getElementById('lightboxImage');
 const modalClose = document.getElementById('modalClose');
 const modalOverlay = document.getElementById('modalOverlay');
 const portfolioCards = document.querySelectorAll('.portfolio-card');
 
 portfolioCards.forEach(card => {
     card.addEventListener('click', () => {
-        const videoId = card.dataset.video || 'dQw4w9WgXcQ'; // Default placeholder
-        if (videoPlayer) {
-            videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        const imgSrc = card.querySelector('img').src;
+        if (lightboxImage) {
+            lightboxImage.src = imgSrc;
         }
         if (videoModal) {
             videoModal.classList.add('active');
@@ -423,9 +423,11 @@ const closeVideo = () => {
     if (videoModal) {
         videoModal.classList.remove('active');
     }
-    if (videoPlayer) {
-        videoPlayer.src = '';
-    }
+    setTimeout(() => {
+        if (lightboxImage) {
+            lightboxImage.src = '';
+        }
+    }, 300); // clear after transition
     document.body.style.overflow = 'auto';
 };
 

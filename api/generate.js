@@ -1,3 +1,5 @@
+import { requireStudioSession } from '../lib/studio-auth.js';
+
 const PROVIDERS = {
     gemini: {
         label: 'Gemini',
@@ -134,6 +136,10 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
+    if (!requireStudioSession(req, res)) {
+        return;
+    }
+
     try {
         const body = await readBody(req);
         const provider = String(body.provider || 'gemini').toLowerCase();
@@ -151,10 +157,10 @@ export default async function handler(req, res) {
         const envApiKey = provider === 'gemini'
             ? (process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY || '')
             : (process.env[providerConfig.envKey] || '');
-        const apiKey = sanitizeSecret(body.apiKey || envApiKey);
+        const apiKey = sanitizeSecret(envApiKey);
         if (!apiKey) {
             return res.status(400).json({
-                error: `${providerConfig.label} API key is not configured. Save one in Studio Settings or set ${providerConfig.envKey}.`
+                error: `${providerConfig.label} API key is not configured on the server. Set ${providerConfig.envKey}.`
             });
         }
 

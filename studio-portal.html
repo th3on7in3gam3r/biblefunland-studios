@@ -218,19 +218,6 @@
     </style>
 </head>
 <body>
-    <script>
-        // Simple client-side gate to deter casual visitors
-        const gate = sessionStorage.getItem('bfl_studio_access');
-        if (gate !== 'granted') {
-            const pwd = prompt('Studio Access Required:');
-            if (pwd === 'bflstudio2026') {
-                sessionStorage.setItem('bfl_studio_access', 'granted');
-            } else {
-                alert('Access Denied');
-                window.location.href = 'index.html';
-            }
-        }
-    </script>
     <!-- Hero Blobs -->
     <div class="hero-blobs">
         <div class="blob blob-1"></div>
@@ -246,38 +233,48 @@
         <p>Crafting stories, insights, and faith-filled content with AI intelligence.</p>
     </div>
 
+    <div class="studio-card" id="authCard">
+        <h2>Studio Login</h2>
+        <div class="form-field">
+            <label>Studio Password</label>
+            <input type="password" id="studioPassword" placeholder="Enter the studio password..." autocomplete="current-password">
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-primary" id="loginBtn" onclick="loginStudio()">Unlock Studio</button>
+        </div>
+        <div class="status" id="authStatus"></div>
+    </div>
+
+    <div id="studioApp" class="hidden">
     <!-- AI Settings -->
     <div class="studio-card">
-        <h2>⚙️ Studio Intelligence</h2>
+        <div style="display:flex; justify-content:space-between; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+            <div>
+                <h2>Studio Intelligence</h2>
+                <div style="font-size:0.85rem; color:var(--text-light); margin-top:-10px;">Provider calls and publishing run through authenticated server APIs. No provider or Sanity secrets are stored in the browser.</div>
+            </div>
+            <button class="btn btn-ghost" onclick="logoutStudio()">Log Out</button>
+        </div>
         <div class="provider-grid">
             <div class="provider-card selected" data-provider="gemini" onclick="selectProvider('gemini')">
                 <div style="font-size: 1.5rem; margin-bottom: 8px;">✨</div>
                 <div style="font-weight: 800;">Google Gemini</div>
-                <div style="font-size: 0.75rem; color: var(--text-light);">Ultra Fast & Creative</div>
+                <div style="font-size: 0.75rem; color: var(--text-light);">Fast first drafts</div>
             </div>
             <div class="provider-card" data-provider="openai" onclick="selectProvider('openai')">
                 <div style="font-size: 1.5rem; margin-bottom: 8px;">🤖</div>
                 <div style="font-weight: 800;">OpenAI GPT</div>
-                <div style="font-size: 0.75rem; color: var(--text-light);">GPT-4o Intelligence</div>
+                <div style="font-size: 0.75rem; color: var(--text-light);">Balanced structure</div>
             </div>
             <div class="provider-card" data-provider="claude" onclick="selectProvider('claude')">
                 <div style="font-size: 1.5rem; margin-bottom: 8px;">🖋️</div>
                 <div style="font-weight: 800;">Anthropic Claude</div>
-                <div style="font-size: 0.75rem; color: var(--text-light);">Nuanced Writing</div>
+                <div style="font-size: 0.75rem; color: var(--text-light);">Nuanced long-form writing</div>
             </div>
         </div>
-        <div class="form-field">
-            <label id="apiKeyLabel">Gemini API Key</label>
-            <input type="password" id="apiKey" placeholder="Securely paste your AI studio key...">
-            <div style="font-size:0.8rem; color:var(--text-light); margin-top:8px;">Optional if the matching server environment key is already configured.</div>
+        <div style="font-size:0.8rem; color:var(--text-light);">
+            Required server environment variables: `STUDIO_PORTAL_PASSWORD`, `STUDIO_SESSION_SECRET`, `SANITY_API_TOKEN`, plus the provider key you want to use.
         </div>
-        <div class="form-field">
-            <label>Sanity API Token</label>
-            <input type="password" id="sanityKey" placeholder="Securely paste your Sanity Write Token...">
-            <div style="font-size:0.8rem; color:var(--text-light); margin-top:8px;">Optional if `SANITY_API_TOKEN` is configured on the server. Used as a secure fallback override.</div>
-        </div>
-        <button class="btn btn-primary" onclick="saveSettings()">Save Studio Settings</button>
-        <span id="settingsStatus" style="margin-left:12px;font-weight:700;"></span>
     </div>
 
     <!-- Step 1: Draft -->
@@ -363,43 +360,18 @@
         <h2>📋 Studio Archive</h2>
         <div id="postsList"></div>
     </div>
+    </div>
 </div>
 
 <script>
 // ===== STUDIO API CONFIG =====
+const STUDIO_AUTH_URL = '/api/studio-auth';
 const STUDIO_GENERATE_URL = '/api/generate';
 const STUDIO_POSTS_URL = '/api/posts';
 
-function sanitizeSecret(value) {
-    return String(value || '')
-        .normalize('NFKC')
-        .replace(/^Bearer\s+/i, '')
-        .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
-        .replace(/[\u00A0\u1680\u180E\u2000-\u200D\u2028-\u202F\u205F\u2060\u3000\uFEFF]/g, '')
-        .replace(/[^\x21-\x7E]/g, '')
-        .trim();
-}
-
-function getProviderKey(provider) {
-    return sanitizeSecret(apiKeys[provider] || '');
-}
-
-function readStoredJson(key, fallback) {
-    try {
-        const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : fallback;
-    } catch (error) {
-        return fallback;
-    }
-}
-
-function getSanityToken() {
-    return sanitizeSecret(localStorage.getItem('bfl-sanity-token') || '');
-}
-
 async function requestJson(url, options = {}) {
     const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
-    const res = await fetch(url, { ...options, headers });
+    const res = await fetch(url, { credentials: 'same-origin', ...options, headers });
 
     let data = {};
     try {
@@ -409,6 +381,10 @@ async function requestJson(url, options = {}) {
     }
 
     if (!res.ok) {
+        if (res.status === 401 && url !== STUDIO_AUTH_URL) {
+            setAuthenticated(false);
+            throw new Error('Studio session expired. Please log in again.');
+        }
         throw new Error(data.error || 'Request failed');
     }
 
@@ -417,49 +393,96 @@ async function requestJson(url, options = {}) {
 
 // ===== LOGIC =====
 let currentProvider = localStorage.getItem('bfl-ai-provider') || 'gemini';
-let apiKeys = readStoredJson('bfl-api-keys', {});
+let isStudioAuthenticated = false;
+
+const authCard = document.getElementById('authCard');
+const studioApp = document.getElementById('studioApp');
+const studioPasswordInput = document.getElementById('studioPassword');
+const loginBtn = document.getElementById('loginBtn');
 
 document.querySelectorAll('.provider-card').forEach(card => {
     card.classList.toggle('selected', card.dataset.provider === currentProvider);
 });
-document.getElementById('apiKey').value = getProviderKey(currentProvider);
-document.getElementById('sanityKey').value = getSanityToken();
-loadPosts();
+
+studioPasswordInput.addEventListener('keydown', event => {
+    if (event.key === 'Enter') loginStudio();
+});
+
+bootstrapStudio();
+
+function setAuthenticated(authenticated) {
+    isStudioAuthenticated = authenticated;
+    authCard.classList.toggle('hidden', authenticated);
+    studioApp.classList.toggle('hidden', !authenticated);
+    if (!authenticated) {
+        clearEditor();
+        document.getElementById('postsList').innerHTML = '';
+    }
+}
+
+async function bootstrapStudio() {
+    try {
+        const data = await requestJson(STUDIO_AUTH_URL, { method: 'GET' });
+        if (!data.configured) {
+            setAuthenticated(false);
+            loginBtn.disabled = true;
+            showStatus('authStatus', 'Studio auth is not configured on the server. Set STUDIO_PORTAL_PASSWORD and STUDIO_SESSION_SECRET.', 'error');
+            return;
+        }
+
+        loginBtn.disabled = false;
+        setAuthenticated(!!data.authenticated);
+        if (data.authenticated) {
+            studioPasswordInput.value = '';
+            showStatus('authStatus', '', 'loading');
+            await loadPosts();
+        }
+    } catch (error) {
+        setAuthenticated(false);
+        showStatus('authStatus', 'Could not check studio access: ' + error.message, 'error');
+    }
+}
+
+async function loginStudio() {
+    const password = studioPasswordInput.value;
+    if (!password.trim()) {
+        showStatus('authStatus', 'Enter the studio password.', 'error');
+        return;
+    }
+
+    loginBtn.disabled = true;
+    showStatus('authStatus', 'Unlocking studio...', 'loading');
+    try {
+        await requestJson(STUDIO_AUTH_URL, {
+            method: 'POST',
+            body: JSON.stringify({ password })
+        });
+        studioPasswordInput.value = '';
+        setAuthenticated(true);
+        showStatus('authStatus', '', 'loading');
+        await loadPosts();
+    } catch (error) {
+        setAuthenticated(false);
+        showStatus('authStatus', error.message, 'error');
+    } finally {
+        loginBtn.disabled = false;
+    }
+}
+
+async function logoutStudio() {
+    try {
+        await requestJson(STUDIO_AUTH_URL, { method: 'DELETE' });
+    } catch (error) {
+        // Clear local state even if the logout request fails server-side.
+    }
+    setAuthenticated(false);
+    showStatus('authStatus', 'Studio locked.', 'success');
+}
 
 function selectProvider(provider) {
     currentProvider = provider;
     localStorage.setItem('bfl-ai-provider', provider);
     document.querySelectorAll('.provider-card').forEach(c => c.classList.toggle('selected', c.dataset.provider === provider));
-    document.getElementById('apiKey').value = getProviderKey(provider);
-    document.getElementById('apiKeyLabel').textContent = provider.charAt(0).toUpperCase() + provider.slice(1) + ' API Key';
-}
-
-function saveSettings() {
-    const apiKeyInput = document.getElementById('apiKey');
-    const sanityKeyInput = document.getElementById('sanityKey');
-    const key = sanitizeSecret(apiKeyInput.value);
-    const sanityToken = sanitizeSecret(sanityKeyInput.value);
-
-    apiKeyInput.value = key;
-    sanityKeyInput.value = sanityToken;
-    
-    if (key) {
-        apiKeys[currentProvider] = key;
-    } else {
-        delete apiKeys[currentProvider];
-    }
-    localStorage.setItem('bfl-api-keys', JSON.stringify(apiKeys));
-    
-    if (sanityToken) {
-        localStorage.setItem('bfl-sanity-token', sanityToken);
-    } else {
-        localStorage.removeItem('bfl-sanity-token');
-    }
-
-    const status = document.getElementById('settingsStatus');
-    status.textContent = '✓ Studio Settings Saved';
-    status.style.color = '#10b981';
-    setTimeout(() => status.textContent = '', 2000);
 }
 
 function execCmd(cmd, value) {
@@ -469,7 +492,9 @@ function execCmd(cmd, value) {
 
 function insertLink() {
     const url = prompt('Enter URL:');
-    if (url) document.execCommand('createLink', false, url);
+    const safeUrl = sanitizeUrl(url, { protocols: ['http:', 'https:', 'mailto:', 'tel:'] });
+    if (!safeUrl) return;
+    document.execCommand('createLink', false, safeUrl);
 }
 
 document.getElementById('category').addEventListener('change', function() {
@@ -482,20 +507,107 @@ document.getElementById('category').addEventListener('change', function() {
     }
 });
 
-function previewImage() {
-    const url = document.getElementById('postImage').value.trim();
-    const preview = document.getElementById('imagePreview');
-    if (url) {
-        preview.innerHTML = '<img src="' + url + '" alt="Preview" style="width:100%; height:200px; object-fit:cover; border-radius:20px; margin-bottom:20px;">';
-        preview.classList.remove('hidden');
-    } else {
-        preview.classList.add('hidden');
+function sanitizeUrl(rawValue, options = {}) {
+    const value = String(rawValue || '').trim();
+    if (!value) return '';
+
+    const protocols = options.protocols || ['http:', 'https:'];
+    const allowRelative = !!options.allowRelative;
+    const hasExplicitScheme = /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value);
+
+    if (allowRelative && !hasExplicitScheme) {
+        return value;
+    }
+
+    try {
+        const parsed = new URL(value, window.location.origin);
+        return protocols.includes(parsed.protocol) ? parsed.href : '';
+    } catch (error) {
+        return '';
     }
 }
 
-async function generatePost() {
-    const key = getProviderKey(currentProvider);
+function sanitizeHtmlForEditor(rawHtml) {
+    const template = document.createElement('template');
+    template.innerHTML = String(rawHtml || '');
 
+    const allowedTags = new Set(['P', 'H2', 'H3', 'BLOCKQUOTE', 'UL', 'OL', 'LI', 'A', 'STRONG', 'EM', 'B', 'I', 'BR', 'SPAN']);
+    const blockedTags = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'FORM', 'INPUT', 'BUTTON', 'TEXTAREA', 'SELECT', 'LINK', 'META', 'SVG', 'MATH']);
+
+    function walk(node) {
+        Array.from(node.childNodes).forEach(child => {
+            if (child.nodeType === Node.COMMENT_NODE) {
+                child.remove();
+                return;
+            }
+
+            if (child.nodeType !== Node.ELEMENT_NODE) return;
+
+            const tag = child.tagName.toUpperCase();
+            if (blockedTags.has(tag)) {
+                child.remove();
+                return;
+            }
+
+            if (!allowedTags.has(tag)) {
+                const fragment = document.createDocumentFragment();
+                while (child.firstChild) fragment.appendChild(child.firstChild);
+                child.replaceWith(fragment);
+                walk(node);
+                return;
+            }
+
+            Array.from(child.attributes).forEach(attr => {
+                const name = attr.name.toLowerCase();
+                const allowedAttr = tag === 'A' && ['href', 'target', 'rel'].includes(name);
+                if (!allowedAttr) child.removeAttribute(attr.name);
+            });
+
+            if (tag === 'A') {
+                const safeHref = sanitizeUrl(child.getAttribute('href'), { protocols: ['http:', 'https:', 'mailto:', 'tel:'] });
+                if (!safeHref) {
+                    child.removeAttribute('href');
+                    child.removeAttribute('target');
+                    child.removeAttribute('rel');
+                } else {
+                    child.setAttribute('href', safeHref);
+                    child.setAttribute('target', '_blank');
+                    child.setAttribute('rel', 'noopener noreferrer');
+                }
+            }
+
+            walk(child);
+        });
+    }
+
+    walk(template.content);
+    return template.innerHTML.trim();
+}
+
+function previewImage() {
+    const imageInput = document.getElementById('postImage');
+    const preview = document.getElementById('imagePreview');
+    const safeUrl = sanitizeUrl(imageInput.value, { protocols: ['http:', 'https:'], allowRelative: true });
+
+    preview.innerHTML = '';
+    if (!safeUrl) {
+        preview.classList.add('hidden');
+        return;
+    }
+
+    const img = document.createElement('img');
+    img.src = safeUrl;
+    img.alt = 'Preview';
+    img.style.width = '100%';
+    img.style.height = '200px';
+    img.style.objectFit = 'cover';
+    img.style.borderRadius = '20px';
+    img.style.marginBottom = '20px';
+    preview.appendChild(img);
+    preview.classList.remove('hidden');
+}
+
+async function generatePost() {
     const topic = document.getElementById('topic').value.trim();
     if (!topic) { showStatus('generateStatus', 'What is your inspiration today?', 'error'); return; }
 
@@ -519,7 +631,6 @@ Write as Jerless, the founder. 400-600 words. Compelling title on first line pre
             method: 'POST',
             body: JSON.stringify({
                 provider: currentProvider,
-                apiKey: key,
                 prompt
             })
         });
@@ -528,7 +639,7 @@ Write as Jerless, the founder. 400-600 words. Compelling title on first line pre
         if (result) {
             const draft = extractDraft(result, topic);
             document.getElementById('postTitle').value = draft.title;
-            document.getElementById('editor').innerHTML = draft.content;
+            document.getElementById('editor').innerHTML = sanitizeHtmlForEditor(draft.content);
             document.getElementById('editCard').classList.remove('hidden');
             showStatus('generateStatus', '✓ Draft created! Refine it below.', 'success');
         }
@@ -576,7 +687,8 @@ function formatPlainTextAsHtml(text) {
 function normalizeGeneratedContent(text) {
     const cleaned = stripCodeFences(text);
     if (!cleaned) return '';
-    return hasHtmlMarkup(cleaned) ? cleaned : formatPlainTextAsHtml(cleaned);
+    const formatted = hasHtmlMarkup(cleaned) ? cleaned : formatPlainTextAsHtml(cleaned);
+    return sanitizeHtmlForEditor(formatted);
 }
 
 function toTitleCase(text) {
@@ -613,8 +725,9 @@ let editingPostId = null;
 
 async function publishPost() {
     const title = document.getElementById('postTitle').value.trim();
-    const content = document.getElementById('editor').innerHTML.trim();
-    const image = document.getElementById('postImage').value.trim();
+    const editor = document.getElementById('editor');
+    const content = sanitizeHtmlForEditor(editor.innerHTML).trim();
+    const image = sanitizeUrl(document.getElementById('postImage').value, { protocols: ['http:', 'https:'], allowRelative: true });
     const isFeatured = document.getElementById('isFeatured').checked;
     let category = document.getElementById('category').value;
     if (category === 'other') {
@@ -628,6 +741,7 @@ async function publishPost() {
     if (!title || !content) { showStatus('publishStatus', 'Title and content are required.', 'error'); return; }
 
     showStatus('publishStatus', '📡 Publishing to Sanity...', 'loading');
+    editor.innerHTML = content;
     const doc = {
         _type: 'blogPost',
         title,
@@ -647,10 +761,7 @@ async function publishPost() {
 
         await requestJson(STUDIO_POSTS_URL, {
             method: 'POST',
-            body: JSON.stringify({
-                sanityToken: getSanityToken(),
-                doc
-            })
+            body: JSON.stringify({ doc })
         });
 
         editingPostId = null;
@@ -662,6 +773,70 @@ async function publishPost() {
     }
 }
 
+function renderPostsList(posts) {
+    const el = document.getElementById('postsList');
+    el.innerHTML = '';
+
+    posts.forEach(post => {
+        const item = document.createElement('div');
+        item.className = 'post-item';
+
+        const info = document.createElement('div');
+        info.className = 'post-item-info';
+
+        const title = document.createElement('div');
+        title.style.fontWeight = '800';
+        title.style.color = 'var(--primary)';
+        title.textContent = post.title || 'Untitled Post';
+
+        const meta = document.createElement('div');
+        meta.style.fontSize = '0.75rem';
+        meta.style.color = 'var(--text-light)';
+        meta.style.marginTop = '4px';
+
+        const publishedDate = post.publishedAt
+            ? new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+            : 'No date';
+        meta.append(`${publishedDate} · ${post.category || 'uncategorized'} `);
+
+        const status = document.createElement('span');
+        status.style.color = post.published ? '#10b981' : '#f59e0b';
+        status.style.marginLeft = '8px';
+        status.textContent = post.published ? '● Live' : '○ Draft';
+        meta.appendChild(status);
+
+        info.appendChild(title);
+        info.appendChild(meta);
+
+        const actions = document.createElement('div');
+        actions.style.display = 'flex';
+        actions.style.gap = '12px';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn';
+        editBtn.style.padding = '8px 16px';
+        editBtn.style.background = 'rgba(26,46,90,0.05)';
+        editBtn.style.color = 'var(--primary)';
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', () => editPost(post._id));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn';
+        deleteBtn.style.padding = '8px 16px';
+        deleteBtn.style.background = 'rgba(220,38,38,0.05)';
+        deleteBtn.style.color = '#dc2626';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', () => deletePost(post._id));
+
+        actions.appendChild(editBtn);
+        actions.appendChild(deleteBtn);
+
+        item.appendChild(info);
+        item.appendChild(actions);
+        el.appendChild(item);
+    });
+}
+
 async function loadPosts() {
     const el = document.getElementById('postsList');
     el.innerHTML = '<p style="color:var(--text-light);">Loading posts...</p>';
@@ -671,20 +846,7 @@ async function loadPosts() {
             el.innerHTML = '<p style="color:var(--text-light);">Your studio archive is empty. Publish your first post!</p>';
             return;
         }
-        el.innerHTML = posts.map(p => `
-            <div class="post-item">
-                <div class="post-item-info">
-                    <div style="font-weight:800; color:var(--primary);">${p.title}</div>
-                    <div style="font-size:0.75rem; color:var(--text-light); margin-top:4px;">
-                        ${p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'No date'} · ${p.category}
-                        <span style="color: ${p.published ? '#10b981' : '#f59e0b'}; margin-left:8px;">${p.published ? '● Live' : '○ Draft'}</span>
-                    </div>
-                </div>
-                <div style="display:flex; gap:12px;">
-                    <button class="btn" style="padding:8px 16px; background:rgba(26,46,90,0.05); color:var(--primary);" onclick="editPost('${p._id}')">Edit</button>
-                    <button class="btn" style="padding:8px 16px; background:rgba(220,38,38,0.05); color:#dc2626;" onclick="deletePost('${p._id}')">Delete</button>
-                </div>
-            </div>`).join('');
+        renderPostsList(posts);
     } catch (err) {
         el.innerHTML = `<p style="color:#ef4444;">Could not load posts: ${err.message}</p>`;
     }
@@ -693,12 +855,7 @@ async function loadPosts() {
 async function deletePost(id) {
     if (!confirm('Permanently delete this post from Sanity?')) return;
     try {
-        await requestJson(`${STUDIO_POSTS_URL}?id=${encodeURIComponent(id)}`, {
-            method: 'DELETE',
-            body: JSON.stringify({
-                sanityToken: getSanityToken()
-            })
-        });
+        await requestJson(`${STUDIO_POSTS_URL}?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
         loadPosts();
     } catch (err) {
         alert('Delete failed: ' + err.message);
@@ -710,8 +867,8 @@ async function editPost(id) {
         const { post } = await requestJson(`${STUDIO_POSTS_URL}?id=${encodeURIComponent(id)}`, { method: 'GET' });
         if (!post) return;
         document.getElementById('postTitle').value = post.title || '';
-        document.getElementById('postImage').value = post.imageUrl || '';
-        document.getElementById('editor').innerHTML = post.content || '';
+        document.getElementById('postImage').value = sanitizeUrl(post.imageUrl || '', { protocols: ['http:', 'https:'], allowRelative: true });
+        document.getElementById('editor').innerHTML = sanitizeHtmlForEditor(post.content || '');
         document.getElementById('isFeatured').checked = post.isFeatured || false;
         
         const catSelect = document.getElementById('category');
@@ -743,6 +900,8 @@ function clearEditor() {
     document.getElementById('postTitle').value = '';
     document.getElementById('postImage').value = '';
     document.getElementById('editor').innerHTML = '';
+    document.getElementById('imagePreview').innerHTML = '';
+    document.getElementById('imagePreview').classList.add('hidden');
     document.getElementById('isFeatured').checked = false;
     document.getElementById('editCard').classList.add('hidden');
     document.getElementById('publishStatus').textContent = '';
@@ -751,7 +910,11 @@ function clearEditor() {
 
 function showStatus(id, msg, type) {
     const el = document.getElementById(id);
-    el.textContent = msg; 
+    el.textContent = msg;
+    if (!msg) {
+        el.style.display = 'none';
+        return;
+    }
     el.style.display = 'block';
     el.style.marginTop = '15px';
     el.style.fontSize = '0.9rem';

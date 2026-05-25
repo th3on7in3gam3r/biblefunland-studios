@@ -1,3 +1,6 @@
+import { requireStudioSession } from '../lib/studio-auth.js';
+import { sanitizeStudioHtml } from '../lib/studio-html.js';
+
 const SANITY_PROJECT_ID = 'lrxq2sck';
 const SANITY_DATASET = 'production';
 const SANITY_API_VERSION = '2024-01-01';
@@ -81,8 +84,10 @@ async function sanityMutate(mutations, token) {
 }
 
 function normalizeDoc(doc) {
-    const title = String(doc.title || '').trim();
-    const content = String(doc.content || '').trim();
+    const title = String(doc.title || '').replace(/<[^>]+>/g, '').trim();
+    const content = sanitizeStudioHtml(doc.content || '');
+    const excerpt = String(doc.excerpt || '').replace(/<[^>]+>/g, '').trim();
+    const imageUrl = String(doc.imageUrl || '').trim();
 
     if (!title) throw new Error('Title is required.');
     if (!content) throw new Error('Content is required.');
@@ -93,9 +98,9 @@ function normalizeDoc(doc) {
         title,
         slug: slugify(doc.slug || title),
         category: String(doc.category || 'insight').trim().toLowerCase() || 'insight',
-        excerpt: String(doc.excerpt || '').trim(),
+        excerpt,
         content,
-        imageUrl: String(doc.imageUrl || '').trim(),
+        imageUrl,
         publishedAt: String(doc.publishedAt || new Date().toISOString()),
         readTime: String(doc.readTime || '').trim(),
         published: doc.published !== false,
@@ -105,6 +110,10 @@ function normalizeDoc(doc) {
 
 export default async function handler(req, res) {
     try {
+        if (!requireStudioSession(req, res)) {
+            return;
+        }
+
         if (req.method === 'GET') {
             const id = String(req.query.id || '').trim();
 
@@ -119,9 +128,9 @@ export default async function handler(req, res) {
 
         if (req.method === 'POST') {
             const body = await readBody(req);
-            const token = sanitizeSecret(body.sanityToken || process.env.SANITY_API_TOKEN);
+            const token = sanitizeSecret(process.env.SANITY_API_TOKEN);
             if (!token) {
-                return res.status(400).json({ error: 'Sanity token is missing. Save one in Studio Settings or set SANITY_API_TOKEN.' });
+                return res.status(500).json({ error: 'Sanity token is missing on the server. Set SANITY_API_TOKEN.' });
             }
             const doc = normalizeDoc(body.doc || {});
             const mutation = doc._id ? { createOrReplace: doc } : { create: doc };
@@ -132,13 +141,13 @@ export default async function handler(req, res) {
         if (req.method === 'DELETE') {
             const body = await readBody(req);
             const id = String(req.query.id || body.id || '').trim();
-            const token = sanitizeSecret(body.sanityToken || process.env.SANITY_API_TOKEN);
+            const token = sanitizeSecret(process.env.SANITY_API_TOKEN);
 
             if (!id) {
                 return res.status(400).json({ error: 'Post ID is required.' });
             }
             if (!token) {
-                return res.status(400).json({ error: 'Sanity token is missing. Save one in Studio Settings or set SANITY_API_TOKEN.' });
+                return res.status(500).json({ error: 'Sanity token is missing on the server. Set SANITY_API_TOKEN.' });
             }
 
             const result = await sanityMutate([{ delete: { id } }], token);

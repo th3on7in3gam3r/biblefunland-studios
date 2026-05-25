@@ -526,13 +526,35 @@ Write as Jerless, the founder. 400-600 words. Compelling title on first line pre
     document.getElementById('generateBtn').disabled = false;
 }
 
+function getApiErrorMessage(data, fallback) {
+    if (!data) return fallback;
+    if (typeof data.error === 'string') return data.error;
+    if (data.error && typeof data.error.message === 'string') return data.error.message;
+    if (data.error && typeof data.error.description === 'string') return data.error.description;
+    if (data.promptFeedback && data.promptFeedback.blockReason) {
+        return `Request blocked: ${data.promptFeedback.blockReason}`;
+    }
+    return fallback;
+}
+
 async function callGemini(key, prompt) {
     const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + key, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
     });
     const data = await res.json();
-    return data.candidates[0].content.parts[0].text;
+    if (!res.ok) throw new Error(getApiErrorMessage(data, 'Gemini request failed.'));
+
+    const text = data?.candidates?.[0]?.content?.parts
+        ?.map(part => part?.text || '')
+        .join('')
+        .trim();
+
+    if (!text) {
+        throw new Error(getApiErrorMessage(data, 'Gemini returned no draft content.'));
+    }
+
+    return text;
 }
 
 async function callOpenAI(key, prompt) {
@@ -543,7 +565,18 @@ async function callOpenAI(key, prompt) {
         body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }] })
     });
     const data = await res.json();
-    return data.choices[0].message.content;
+    if (!res.ok) throw new Error(getApiErrorMessage(data, 'OpenAI request failed.'));
+
+    const content = data?.choices?.[0]?.message?.content;
+    const text = Array.isArray(content)
+        ? content.map(item => item?.text || '').join('').trim()
+        : String(content || '').trim();
+
+    if (!text) {
+        throw new Error(getApiErrorMessage(data, 'OpenAI returned no draft content.'));
+    }
+
+    return text;
 }
 
 async function callClaude(key, prompt) {
@@ -554,7 +587,18 @@ async function callClaude(key, prompt) {
         body: JSON.stringify({ model: 'claude-3-5-sonnet-20240620', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] })
     });
     const data = await res.json();
-    return data.content[0].text;
+    if (!res.ok) throw new Error(getApiErrorMessage(data, 'Claude request failed.'));
+
+    const text = data?.content
+        ?.map(item => item?.text || '')
+        .join('')
+        .trim();
+
+    if (!text) {
+        throw new Error(getApiErrorMessage(data, 'Claude returned no draft content.'));
+    }
+
+    return text;
 }
 
 

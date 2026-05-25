@@ -269,10 +269,12 @@
         <div class="form-field">
             <label id="apiKeyLabel">Gemini API Key</label>
             <input type="password" id="apiKey" placeholder="Securely paste your AI studio key...">
+            <div style="font-size:0.8rem; color:var(--text-light); margin-top:8px;">Optional if the matching server environment key is already configured.</div>
         </div>
         <div class="form-field">
-            <label>Sanity API Token (Required to Publish)</label>
+            <label>Sanity API Token</label>
             <input type="password" id="sanityKey" placeholder="Securely paste your Sanity Write Token...">
+            <div style="font-size:0.8rem; color:var(--text-light); margin-top:8px;">Optional if `SANITY_API_TOKEN` is configured on the server. Used as a secure fallback override.</div>
         </div>
         <button class="btn btn-primary" onclick="saveSettings()">Save Studio Settings</button>
         <span id="settingsStatus" style="margin-left:12px;font-weight:700;"></span>
@@ -364,9 +366,9 @@
 </div>
 
 <script>
-// ===== SANITY CMS CONFIG =====
-const SANITY_WRITE_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/mutate/production';
-const SANITY_QUERY_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/query/production';
+// ===== STUDIO API CONFIG =====
+const STUDIO_GENERATE_URL = '/api/generate';
+const STUDIO_POSTS_URL = '/api/posts';
 
 function sanitizeSecret(value) {
     return String(value || '')
@@ -382,32 +384,40 @@ function getProviderKey(provider) {
     return sanitizeSecret(apiKeys[provider] || '');
 }
 
+function readStoredJson(key, fallback) {
+    try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+    } catch (error) {
+        return fallback;
+    }
+}
+
 function getSanityToken() {
     return sanitizeSecret(localStorage.getItem('bfl-sanity-token') || '');
 }
 
-async function sanityMutate(mutations) {
-    const token = getSanityToken();
-    if (!token) throw new Error('Sanity Token is missing. Please save it in Studio Settings.');
-    
-    const res = await fetch(SANITY_WRITE_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ mutations })
-    });
-    if (!res.ok) { const err = await res.json(); throw new Error(err.error?.description || 'Sanity write failed'); }
-    return res.json();
-}
+async function requestJson(url, options = {}) {
+    const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+    const res = await fetch(url, { ...options, headers });
 
-async function sanityQuery(groq) {
-    const res = await fetch(`${SANITY_QUERY_URL}?query=${encodeURIComponent(groq)}`);
-    const data = await res.json();
-    return data.result;
+    let data = {};
+    try {
+        data = await res.json();
+    } catch (error) {
+        data = {};
+    }
+
+    if (!res.ok) {
+        throw new Error(data.error || 'Request failed');
+    }
+
+    return data;
 }
 
 // ===== LOGIC =====
 let currentProvider = localStorage.getItem('bfl-ai-provider') || 'gemini';
-let apiKeys = JSON.parse(localStorage.getItem('bfl-api-keys') || '{}');
+let apiKeys = readStoredJson('bfl-api-keys', {});
 
 document.querySelectorAll('.provider-card').forEach(card => {
     card.classList.toggle('selected', card.dataset.provider === currentProvider);
@@ -435,11 +445,15 @@ function saveSettings() {
     
     if (key) {
         apiKeys[currentProvider] = key;
-        localStorage.setItem('bfl-api-keys', JSON.stringify(apiKeys));
+    } else {
+        delete apiKeys[currentProvider];
     }
+    localStorage.setItem('bfl-api-keys', JSON.stringify(apiKeys));
     
     if (sanityToken) {
         localStorage.setItem('bfl-sanity-token', sanityToken);
+    } else {
+        localStorage.removeItem('bfl-sanity-token');
     }
 
     const status = document.getElementById('settingsStatus');
@@ -481,7 +495,6 @@ function previewImage() {
 
 async function generatePost() {
     const key = getProviderKey(currentProvider);
-    if (!key) { showStatus('generateStatus', 'Please save your studio API key.', 'error'); return; }
 
     const topic = document.getElementById('topic').value.trim();
     if (!topic) { showStatus('generateStatus', 'What is your inspiration today?', 'error'); return; }
@@ -502,21 +515,20 @@ Write as Jerless, the founder. 400-600 words. Compelling title on first line pre
     document.getElementById('generateBtn').disabled = true;
 
     try {
-        let result;
-        if (currentProvider === 'gemini') result = await callGemini(key, prompt);
-        else if (currentProvider === 'openai') result = await callOpenAI(key, prompt);
-        else if (currentProvider === 'claude') result = await callClaude(key, prompt);
+        const response = await requestJson(STUDIO_GENERATE_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                provider: currentProvider,
+                apiKey: key,
+                prompt
+            })
+        });
+        const result = response.text;
 
         if (result) {
-            let title = '';
-            let content = result;
-            if (result.includes('TITLE:')) {
-                const lines = result.split('\n');
-                title = lines[0].replace('TITLE:', '').trim();
-                content = lines.slice(1).join('\n').trim();
-            }
-            document.getElementById('postTitle').value = title;
-            document.getElementById('editor').innerHTML = content;
+            const draft = extractDraft(result, topic);
+            document.getElementById('postTitle').value = draft.title;
+            document.getElementById('editor').innerHTML = draft.content;
             document.getElementById('editCard').classList.remove('hidden');
             showStatus('generateStatus', '✓ Draft created! Refine it below.', 'success');
         }
@@ -526,79 +538,73 @@ Write as Jerless, the founder. 400-600 words. Compelling title on first line pre
     document.getElementById('generateBtn').disabled = false;
 }
 
-function getApiErrorMessage(data, fallback) {
-    if (!data) return fallback;
-    if (typeof data.error === 'string') return data.error;
-    if (data.error && typeof data.error.message === 'string') return data.error.message;
-    if (data.error && typeof data.error.description === 'string') return data.error.description;
-    if (data.promptFeedback && data.promptFeedback.blockReason) {
-        return `Request blocked: ${data.promptFeedback.blockReason}`;
-    }
-    return fallback;
-}
-
-async function callGemini(key, prompt) {
-    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + key, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(getApiErrorMessage(data, 'Gemini request failed.'));
-
-    const text = data?.candidates?.[0]?.content?.parts
-        ?.map(part => part?.text || '')
-        .join('')
+function stripCodeFences(text) {
+    return String(text || '')
+        .trim()
+        .replace(/^```(?:html|markdown|md)?\s*/i, '')
+        .replace(/\s*```$/, '')
         .trim();
-
-    if (!text) {
-        throw new Error(getApiErrorMessage(data, 'Gemini returned no draft content.'));
-    }
-
-    return text;
 }
 
-async function callOpenAI(key, prompt) {
-    const safeKey = sanitizeSecret(key);
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + safeKey },
-        body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }] })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(getApiErrorMessage(data, 'OpenAI request failed.'));
-
-    const content = data?.choices?.[0]?.message?.content;
-    const text = Array.isArray(content)
-        ? content.map(item => item?.text || '').join('').trim()
-        : String(content || '').trim();
-
-    if (!text) {
-        throw new Error(getApiErrorMessage(data, 'OpenAI returned no draft content.'));
-    }
-
-    return text;
+function escapeHtml(text) {
+    return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
 
-async function callClaude(key, prompt) {
-    const safeKey = sanitizeSecret(key);
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': safeKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-        body: JSON.stringify({ model: 'claude-3-5-sonnet-20240620', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(getApiErrorMessage(data, 'Claude request failed.'));
+function hasHtmlMarkup(text) {
+    return /<\/?[a-z][\s\S]*>/i.test(text);
+}
 
-    const text = data?.content
-        ?.map(item => item?.text || '')
-        .join('')
-        .trim();
+function formatPlainTextAsHtml(text) {
+    return text
+        .split(/\n{2,}/)
+        .map(block => block.trim())
+        .filter(Boolean)
+        .map(block => {
+            if (/^#{2}\s+/.test(block)) return `<h2>${escapeHtml(block.replace(/^#{2}\s+/, ''))}</h2>`;
+            if (/^#{3}\s+/.test(block)) return `<h3>${escapeHtml(block.replace(/^#{3}\s+/, ''))}</h3>`;
+            if (/^>\s+/.test(block)) return `<blockquote>${escapeHtml(block.replace(/^>\s+/, ''))}</blockquote>`;
+            return `<p>${escapeHtml(block).replace(/\n/g, '<br>')}</p>`;
+        })
+        .join('\n');
+}
 
-    if (!text) {
-        throw new Error(getApiErrorMessage(data, 'Claude returned no draft content.'));
+function normalizeGeneratedContent(text) {
+    const cleaned = stripCodeFences(text);
+    if (!cleaned) return '';
+    return hasHtmlMarkup(cleaned) ? cleaned : formatPlainTextAsHtml(cleaned);
+}
+
+function toTitleCase(text) {
+    return String(text || '')
+        .trim()
+        .replace(/\s+/g, ' ')
+        .replace(/\w\S*/g, word => word.charAt(0).toUpperCase() + word.slice(1));
+}
+
+function extractDraft(result, fallbackTopic) {
+    const cleaned = stripCodeFences(result);
+    let title = '';
+    let content = cleaned;
+
+    if (/^TITLE:/i.test(cleaned)) {
+        const lines = cleaned.split('\n');
+        title = lines[0].replace(/^TITLE:/i, '').trim();
+        content = lines.slice(1).join('\n').trim();
     }
 
-    return text;
+    if (!title) {
+        title = toTitleCase(fallbackTopic || 'Untitled Draft');
+    }
+
+    return {
+        title,
+        content: normalizeGeneratedContent(content)
+    };
 }
 
 
@@ -622,7 +628,6 @@ async function publishPost() {
     if (!title || !content) { showStatus('publishStatus', 'Title and content are required.', 'error'); return; }
 
     showStatus('publishStatus', '📡 Publishing to Sanity...', 'loading');
-
     const doc = {
         _type: 'blogPost',
         title,
@@ -638,13 +643,17 @@ async function publishPost() {
     };
 
     try {
-        if (editingPostId) {
-            doc._id = editingPostId;
-            await sanityMutate([{ createOrReplace: doc }]);
-            editingPostId = null;
-        } else {
-            await sanityMutate([{ create: doc }]);
-        }
+        if (editingPostId) doc._id = editingPostId;
+
+        await requestJson(STUDIO_POSTS_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                sanityToken: getSanityToken(),
+                doc
+            })
+        });
+
+        editingPostId = null;
         showStatus('publishStatus', '✓ Published to Sanity! Your post is now live for everyone.', 'success');
         setTimeout(clearEditor, 2000);
         loadPosts();
@@ -657,7 +666,7 @@ async function loadPosts() {
     const el = document.getElementById('postsList');
     el.innerHTML = '<p style="color:var(--text-light);">Loading posts...</p>';
     try {
-        const posts = await sanityQuery(`*[_type == "blogPost"] | order(publishedAt desc) { _id, title, publishedAt, category, published }`);
+        const { posts } = await requestJson(STUDIO_POSTS_URL, { method: 'GET' });
         if (!posts || !posts.length) {
             el.innerHTML = '<p style="color:var(--text-light);">Your studio archive is empty. Publish your first post!</p>';
             return;
@@ -684,7 +693,12 @@ async function loadPosts() {
 async function deletePost(id) {
     if (!confirm('Permanently delete this post from Sanity?')) return;
     try {
-        await sanityMutate([{ delete: { id } }]);
+        await requestJson(`${STUDIO_POSTS_URL}?id=${encodeURIComponent(id)}`, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                sanityToken: getSanityToken()
+            })
+        });
         loadPosts();
     } catch (err) {
         alert('Delete failed: ' + err.message);
@@ -693,23 +707,23 @@ async function deletePost(id) {
 
 async function editPost(id) {
     try {
-        const posts = await sanityQuery(`*[_type == "blogPost" && _id == "${id}"][0]`);
-        if (!posts) return;
-        document.getElementById('postTitle').value = posts.title || '';
-        document.getElementById('postImage').value = posts.imageUrl || '';
-        document.getElementById('editor').innerHTML = posts.content || '';
-        document.getElementById('isFeatured').checked = posts.isFeatured || false;
+        const { post } = await requestJson(`${STUDIO_POSTS_URL}?id=${encodeURIComponent(id)}`, { method: 'GET' });
+        if (!post) return;
+        document.getElementById('postTitle').value = post.title || '';
+        document.getElementById('postImage').value = post.imageUrl || '';
+        document.getElementById('editor').innerHTML = post.content || '';
+        document.getElementById('isFeatured').checked = post.isFeatured || false;
         
         const catSelect = document.getElementById('category');
         const customCat = document.getElementById('customCategory');
         const options = Array.from(catSelect.options).map(o => o.value);
         
-        if (options.includes(posts.category)) {
-            catSelect.value = posts.category || 'insight';
+        if (options.includes(post.category)) {
+            catSelect.value = post.category || 'insight';
             customCat.classList.add('hidden');
         } else {
             catSelect.value = 'other';
-            customCat.value = posts.category || '';
+            customCat.value = post.category || '';
             customCat.classList.remove('hidden');
         }
         

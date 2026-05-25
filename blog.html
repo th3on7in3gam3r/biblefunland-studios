@@ -168,14 +168,33 @@
         const searchInput = document.getElementById('blogSearch');
         const emptySearch = document.getElementById('emptySearch');
 
+        function slugify(value) {
+            return String(value || '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '');
+        }
+
+        function normalizeSlug(slug, title) {
+            if (typeof slug === 'string' && slug.trim()) return slug.trim();
+            if (slug && typeof slug.current === 'string' && slug.current.trim()) return slug.current.trim();
+            return slugify(title);
+        }
+
+        function getPostUrl(post) {
+            const slug = normalizeSlug(post.slug, post.title);
+            if (slug) return `/blog/${encodeURIComponent(slug)}`;
+            return `post.html?id=${encodeURIComponent(post.id)}`;
+        }
+
         // Static fallback posts (shown if Sanity has no content yet)
         const staticPosts = [
-            { id: '1', category: 'insight', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min', content: 'What we learned building a platform for young believers...', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800' },
-            { id: '2', category: 'devotional', title: 'Creating with Purpose: Colossians 3:23', date: 'April 15, 2026', readTime: '3 min', content: 'Whatever you do, work at it with all your heart...', image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800' },
-            { id: '3', category: 'behind', title: 'From One Idea to Six Brands', date: 'March 30, 2026', readTime: '6 min', content: 'The story of how BibleFunLand Studios grew...', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800' },
-            { id: '4', category: 'tutorial', title: '5 Branding Mistakes Churches Make', date: 'March 15, 2026', readTime: '7 min', content: 'Practical solutions for your ministry\'s visual identity...', image: '5-branding-mistakes-churches-make.png' },
-            { id: '5', category: 'devotional', title: 'Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min', content: 'Trusting the process when God calls you to more...', image: 'vision-bigger-than-your-skill.png' },
-            { id: '6', category: 'behind', title: 'Building AWC Connect', date: 'Feb 14, 2026', readTime: '8 min', content: 'A ministry app case study from wireframe to launch...', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800' }
+            { id: '1', slug: 'designing-for-kids-lessons-from-bfl-junior', category: 'insight', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min', content: 'What we learned building a platform for young believers...', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800' },
+            { id: '2', slug: 'creating-with-purpose-colossians-3-23', category: 'devotional', title: 'Creating with Purpose: Colossians 3:23', date: 'April 15, 2026', readTime: '3 min', content: 'Whatever you do, work at it with all your heart...', image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800' },
+            { id: '3', slug: 'from-one-idea-to-six-brands', category: 'behind', title: 'From One Idea to Six Brands', date: 'March 30, 2026', readTime: '6 min', content: 'The story of how BibleFunLand Studios grew...', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800' },
+            { id: '4', slug: '5-branding-mistakes-churches-make', category: 'tutorial', title: '5 Branding Mistakes Churches Make', date: 'March 15, 2026', readTime: '7 min', content: 'Practical solutions for your ministry\'s visual identity...', image: '5-branding-mistakes-churches-make.png' },
+            { id: '5', slug: 'vision-bigger-than-your-skill', category: 'devotional', title: 'Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min', content: 'Trusting the process when God calls you to more...', image: 'vision-bigger-than-your-skill.png' },
+            { id: '6', slug: 'building-awc-connect', category: 'behind', title: 'Building AWC Connect', date: 'Feb 14, 2026', readTime: '8 min', content: 'A ministry app case study from wireframe to launch...', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800' }
         ];
 
         // Normalize a Sanity post to the same shape as a static post
@@ -187,6 +206,7 @@
 
             return {
                 id: p._id,
+                slug: normalizeSlug(p.slug, p.title),
                 category: p.category || 'insight',
                 title: p.title,
                 date: p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
@@ -207,6 +227,7 @@
                 container.innerHTML = '';
                 return;
             }
+            const postUrl = getPostUrl(post);
             container.innerHTML = `
                 <article class="featured-card animate-up">
                     <div class="featured-thumb">
@@ -221,7 +242,7 @@
                         <h2>${post.title}</h2>
                         <p>${post.content}</p>
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                            <a href="post.html?id=${post.id}" class="blog-link" style="font-size: 1rem;">Read More ›</a>
+                            <a href="${postUrl}" class="blog-link" style="font-size: 1rem;">Read More ›</a>
                             <button onclick="handleLike('${post.id}', 'like-btn-feat', 'like-count-feat')" id="like-btn-feat" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:6px; font-size:1rem; font-weight:700; color:var(--text-light); padding:0; transition: transform 0.2s;">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="${localStorage.getItem('liked_' + post.id) ? '#ef4444' : 'none'}" stroke="${localStorage.getItem('liked_' + post.id) ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 <span id="like-count-feat">${post.likes || 0}</span>
@@ -237,6 +258,7 @@
             filteredPosts.forEach(post => {
                 const card = document.createElement('article');
                 card.className = 'blog-card';
+                const postUrl = getPostUrl(post);
                 card.innerHTML = `
                     <div class="blog-thumb-sm">
                         <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'">
@@ -255,7 +277,7 @@
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="${localStorage.getItem('liked_' + post.id) ? '#ef4444' : 'none'}" stroke="${localStorage.getItem('liked_' + post.id) ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                     <span id="like-count-${post.id}">${post.likes || 0}</span>
                                 </button>
-                                <a href="post.html?id=${post.id}" class="blog-link">Read More →</a>
+                                <a href="${postUrl}" class="blog-link">Read More →</a>
                             </div>
                         </div>
                     </div>

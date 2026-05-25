@@ -368,8 +368,16 @@
 const SANITY_WRITE_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/mutate/production';
 const SANITY_QUERY_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/query/production';
 
+function sanitizeSecret(value) {
+    return String(value || '')
+        .normalize('NFKC')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .replace(/\s+/g, '')
+        .trim();
+}
+
 function getSanityToken() {
-    return localStorage.getItem('bfl-sanity-token') || '';
+    return sanitizeSecret(localStorage.getItem('bfl-sanity-token') || '');
 }
 
 async function sanityMutate(mutations) {
@@ -398,7 +406,7 @@ let apiKeys = JSON.parse(localStorage.getItem('bfl-api-keys') || '{}');
 document.querySelectorAll('.provider-card').forEach(card => {
     card.classList.toggle('selected', card.dataset.provider === currentProvider);
 });
-document.getElementById('apiKey').value = apiKeys[currentProvider] || '';
+document.getElementById('apiKey').value = sanitizeSecret(apiKeys[currentProvider] || '');
 document.getElementById('sanityKey').value = getSanityToken();
 loadPosts();
 
@@ -406,13 +414,18 @@ function selectProvider(provider) {
     currentProvider = provider;
     localStorage.setItem('bfl-ai-provider', provider);
     document.querySelectorAll('.provider-card').forEach(c => c.classList.toggle('selected', c.dataset.provider === provider));
-    document.getElementById('apiKey').value = apiKeys[provider] || '';
+    document.getElementById('apiKey').value = sanitizeSecret(apiKeys[provider] || '');
     document.getElementById('apiKeyLabel').textContent = provider.charAt(0).toUpperCase() + provider.slice(1) + ' API Key';
 }
 
 function saveSettings() {
-    const key = document.getElementById('apiKey').value.trim();
-    const sanityToken = document.getElementById('sanityKey').value.trim();
+    const apiKeyInput = document.getElementById('apiKey');
+    const sanityKeyInput = document.getElementById('sanityKey');
+    const key = sanitizeSecret(apiKeyInput.value);
+    const sanityToken = sanitizeSecret(sanityKeyInput.value);
+
+    apiKeyInput.value = key;
+    sanityKeyInput.value = sanityToken;
     
     if (key) {
         apiKeys[currentProvider] = key;

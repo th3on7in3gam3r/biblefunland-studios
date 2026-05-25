@@ -275,6 +275,9 @@
 
         const siteUrl = 'https://biblefunlandstudios.com';
         const params = new URLSearchParams(window.location.search);
+        const currentPath = window.location.pathname.replace(/\/+$/, '');
+        const pathSlug = currentPath.startsWith('/blog/') ? decodeURIComponent(currentPath.slice('/blog/'.length)) : '';
+        const postSlug = params.get('slug') || pathSlug;
         const postId = params.get('id');
         const container = document.getElementById('postContainer');
 
@@ -315,6 +318,35 @@
             if (!value) return undefined;
             const parsed = new Date(value);
             return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
+        }
+
+        function slugify(value) {
+            return String(value || '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '');
+        }
+
+        function normalizeSlug(slug, title) {
+            if (typeof slug === 'string' && slug.trim()) return slug.trim();
+            if (slug && typeof slug.current === 'string' && slug.current.trim()) return slug.current.trim();
+            return slugify(title);
+        }
+
+        function getArticlePath(post) {
+            const slug = normalizeSlug(post.slug, post.title);
+            if (slug) return '/blog/' + encodeURIComponent(slug);
+            const fallbackId = encodeURIComponent(post._id || post.id || '');
+            return fallbackId ? '/post.html?id=' + fallbackId : '/post.html';
+        }
+
+        function syncBrowserUrl(post) {
+            const articlePath = getArticlePath(post);
+            const currentLocation = window.location.pathname + window.location.search;
+            if (articlePath && currentLocation !== articlePath) {
+                window.history.replaceState({}, '', articlePath);
+            }
+            return siteUrl + articlePath;
         }
 
         function updateArticleSchema(post, renderedContent, articleUrl, imageUrl, description) {
@@ -361,8 +393,7 @@
         }
 
         function updateSeo(post, renderedContent) {
-            const articleId = encodeURIComponent(post._id || post.id || '');
-            const articleUrl = siteUrl + '/post.html?id=' + articleId;
+            const articleUrl = syncBrowserUrl(post);
             const imageUrl = toAbsoluteUrl(post.image || post.imageUrl);
             const plainText = stripTags(renderedContent);
             const description = (plainText || post.content || '')
@@ -409,12 +440,12 @@
 
         // Static fallback posts
         const staticPosts = [
-            { id: '1', category: 'insight', emoji: '🎨', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min read', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800', content: '<p>What we learned building a platform for young believers — and how it changed our approach to design forever.</p><h2>The Core Lessons</h2><p>Designing for children requires a unique blend of simplicity and engagement. We found that bold colors and clear iconography aren\'t just aesthetic choices—they are functional requirements.</p><blockquote>"Let the little children come to me, and do not hinder them, for the kingdom of heaven belongs to such as these." — Matthew 19:14</blockquote><p>Our approach was always kingdom-first. We wanted to create a space where the gospel was accessible, fun, and beautiful.</p>' },
-            { id: '2', category: 'devotional', emoji: '📖', title: 'Creating with Purpose: A Colossians 3:23 Reflection', date: 'April 15, 2026', readTime: '3 min read', image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800', content: '<p>"Whatever you do, work at it with all your heart." What does this mean for those of us called to create?</p><h2>Excellence as Worship</h2><p>In our studio, we believe that every pixel and every line of code can be an act of worship. When we strive for excellence, we reflect the nature of the Creator.</p><blockquote>"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters." — Colossians 3:23</blockquote>' },
-            { id: '3', category: 'behind', emoji: '🚀', title: 'From One Idea to Six Brands: The BFL Story', date: 'March 30, 2026', readTime: '6 min read', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800', content: '<p>The story of how BibleFunLand Studios grew from a single project into a family of faith-based platforms.</p><h2>The Humble Beginnings</h2><p>It started with a simple vision to make Bible learning fun. One brand led to another as we saw the vast need for quality Christian media across different niches.</p>' },
-            { id: '4', category: 'tutorial', emoji: '💡', title: '5 Branding Mistakes Churches Make (And How to Fix Them)', date: 'March 15, 2026', readTime: '7 min read', image: '5-branding-mistakes-churches-make.png', content: '<p>Your church\'s visual identity matters more than you think. Here are the most common pitfalls and practical solutions.</p><h2>1. Inconsistency</h2><p>Using different logos and fonts across social media, bulletins, and your website creates confusion. A unified identity builds trust.</p>' },
-            { id: '5', category: 'devotional', emoji: '🙏', title: 'When God Gives You a Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min read', image: 'vision-bigger-than-your-skill.png', content: '<p>A devotional on trusting the process, growing into your calling, and letting God fill the gaps in your ability.</p><h2>Trusting the Process</h2><p>Often, God calls us to things we don\'t feel prepared for. That\'s where faith steps in. He provides the strength for the vision He provides.</p>' },
-            { id: '6', category: 'behind', emoji: '🎥', title: 'Building AWC Connect: A Ministry App Case study', date: 'February 14, 2026', readTime: '8 min read', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800', content: '<p>How we designed and developed a community app for Anointed Worship Center — from wireframes to launch day.</p><h2>The Challenge</h2><p>Building a space for a church community to stay connected through the week was the goal. We focused on simplicity and daily engagement features.</p>' }
+            { id: '1', slug: 'designing-for-kids-lessons-from-bfl-junior', category: 'insight', emoji: '🎨', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min read', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800', content: '<p>What we learned building a platform for young believers — and how it changed our approach to design forever.</p><h2>The Core Lessons</h2><p>Designing for children requires a unique blend of simplicity and engagement. We found that bold colors and clear iconography aren\'t just aesthetic choices—they are functional requirements.</p><blockquote>"Let the little children come to me, and do not hinder them, for the kingdom of heaven belongs to such as these." — Matthew 19:14</blockquote><p>Our approach was always kingdom-first. We wanted to create a space where the gospel was accessible, fun, and beautiful.</p>' },
+            { id: '2', slug: 'creating-with-purpose-colossians-3-23', category: 'devotional', emoji: '📖', title: 'Creating with Purpose: A Colossians 3:23 Reflection', date: 'April 15, 2026', readTime: '3 min read', image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800', content: '<p>"Whatever you do, work at it with all your heart." What does this mean for those of us called to create?</p><h2>Excellence as Worship</h2><p>In our studio, we believe that every pixel and every line of code can be an act of worship. When we strive for excellence, we reflect the nature of the Creator.</p><blockquote>"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters." — Colossians 3:23</blockquote>' },
+            { id: '3', slug: 'from-one-idea-to-six-brands', category: 'behind', emoji: '🚀', title: 'From One Idea to Six Brands: The BFL Story', date: 'March 30, 2026', readTime: '6 min read', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800', content: '<p>The story of how BibleFunLand Studios grew from a single project into a family of faith-based platforms.</p><h2>The Humble Beginnings</h2><p>It started with a simple vision to make Bible learning fun. One brand led to another as we saw the vast need for quality Christian media across different niches.</p>' },
+            { id: '4', slug: '5-branding-mistakes-churches-make', category: 'tutorial', emoji: '💡', title: '5 Branding Mistakes Churches Make (And How to Fix Them)', date: 'March 15, 2026', readTime: '7 min read', image: '5-branding-mistakes-churches-make.png', content: '<p>Your church\'s visual identity matters more than you think. Here are the most common pitfalls and practical solutions.</p><h2>1. Inconsistency</h2><p>Using different logos and fonts across social media, bulletins, and your website creates confusion. A unified identity builds trust.</p>' },
+            { id: '5', slug: 'vision-bigger-than-your-skill', category: 'devotional', emoji: '🙏', title: 'When God Gives You a Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min read', image: 'vision-bigger-than-your-skill.png', content: '<p>A devotional on trusting the process, growing into your calling, and letting God fill the gaps in your ability.</p><h2>Trusting the Process</h2><p>Often, God calls us to things we don\'t feel prepared for. That\'s where faith steps in. He provides the strength for the vision He provides.</p>' },
+            { id: '6', slug: 'building-awc-connect', category: 'behind', emoji: '🎥', title: 'Building AWC Connect: A Ministry App Case study', date: 'February 14, 2026', readTime: '8 min read', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800', content: '<p>How we designed and developed a community app for Anointed Worship Center — from wireframes to launch day.</p><h2>The Challenge</h2><p>Building a space for a church community to stay connected through the week was the goal. We focused on simplicity and daily engagement features.</p>' }
         ];
 
         function renderPost(post) {
@@ -465,6 +496,20 @@
         }
 
         async function loadPost() {
+            if (!postSlug && !postId) { renderNotFound(); return; }
+
+            if (postSlug) {
+                try {
+                    const sanityPost = await getPostBySlug(postSlug);
+                    if (sanityPost) { renderPost(sanityPost); return; }
+                } catch (e) {
+                    console.warn('Sanity slug lookup failed, trying static:', e);
+                }
+
+                const staticPostBySlug = staticPosts.find(p => p.slug === postSlug);
+                if (staticPostBySlug) { renderPost(staticPostBySlug); return; }
+            }
+
             if (!postId) { renderNotFound(); return; }
 
             // Try Sanity first (live posts)

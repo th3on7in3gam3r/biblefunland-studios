@@ -19,6 +19,12 @@ async function sanityFetch(groq) {
     return data.result;
 }
 
+function escapeGroqString(value) {
+    return String(value ?? '')
+        .replace(/\\/g, '\\\\')
+        .replace(/"/g, '\\"');
+}
+
 // Fetch all published posts ordered by date
 async function getAllPosts() {
     const groq = `*[_type == "blogPost" && published == true] | order(publishedAt desc) {
@@ -38,7 +44,7 @@ async function getAllPosts() {
 
 // Fetch a single post by its slug
 async function getPostBySlug(slug) {
-    const groq = `*[_type == "blogPost" && slug == "${slug}"][0] {
+    const groq = `*[_type == "blogPost" && slug == "${escapeGroqString(slug)}"][0] {
         _id,
         title,
         slug,
@@ -56,7 +62,7 @@ async function getPostBySlug(slug) {
 
 // Fetch a single post by its Sanity _id
 async function getPostById(id) {
-    const groq = `*[_type == "blogPost" && _id == "${id}"][0] {
+    const groq = `*[_type == "blogPost" && _id == "${escapeGroqString(id)}"][0] {
         _id,
         title,
         slug,

@@ -371,9 +371,15 @@ const SANITY_QUERY_URL = 'https://lrxq2sck.api.sanity.io/v2024-01-01/data/query/
 function sanitizeSecret(value) {
     return String(value || '')
         .normalize('NFKC')
-        .replace(/[\u200B-\u200D\uFEFF]/g, '')
-        .replace(/\s+/g, '')
+        .replace(/^Bearer\s+/i, '')
+        .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
+        .replace(/[\u00A0\u1680\u180E\u2000-\u200D\u2028-\u202F\u205F\u2060\u3000\uFEFF]/g, '')
+        .replace(/[^\x21-\x7E]/g, '')
         .trim();
+}
+
+function getProviderKey(provider) {
+    return sanitizeSecret(apiKeys[provider] || '');
 }
 
 function getSanityToken() {
@@ -406,7 +412,7 @@ let apiKeys = JSON.parse(localStorage.getItem('bfl-api-keys') || '{}');
 document.querySelectorAll('.provider-card').forEach(card => {
     card.classList.toggle('selected', card.dataset.provider === currentProvider);
 });
-document.getElementById('apiKey').value = sanitizeSecret(apiKeys[currentProvider] || '');
+document.getElementById('apiKey').value = getProviderKey(currentProvider);
 document.getElementById('sanityKey').value = getSanityToken();
 loadPosts();
 
@@ -414,7 +420,7 @@ function selectProvider(provider) {
     currentProvider = provider;
     localStorage.setItem('bfl-ai-provider', provider);
     document.querySelectorAll('.provider-card').forEach(c => c.classList.toggle('selected', c.dataset.provider === provider));
-    document.getElementById('apiKey').value = sanitizeSecret(apiKeys[provider] || '');
+    document.getElementById('apiKey').value = getProviderKey(provider);
     document.getElementById('apiKeyLabel').textContent = provider.charAt(0).toUpperCase() + provider.slice(1) + ' API Key';
 }
 
@@ -474,7 +480,7 @@ function previewImage() {
 }
 
 async function generatePost() {
-    const key = apiKeys[currentProvider];
+    const key = getProviderKey(currentProvider);
     if (!key) { showStatus('generateStatus', 'Please save your studio API key.', 'error'); return; }
 
     const topic = document.getElementById('topic').value.trim();
@@ -530,9 +536,10 @@ async function callGemini(key, prompt) {
 }
 
 async function callOpenAI(key, prompt) {
+    const safeKey = sanitizeSecret(key);
     const res = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + safeKey },
         body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }] })
     });
     const data = await res.json();
@@ -540,9 +547,10 @@ async function callOpenAI(key, prompt) {
 }
 
 async function callClaude(key, prompt) {
+    const safeKey = sanitizeSecret(key);
     const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+        headers: { 'Content-Type': 'application/json', 'x-api-key': safeKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
         body: JSON.stringify({ model: 'claude-3-5-sonnet-20240620', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] })
     });
     const data = await res.json();

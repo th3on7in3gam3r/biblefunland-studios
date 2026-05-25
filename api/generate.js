@@ -13,6 +13,8 @@ const PROVIDERS = {
     }
 };
 
+const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6';
+
 function sanitizeSecret(value) {
     return String(value || '')
         .normalize('NFKC')
@@ -109,7 +111,7 @@ async function generateWithClaude(apiKey, prompt) {
             'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-            model: 'claude-3-5-sonnet-20240620',
+            model: ANTHROPIC_MODEL,
             max_tokens: 2000,
             messages: [{ role: 'user', content: prompt }]
         })

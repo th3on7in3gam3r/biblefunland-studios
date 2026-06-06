@@ -6,6 +6,7 @@
     <title>Blog Post | BibleFunLand Studios</title>
     <meta name="description" content="Read faith-inspired reflections, devotionals, and behind-the-scenes stories from BibleFunLand Studios.">
     <meta name="robots" content="index, follow">
+    <script src="post-seo-head.js"></script>
     <link rel="canonical" href="https://biblefunlandstudios.com/post.html" id="canonicalLink">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Blog Post | BibleFunLand Studios" id="ogTitle">
@@ -420,19 +421,19 @@
         }
 
         function setNoIndexSeo() {
-            document.title = 'Blog Post | BibleFunLand Studios';
-            setCanonical(siteUrl + '/post.html');
-            setMetaContent('ogTitle', 'Blog Post | BibleFunLand Studios');
-            setMetaContent('ogDescription', 'Read faith-inspired reflections, devotionals, and behind-the-scenes stories from BibleFunLand Studios.');
+            document.title = 'Post Not Found | BibleFunLand Studios';
+            setCanonical(siteUrl + '/blog.html');
+            setMetaContent('ogTitle', 'Post Not Found | BibleFunLand Studios');
+            setMetaContent('ogDescription', 'This blog post could not be found. Browse devotionals, studio insights, and ministry articles on BibleFunLand Studios.');
             setMetaContent('ogImage', siteUrl + '/faith-meets-the-page.png');
-            setMetaContent('ogUrl', siteUrl + '/post.html');
-            setMetaContent('twitterTitle', 'Blog Post | BibleFunLand Studios');
-            setMetaContent('twitterDescription', 'Read faith-inspired reflections, devotionals, and behind-the-scenes stories from BibleFunLand Studios.');
+            setMetaContent('ogUrl', siteUrl + '/blog.html');
+            setMetaContent('twitterTitle', 'Post Not Found | BibleFunLand Studios');
+            setMetaContent('twitterDescription', 'This blog post could not be found. Browse devotionals, studio insights, and ministry articles on BibleFunLand Studios.');
             setMetaContent('twitterImage', siteUrl + '/faith-meets-the-page.png');
 
             const descriptionMeta = document.querySelector('meta[name="description"]');
             if (descriptionMeta) {
-                descriptionMeta.setAttribute('content', 'Read faith-inspired reflections, devotionals, and behind-the-scenes stories from BibleFunLand Studios.');
+                descriptionMeta.setAttribute('content', 'This blog post could not be found. Browse devotionals, studio insights, and ministry articles on BibleFunLand Studios.');
             }
 
             setRobots('noindex, follow');

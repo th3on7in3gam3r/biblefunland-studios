@@ -4,57 +4,180 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 — Page Not Found | BibleFunLand Studios</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="This BibleFunLand Studios page could not be found. Return home, browse our blog and portfolio, or contact us for faith-based web design help.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Courier New', monospace;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-            padding: 20px;
+        :root {
+            --primary: #1a2e5a;
+            --accent: #e8a838;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #fdfbf7;
         }
 
-        .error-info {
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px 64px;
+        }
+
+        .error-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .error-code {
+            display: inline-block;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .error-header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .error-header .lead {
+            max-width: 640px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            color: var(--text-light);
+            line-height: 1.75;
+        }
+
+        .error-help {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .error-help section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(26, 46, 90, 0.08);
+            box-shadow: 0 8px 32px rgba(26, 46, 90, 0.06);
+        }
+
+        .error-help h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .error-help p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
+        .error-about {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 36px;
+            border: 1px solid rgba(26, 46, 90, 0.08);
+            box-shadow: 0 8px 32px rgba(26, 46, 90, 0.06);
+        }
+
+        .error-about h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.35rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+
+        .error-about p {
+            font-size: 0.98rem;
+            color: var(--text-light);
+            line-height: 1.75;
+            margin-bottom: 14px;
+        }
+
+        .error-about p:last-child {
+            margin-bottom: 0;
+        }
+
+        .error-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .error-links li {
+            margin-bottom: 8px;
+        }
+
+        .error-links a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(232, 168, 56, 0.45);
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .error-links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .game-section {
             text-align: center;
             margin-bottom: 24px;
         }
 
-        .error-code {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #1a1a1a;
-            letter-spacing: -2px;
-        }
-
-        .error-message {
-            font-size: 0.85rem;
-            color: #999;
-            margin-top: 4px;
+        .game-section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.15rem;
+            color: var(--primary);
+            margin-bottom: 6px;
         }
 
         .game-hint {
-            font-size: 0.7rem;
-            color: #ccc;
+            font-size: 0.75rem;
+            color: #999;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 8px;
+            margin-bottom: 12px;
         }
 
         /* Game Container */
         .game-container {
             position: relative;
             width: 700px;
-            max-width: 95vw;
+            max-width: 100%;
             height: 200px;
+            margin: 0 auto;
             border-bottom: 2px solid #1a1a1a;
             overflow: hidden;
             cursor: pointer;
+            background: #fff;
+            border-radius: 12px 12px 0 0;
         }
 
         /* Player */
@@ -156,6 +279,7 @@
             font-weight: bold;
             color: #1a1a1a;
             letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
         }
 
         .high-score {
@@ -164,6 +288,7 @@
             right: 100px;
             font-size: 0.75rem;
             color: #bbb;
+            font-family: 'Courier New', monospace;
         }
 
         /* Game Over overlay */
@@ -185,17 +310,19 @@
             pointer-events: all;
         }
 
-        .game-over h2 {
+        .game-over h3 {
             font-size: 1.2rem;
             color: #1a1a1a;
             text-transform: uppercase;
             letter-spacing: 3px;
+            font-family: 'Courier New', monospace;
         }
 
         .game-over p {
             font-size: 0.8rem;
             color: #666;
             margin-top: 4px;
+            font-family: 'Courier New', monospace;
         }
 
         .game-over .restart-hint {
@@ -204,6 +331,7 @@
             color: #bbb;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
         }
 
         /* Ground dots */
@@ -237,53 +365,91 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Footer link */
         .page-footer {
-            margin-top: 24px;
+            margin-top: 32px;
             text-align: center;
         }
 
         .page-footer a {
-            color: #ccc;
+            display: inline-block;
+            margin: 0 10px 8px;
+            color: var(--primary);
             text-decoration: none;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            font-weight: 600;
             transition: color 0.2s;
         }
 
-        .page-footer a:hover { color: #1a1a1a; }
+        .page-footer a:hover { color: var(--accent); }
 
         @media (max-width: 740px) {
             .game-container { height: 170px; }
-            .error-code { font-size: 2.2rem; }
+            .error-help { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="error-info">
-        <div class="error-code">404</div>
-        <p class="error-message">Page not found</p>
-        <p class="game-hint">Press SPACE or TAP anywhere to play</p>
-    </div>
+    <main class="page-wrap">
+        <header class="error-header">
+            <p class="error-code">Error 404</p>
+            <h1>Page Not Found at BibleFunLand Studios</h1>
+            <p class="lead">The page you requested is not available. It may have moved, the link may be outdated, or the address may have been typed incorrectly. While you are here, feel free to explore our homepage, portfolio, blog, or reach out if you need help with a faith-based website or digital product.</p>
+        </header>
 
-    <div class="game-container" id="game">
-        <div class="ground-dots"></div>
-        <div class="player" id="player">
-            <div class="player-body"></div>
+        <div class="error-help">
+            <section aria-labelledby="help-popular-heading">
+                <h2 id="help-popular-heading">Popular Destinations</h2>
+                <p>Start with these main sections of BibleFunLand Studios — our creative hub for Christian media, web design, and the BibleFunLand family of brands.</p>
+                <ul class="error-links">
+                    <li><a href="/">Home — BibleFunLand Studios</a></li>
+                    <li><a href="/work.html">Our Work &amp; Portfolio</a></li>
+                    <li><a href="/blog.html">Blog &amp; Devotionals</a></li>
+                    <li><a href="/#brands">Our Family of Brands</a></li>
+                    <li><a href="/#contact">Contact the Studio</a></li>
+                </ul>
+            </section>
+            <section aria-labelledby="help-blog-heading">
+                <h2 id="help-blog-heading">Recent Blog Topics</h2>
+                <p>If you were looking for an article, try one of these published posts on faith, creativity, and ministry branding.</p>
+                <ul class="error-links">
+                    <li><a href="/blog/designing-for-kids-lessons-from-bfl-junior">Designing for Kids: Lessons from BFL Junior</a></li>
+                    <li><a href="/blog/creating-with-purpose-colossians-3-23">Creating with Purpose: Colossians 3:23</a></li>
+                    <li><a href="/blog/5-branding-mistakes-churches-make">5 Branding Mistakes Churches Make</a></li>
+                    <li><a href="/blog/building-awc-connect">Building AWC Connect</a></li>
+                </ul>
+            </section>
         </div>
-        <span class="high-score" id="highScore">HI 0</span>
-        <span class="score-display" id="score">0</span>
-        <div class="game-over" id="gameOver">
-            <h2>Game Over</h2>
-            <p id="finalScore">Score: 0</p>
-            <span class="restart-hint">Tap or press SPACE to retry</span>
-        </div>
-    </div>
 
-    <div class="page-footer">
-        <a href="index.html">← Back to BibleFunLand Studios</a>
-    </div>
+        <section class="error-about" aria-labelledby="help-about-heading">
+            <h2 id="help-about-heading">About BibleFunLand Studios</h2>
+            <p>BibleFunLand Studios is a faith-inspired creative studio building digital products that make Scripture accessible, engaging, and transformative. We design and develop websites, learning platforms, devotional apps, and partner projects for churches, ministries, and Christian organizations who need a trusted, faith-based team that understands both technology and Kingdom purpose.</p>
+            <p>Our in-house brands include BibleFunLand, BFL Junior, BFL Homeschool, BFL Letter, Rhema Notes, Vesper, and Verse Verse — each serving a unique audience while sharing one mission. If you arrived here by mistake, we would love to help you find the right page. Browse our portfolio to see live projects, read the blog for devotionals and creative insights, or contact us today to discuss your next website, app, or brand launch.</p>
+        </section>
+
+        <section class="game-section" aria-labelledby="game-heading">
+            <h2 id="game-heading">Need a Moment? Play While You Navigate</h2>
+            <p class="game-hint">Press SPACE or TAP anywhere to play</p>
+            <div class="game-container" id="game">
+                <div class="ground-dots"></div>
+                <div class="player" id="player">
+                    <div class="player-body"></div>
+                </div>
+                <span class="high-score" id="highScore">HI 0</span>
+                <span class="score-display" id="score">0</span>
+                <div class="game-over" id="gameOver">
+                    <h3>Game Over</h3>
+                    <p id="finalScore">Score: 0</p>
+                    <span class="restart-hint">Tap or press SPACE to retry</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="page-footer">
+            <a href="/">← Back to Home</a>
+            <a href="/blog.html">Browse the Blog</a>
+            <a href="/#contact">Get In Touch</a>
+        </footer>
+    </main>
 
     <script>
         const game = document.getElementById('game');

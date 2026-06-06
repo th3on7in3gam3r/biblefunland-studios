@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/$%7BpostUrl%7D",
+      "destination": "/blog.html",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/blog/:slug",

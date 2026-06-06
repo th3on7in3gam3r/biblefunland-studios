@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog & Devotionals | BibleFunLand Studios</title>
-    <meta name="description" content="Thoughts on faith, creativity, and building for the Kingdom — from the BibleFunLand Studios team.">
+    <meta name="description" content="Read BibleFunLand Studios blog — devotionals, creative insights, ministry branding tips, and behind-the-scenes stories from our faith-based digital studio.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://biblefunlandstudios.com/blog.html">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Blog & Devotionals | BibleFunLand Studios">
-    <meta property="og:description" content="Thoughts on faith, creativity, and building for the Kingdom — from the BibleFunLand Studios team.">
+    <meta property="og:description" content="Read BibleFunLand Studios blog — devotionals, creative insights, ministry branding tips, and behind-the-scenes stories from our faith-based digital studio.">
     <meta property="og:image" content="https://biblefunlandstudios.com/faith-meets-the-page.png">
     <meta property="og:url" content="https://biblefunlandstudios.com/blog.html">
     <meta property="og:site_name" content="BibleFunLand Studios">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Blog & Devotionals | BibleFunLand Studios">
-    <meta name="twitter:description" content="Thoughts on faith, creativity, and building for the Kingdom — from the BibleFunLand Studios team.">
+    <meta name="twitter:description" content="Read BibleFunLand Studios blog — devotionals, creative insights, ministry branding tips, and behind-the-scenes stories from our faith-based digital studio.">
     <meta name="twitter:image" content="https://biblefunlandstudios.com/faith-meets-the-page.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +31,7 @@
       "@type": "Blog",
       "name": "BibleFunLand Studios Blog",
       "headline": "Blog & Devotionals",
-      "description": "Thoughts on faith, creativity, and building for the Kingdom — from the BibleFunLand Studios team.",
+      "description": "Read BibleFunLand Studios blog — devotionals, creative insights, ministry branding tips, and behind-the-scenes stories from our faith-based digital studio.",
       "url": "https://biblefunlandstudios.com/blog.html",
       "image": "https://biblefunlandstudios.com/faith-meets-the-page.png",
       "publisher": {
@@ -80,7 +80,8 @@
         <div class="container hero-content">
             <div class="hero-text">
                 <h1 class="animate-up">Where <span class="highlight">Faith</span><br>Meets the <span class="highlight">Page</span></h1>
-                <p class="animate-up" style="animation-delay: 0.1s;">Reflections, insights, and behind-the-scenes from the studio. Where creativity meets calling.</p>
+                <p class="animate-up" style="animation-delay: 0.1s;">Reflections, insights, and behind-the-scenes from the studio — where creativity meets calling.</p>
+                <p class="animate-up hero-lead" style="animation-delay: 0.15s;">The BibleFunLand Studios blog is a growing library of devotionals, design lessons, and ministry-focused articles written for creators, church leaders, parents, and anyone building something meaningful in faith. We share what we are learning as we design platforms, launch brands, and serve partners across the Kingdom.</p>
                 <a href="#posts" class="btn btn-primary animate-up" style="animation-delay: 0.2s; background: var(--accent); color: var(--primary); padding: 14px 35px; border-radius: 12px;">Browse Posts</a>
             </div>
             <div class="hero-image-wrapper animate-up" style="animation-delay: 0.3s;">
@@ -103,6 +104,35 @@
                     <div><span>Weekly</span> New Content</div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Blog About — substantive index copy -->
+    <section class="blog-about" aria-labelledby="blog-about-heading">
+        <div class="container blog-about-inner">
+            <div class="blog-about-copy animate-up" style="animation-delay: 0.45s;">
+                <h2 id="blog-about-heading">What You'll Find on This Blog</h2>
+                <p>Every article here is written with purpose: to encourage your walk with God, sharpen your creative work, and offer practical guidance for ministry in a digital age. Some posts are short devotional reflections you can read in a few minutes. Others go deeper into product design, branding, and the decisions behind the platforms we build for families, churches, and partner organizations.</p>
+                <p>Whether you are a pastor planning your next website refresh, a parent exploring faith-based learning tools, or a creator wondering how to steward your gifts well, you will find honest stories and actionable ideas — not fluff. We publish regularly so you can return for fresh inspiration, studio updates, and lessons learned along the way.</p>
+            </div>
+            <ul class="blog-about-topics animate-up" style="animation-delay: 0.5s;">
+                <li>
+                    <h3>Devotionals &amp; Reflection</h3>
+                    <p>Scripture-centered encouragement for creators and ministry leaders — short reads to anchor your day before you build, teach, or serve.</p>
+                </li>
+                <li>
+                    <h3>Studio Insights</h3>
+                    <p>Thoughts on UX, content strategy, accessibility, and brand clarity — applied to faith-based products that need to welcome everyone.</p>
+                </li>
+                <li>
+                    <h3>Behind the Scenes</h3>
+                    <p>Case studies and process notes from BibleFunLand brands and partner projects, from first wireframe to launch and beyond.</p>
+                </li>
+                <li>
+                    <h3>Tutorials &amp; How-To Guides</h3>
+                    <p>Practical tips for churches and ministries — branding mistakes to avoid, messaging that connects, and tools that actually help your team.</p>
+                </li>
+            </ul>
         </div>
     </section>
 
@@ -228,6 +258,7 @@
                 return;
             }
             const postUrl = getPostUrl(post);
+            const liked = localStorage.getItem('liked_' + post.id);
             container.innerHTML = `
                 <article class="featured-card animate-up">
                     <div class="featured-thumb">
@@ -242,15 +273,17 @@
                         <h2>${post.title}</h2>
                         <p>${post.content}</p>
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                            <a href="${postUrl}" class="blog-link" style="font-size: 1rem;">Read More ›</a>
+                            <a class="blog-link blog-read-link" style="font-size: 1rem;">Read More ›</a>
                             <button onclick="handleLike('${post.id}', 'like-btn-feat', 'like-count-feat')" id="like-btn-feat" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:6px; font-size:1rem; font-weight:700; color:var(--text-light); padding:0; transition: transform 0.2s;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="${localStorage.getItem('liked_' + post.id) ? '#ef4444' : 'none'}" stroke="${localStorage.getItem('liked_' + post.id) ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="${liked ? '#ef4444' : 'none'}" stroke="${liked ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 <span id="like-count-feat">${post.likes || 0}</span>
                             </button>
                         </div>
                     </div>
                 </article>
             `;
+            const readLink = container.querySelector('.blog-read-link');
+            if (readLink) readLink.href = postUrl;
         }
 
         function renderPosts(filteredPosts) {
@@ -259,6 +292,7 @@
                 const card = document.createElement('article');
                 card.className = 'blog-card';
                 const postUrl = getPostUrl(post);
+                const liked = localStorage.getItem('liked_' + post.id);
                 card.innerHTML = `
                     <div class="blog-thumb-sm">
                         <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'">
@@ -274,14 +308,16 @@
                             <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-light);">${post.readTime} read</span>
                             <div style="display:flex; gap:12px; align-items:center;">
                                 <button onclick="handleLike('${post.id}', 'like-btn-${post.id}', 'like-count-${post.id}')" id="like-btn-${post.id}" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:4px; font-size:0.8rem; font-weight:700; color:var(--text-light); padding:0; transition: transform 0.2s;">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="${localStorage.getItem('liked_' + post.id) ? '#ef4444' : 'none'}" stroke="${localStorage.getItem('liked_' + post.id) ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="${liked ? '#ef4444' : 'none'}" stroke="${liked ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                     <span id="like-count-${post.id}">${post.likes || 0}</span>
                                 </button>
-                                <a href="${postUrl}" class="blog-link">Read More →</a>
+                                <a class="blog-link blog-read-link">Read More →</a>
                             </div>
                         </div>
                     </div>
                 `;
+                const readLink = card.querySelector('.blog-read-link');
+                if (readLink) readLink.href = postUrl;
                 blogGrid.appendChild(card);
                 observer.observe(card);
             });

@@ -2,6 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 Disallow: /studio-portal.html
+Disallow: /game.html
+Disallow: /bfl-video-hero.html
 Disallow: /api/
 
 Sitemap: https://biblefunlandstudios.com/sitemap.xml

@@ -208,7 +208,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-document.querySelectorAll('.service-card, .portfolio-card, .testimonial-card, .stat-card, .brand-card, .partner-card, .process-step').forEach(el => {
+document.querySelectorAll('.service-card, .portfolio-card, .testimonial-card, .stat-card, .accordion-carousel__item, .process-step').forEach(el => {
     el.style.opacity = '0';
     observer.observe(el);
 });
@@ -286,12 +286,8 @@ document.querySelectorAll('.services-grid .service-card').forEach((card, i) => {
     card.style.animationDelay = `${i * 0.1}s`;
 });
 
-document.querySelectorAll('.brands-grid .brand-card').forEach((card, i) => {
-    card.style.animationDelay = `${i * 0.1}s`;
-});
-
-document.querySelectorAll('.portfolio-grid .portfolio-card').forEach((card, i) => {
-    card.style.animationDelay = `${i * 0.1}s`;
+document.querySelectorAll('#brandsCarousel .accordion-carousel__item, #partnersCarousel .accordion-carousel__item').forEach((item, i) => {
+    item.style.animationDelay = `${i * 0.08}s`;
 });
 
 document.querySelectorAll('.testimonials-grid .testimonial-card').forEach((card, i) => {

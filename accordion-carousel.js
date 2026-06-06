@@ -1,11 +1,8 @@
-(function initPortfolioCarousel() {
-    const root = document.getElementById('portfolioCarousel');
-    if (!root) return;
-
-    const list = root.querySelector('.portfolio-carousel__list');
-    const prevBtn = root.querySelector('.portfolio-carousel__prev');
-    const nextBtn = root.querySelector('.portfolio-carousel__next');
-    const items = [...root.querySelectorAll('.portfolio-carousel__item')];
+function initAccordionCarousel(root) {
+    const list = root.querySelector('.accordion-carousel__list');
+    const prevBtn = root.querySelector('.accordion-carousel__prev');
+    const nextBtn = root.querySelector('.accordion-carousel__next');
+    const items = [...root.querySelectorAll('.accordion-carousel__item')];
 
     if (!list || !items.length) return;
 
@@ -14,6 +11,8 @@
 
     let autoTimer = null;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const autoplay = root.getAttribute('data-autoplay') !== 'false';
+    const interval = Number(root.getAttribute('data-interval')) || 4500;
 
     function setActive(index) {
         activeIndex = (index + items.length) % items.length;
@@ -34,9 +33,9 @@
     }
 
     function startAuto() {
-        if (reduceMotion || items.length < 2) return;
+        if (!autoplay || reduceMotion || items.length < 2) return;
         pauseAuto();
-        autoTimer = setInterval(() => setActive(activeIndex + 1), 4500);
+        autoTimer = setInterval(() => setActive(activeIndex + 1), interval);
     }
 
     function handlePrev() {
@@ -92,4 +91,6 @@
 
     setActive(activeIndex);
     startAuto();
-})();
+}
+
+document.querySelectorAll('[data-accordion-carousel]').forEach(initAccordionCarousel);

@@ -52,6 +52,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="portfolio-carousel.css">
     <link rel="stylesheet" href="themes.css">
     <script type="application/ld+json">
     {
@@ -558,69 +559,104 @@
             <div class="section-header">
                 <span class="section-tag">Our Work</span>
                 <h2 id="portfolio-heading">Projects We're <span class="highlight">Proud</span> Of</h2>
+                <p class="section-desc">Explore the platforms, brands, and partner projects we have designed, built, and launched — each one crafted to serve faith communities with excellence.</p>
             </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-card portfolio-large">
-                    <div class="portfolio-thumb">
-                        <img loading="lazy" src="brands/biblefunland.png" alt="BibleFunLand website" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>BibleFunLand</h3>
-                        <p>The flagship interactive Bible learning platform</p>
-                        <span class="portfolio-tag">Web Platform</span>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-thumb">
-                        <img loading="lazy" src="brands/jr.biblefunland.png" alt="BFL Junior website" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>BFL Junior</h3>
-                        <p>Faith content for young hearts and minds</p>
-                        <span class="portfolio-tag">Kids Platform</span>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-thumb">
-                        <img loading="lazy" src="brands/homeschool.png" alt="BFL Homeschool website" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>BFL Homeschool</h3>
-                        <p>Faith-integrated curriculum for families</p>
-                        <span class="portfolio-tag">Education</span>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-thumb">
-                        <img loading="lazy" src="brands/bible_letters.png" alt="BFL Letter website" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>BFL Letter</h3>
-                        <p>Learn letters the biblical way — A is for Adam</p>
-                        <span class="portfolio-tag">Kids Game</span>
-                    </div>
-                </div>
-                <div class="portfolio-card portfolio-large">
-                    <div class="portfolio-thumb">
-                        <img loading="lazy" src="brands/rhemanotes.png" alt="Rhema Notes website" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>Rhema Notes</h3>
-                        <p>Deep-dive Bible study notes and insights</p>
-                        <span class="portfolio-tag">Bible Study</span>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-thumb">
-                        <img loading="lazy" src="brands/vesper.png" alt="Vesper website" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>Vesper</h3>
-                        <p>Evening reflections and meditative content</p>
-                        <span class="portfolio-tag">Devotional</span>
-                    </div>
+
+            <div class="portfolio-carousel" id="portfolioCarousel" aria-label="Featured studio projects">
+                <ul class="portfolio-carousel__list" role="list">
+                    <li class="portfolio-carousel__item" tabindex="0" data-active>
+                        <a class="portfolio-carousel__box" href="https://www.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                            <div class="portfolio-carousel__image"><img loading="lazy" src="brands/biblefunland.png" alt="BibleFunLand platform preview"></div>
+                            <div class="portfolio-carousel__contents">
+                                <p class="portfolio-carousel__tag">Web Platform</p>
+                                <h3 class="portfolio-carousel__title">BibleFunLand</h3>
+                                <p class="portfolio-carousel__desc">The flagship interactive Bible learning platform for all ages.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="portfolio-carousel__item" tabindex="0">
+                        <a class="portfolio-carousel__box" href="https://junior.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                            <div class="portfolio-carousel__image"><img loading="lazy" src="brands/jr.biblefunland.png" alt="BFL Junior platform preview"></div>
+                            <div class="portfolio-carousel__contents">
+                                <p class="portfolio-carousel__tag">Kids Platform</p>
+                                <h3 class="portfolio-carousel__title">BFL Junior</h3>
+                                <p class="portfolio-carousel__desc">Faith-based content designed for young hearts and minds.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="portfolio-carousel__item" tabindex="0">
+                        <a class="portfolio-carousel__box" href="https://homeschool.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                            <div class="portfolio-carousel__image"><img loading="lazy" src="brands/homeschool.png" alt="BFL Homeschool platform preview"></div>
+                            <div class="portfolio-carousel__contents">
+                                <p class="portfolio-carousel__tag">Education</p>
+                                <h3 class="portfolio-carousel__title">BFL Homeschool</h3>
+                                <p class="portfolio-carousel__desc">Complete faith-integrated curriculum for homeschooling families.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="portfolio-carousel__item" tabindex="0">
+                        <a class="portfolio-carousel__box" href="https://letter.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                            <div class="portfolio-carousel__image"><img loading="lazy" src="brands/bible_letters.png" alt="BFL Letter platform preview"></div>
+                            <div class="portfolio-carousel__contents">
+                                <p class="portfolio-carousel__tag">Kids Game</p>
+                                <h3 class="portfolio-carousel__title">BFL Letter</h3>
+                                <p class="portfolio-carousel__desc">Learn letters the biblical way — A is for Adam.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="portfolio-carousel__item" tabindex="0">
+                        <a class="portfolio-carousel__box" href="https://rhemanotes.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                            <div class="portfolio-carousel__image"><img loading="lazy" src="brands/rhemanotes.png" alt="Rhema Notes platform preview"></div>
+                            <div class="portfolio-carousel__contents">
+                                <p class="portfolio-carousel__tag">Bible Study</p>
+                                <h3 class="portfolio-carousel__title">Rhema Notes</h3>
+                                <p class="portfolio-carousel__desc">Deep-dive Bible study notes and revelatory insights.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="portfolio-carousel__item" tabindex="0">
+                        <a class="portfolio-carousel__box" href="https://vesper.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                            <div class="portfolio-carousel__image"><img loading="lazy" src="brands/vesper.png" alt="Vesper platform preview"></div>
+                            <div class="portfolio-carousel__contents">
+                                <p class="portfolio-carousel__tag">Devotional</p>
+                                <h3 class="portfolio-carousel__title">Vesper</h3>
+                                <p class="portfolio-carousel__desc">Evening reflections and meditative content for winding down in faith.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="portfolio-carousel__item" tabindex="0">
+                        <a class="portfolio-carousel__box" href="https://verse-verse.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                            <div class="portfolio-carousel__image"><img loading="lazy" src="brands/Verse-Verse.png" alt="Verse Verse platform preview"></div>
+                            <div class="portfolio-carousel__contents">
+                                <p class="portfolio-carousel__tag">Daily Devotional</p>
+                                <h3 class="portfolio-carousel__title">Verse Verse</h3>
+                                <p class="portfolio-carousel__desc">Daily inspirational verses for strength, comfort, and encouragement.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="portfolio-carousel__item" tabindex="0">
+                        <a class="portfolio-carousel__box" href="https://anointedworshipcenter.com" target="_blank" rel="noopener noreferrer">
+                            <div class="portfolio-carousel__image"><img loading="lazy" src="brands/awc_main.png" alt="Anointed Worship Center website preview"></div>
+                            <div class="portfolio-carousel__contents">
+                                <p class="portfolio-carousel__tag">Partner Project</p>
+                                <h3 class="portfolio-carousel__title">AWC Main</h3>
+                                <p class="portfolio-carousel__desc">The digital front door for Anointed Worship Center.</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="portfolio-carousel__nav">
+                    <button type="button" class="portfolio-carousel__prev" aria-label="Previous project">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z"></path></svg>
+                        <span>Prev</span>
+                    </button>
+                    <button type="button" class="portfolio-carousel__next" aria-label="Next project">
+                        <span>Next</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z"></path></svg>
+                    </button>
                 </div>
             </div>
+            <p class="portfolio-carousel__footer"><a href="work.html">View full portfolio →</a></p>
         </div>
     </section>
 
@@ -876,6 +912,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="portfolio-carousel.js"></script>
 
     <script>
       // TASK 3 - Contact Form Handler

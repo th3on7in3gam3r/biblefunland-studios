@@ -1,4 +1,4 @@
-(function () {
+var PostSeoHead = (function () {
     var SITE = 'https://biblefunlandstudios.com';
     var BRAND = ' | BibleFunLand Studios';
 
@@ -38,6 +38,57 @@
         '6': 'building-awc-connect'
     };
 
+    function escapeHtml(value) {
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function humanizeSlug(slug) {
+        return slug
+            .replace(/-/g, ' ')
+            .replace(/\b\w/g, function (char) { return char.toUpperCase(); });
+    }
+
+    function getContext() {
+        var path = location.pathname.replace(/\/+$/, '');
+        var slug = path.indexOf('/blog/') === 0
+            ? decodeURIComponent(path.slice('/blog/'.length).split('/')[0])
+            : '';
+        var params = new URLSearchParams(location.search);
+        var id = params.get('id');
+
+        if (!slug && params.get('slug')) slug = params.get('slug');
+
+        var meta = slug ? postsBySlug[slug] : null;
+
+        if (!meta && id && postsById[id]) {
+            slug = postsById[id];
+            meta = postsBySlug[slug];
+        }
+
+        if (!meta && slug) {
+            meta = {
+                title: humanizeSlug(slug),
+                description: 'Read this article on the BibleFunLand Studios blog — faith-inspired devotionals, creative insights, and ministry stories.'
+            };
+        }
+
+        var articleUrl = slug
+            ? SITE + '/blog/' + encodeURIComponent(slug)
+            : (id ? SITE + '/post.html?id=' + encodeURIComponent(id) : SITE + '/blog.html');
+
+        return { slug: slug, id: id, meta: meta, articleUrl: articleUrl };
+    }
+
+    function buildPageTitle(ctx) {
+        if (ctx.meta && ctx.meta.title) return ctx.meta.title + BRAND;
+        if (ctx.slug) return humanizeSlug(ctx.slug) + BRAND;
+        if (ctx.id) return 'Blog Article ' + ctx.id + BRAND;
+        return 'Blog Article | BibleFunLand Studios';
+    }
+
     function setMetaName(name, content) {
         var el = document.querySelector('meta[name="' + name + '"]');
         if (el && content) el.setAttribute('content', content);
@@ -48,49 +99,63 @@
         if (el && content) el.setAttribute('content', content);
     }
 
-    function applyPostSeo(slug, meta, articleUrl) {
-        var pageTitle = meta.title + BRAND;
+    function writeTitle() {
+        var ctx = getContext();
+        var pageTitle = buildPageTitle(ctx);
+
+        document.write('<title>' + escapeHtml(pageTitle) + '</title>');
+
+        window.__POST_SEO__ = {
+            pageTitle: pageTitle,
+            ctx: ctx
+        };
+    }
+
+    function applyMeta() {
+        var bundle = window.__POST_SEO__;
+        if (!bundle) return;
+
+        var ctx = bundle.ctx;
+        var pageTitle = bundle.pageTitle;
+
         document.title = pageTitle;
-        setMetaName('description', meta.description);
-        setMetaId('ogTitle', pageTitle);
-        setMetaId('ogDescription', meta.description);
-        setMetaId('ogUrl', articleUrl);
-        setMetaId('twitterTitle', pageTitle);
-        setMetaId('twitterDescription', meta.description);
+
+        if (ctx.meta) {
+            setMetaName('description', ctx.meta.description);
+            setMetaId('ogTitle', pageTitle);
+            setMetaId('ogDescription', ctx.meta.description);
+            setMetaId('twitterTitle', pageTitle);
+            setMetaId('twitterDescription', ctx.meta.description);
+        } else {
+            setMetaId('ogTitle', pageTitle);
+            setMetaId('twitterTitle', pageTitle);
+        }
+
+        setMetaId('ogUrl', ctx.articleUrl);
 
         var canonical = document.getElementById('canonicalLink');
-        if (canonical) canonical.setAttribute('href', articleUrl);
+        if (canonical) canonical.setAttribute('href', ctx.articleUrl);
 
-        var schemaEl = document.getElementById('articleSchema');
-        if (schemaEl) {
-            try {
-                var schema = JSON.parse(schemaEl.textContent);
-                schema.headline = meta.title;
-                schema.description = meta.description;
-                schema.mainEntityOfPage = articleUrl;
-                schema.url = articleUrl;
-                schemaEl.textContent = JSON.stringify(schema, null, 2);
-            } catch (e) { /* keep default schema */ }
+        if (ctx.meta) {
+            var schemaEl = document.getElementById('articleSchema');
+            if (schemaEl) {
+                try {
+                    var schema = JSON.parse(schemaEl.textContent);
+                    schema.headline = ctx.meta.title;
+                    schema.description = ctx.meta.description;
+                    schema.mainEntityOfPage = ctx.articleUrl;
+                    schema.url = ctx.articleUrl;
+                    schemaEl.textContent = JSON.stringify(schema, null, 2);
+                } catch (e) { /* keep default schema */ }
+            }
         }
     }
 
-    var path = location.pathname.replace(/\/+$/, '');
-    var slug = path.indexOf('/blog/') === 0 ? decodeURIComponent(path.slice('/blog/'.length)) : '';
-    var params = new URLSearchParams(location.search);
-
-    if (!slug && params.get('slug')) slug = params.get('slug');
-
-    var meta = slug ? postsBySlug[slug] : null;
-    var id = params.get('id');
-
-    if (!meta && id && postsById[id]) {
-        slug = postsById[id];
-        meta = postsBySlug[slug];
-    }
-
-    if (meta && slug) {
-        applyPostSeo(slug, meta, SITE + '/blog/' + encodeURIComponent(slug));
-    } else if (meta && id) {
-        applyPostSeo(slug || postsById[id], meta, SITE + '/post.html?id=' + encodeURIComponent(id));
-    }
+    return {
+        getContext: getContext,
+        writeTitle: writeTitle,
+        applyMeta: applyMeta
+    };
 })();
+
+PostSeoHead.writeTitle();

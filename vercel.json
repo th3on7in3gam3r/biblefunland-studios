@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/$%7BpostUrl%7D",
       "destination": "/blog.html",
       "permanent": false

@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/accordion-carousel.css">
     <link rel="stylesheet" href="themes.css">
     <script type="application/ld+json">
     {
@@ -46,7 +47,7 @@
         .work-hero { padding: 160px 0 60px; text-align: center; }
         .work-hero .section-desc { max-width: 720px; margin: 0 auto 20px; }
         .work-hero-lead { max-width: 760px; margin: 0 auto; font-size: 1.05rem; color: var(--text-light); line-height: 1.75; }
-        .work-section { padding: 0 0 72px; }
+        .work-section { padding: 0 0 80px; }
         .work-section-header { max-width: 760px; margin-bottom: 40px; }
         .work-section-header h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 14px; }
         .work-section-header p { color: var(--text-light); line-height: 1.75; font-size: 1rem; }
@@ -58,21 +59,11 @@
         .work-philosophy-list li { background: var(--bg-card); border-radius: var(--radius-sm); padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); }
         .work-philosophy-list h3 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
         .work-philosophy-list p { margin: 0; font-size: 0.92rem; color: var(--text-light); line-height: 1.65; }
-        .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-        .work-section:last-of-type { padding-bottom: 120px; }
-        .work-card { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); transition: var(--transition); }
-        .work-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-        .work-card img { width: 100%; height: 220px; object-fit: cover; object-position: top; }
-        .work-body { padding: 28px; }
-        .work-body h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 8px; color: var(--primary); }
-        .work-body p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; margin-bottom: 16px; }
-        .work-tag { display: inline-block; background: var(--bg-alt); color: var(--text-light); font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
-        .work-link { display: inline-block; margin-top: 12px; font-size: 0.85rem; font-weight: 700; color: var(--accent-dark); }
+        .work-section:last-of-type { padding-bottom: 100px; }
         .work-cta { padding: 80px 0 120px; text-align: center; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
         .work-cta h2 { margin-bottom: 14px; }
         .work-cta p { max-width: 620px; margin: 0 auto 28px; color: var(--text-light); line-height: 1.75; }
         @media (max-width: 900px) { .work-philosophy-inner { grid-template-columns: 1fr; gap: 32px; } }
-        @media (max-width: 640px) { .work-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -133,70 +124,89 @@
                 <h2 id="work-brands-heading">The BibleFunLand Family of Brands</h2>
                 <p>Seven distinct platforms united by one mission: making faith accessible, engaging, and transformative. Each brand below is owned and operated by BibleFunLand Studios, serving a specific audience from early learners to deep Bible students.</p>
             </div>
-            <div class="work-grid">
-                <article class="work-card">
-                    <img src="brands/biblefunland.png" alt="BibleFunLand">
-                    <div class="work-body">
-                        <h3>BibleFunLand</h3>
-                        <p>The flagship interactive Bible learning platform. Built from the ground up to make Scripture engaging and accessible for all ages.</p>
-                        <span class="work-tag">Web Platform</span><span class="work-tag">React</span><span class="work-tag">Education</span>
-                        <br><a href="https://www.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
-                <article class="work-card">
-                    <img src="brands/jr.biblefunland.png" alt="BFL Junior">
-                    <div class="work-body">
-                        <h3>BFL Junior</h3>
-                        <p>A dedicated platform for young believers. Age-appropriate content designed to plant seeds of faith early.</p>
-                        <span class="work-tag">Kids</span><span class="work-tag">Web App</span><span class="work-tag">Content</span>
-                        <br><a href="https://junior.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
-                <article class="work-card">
-                    <img src="brands/homeschool.png" alt="BFL Homeschool">
-                    <div class="work-body">
-                        <h3>BFL Homeschool</h3>
-                        <p>Complete faith-integrated curriculum for homeschooling families. Structured learning with biblical foundations.</p>
-                        <span class="work-tag">Education</span><span class="work-tag">Curriculum</span>
-                        <br><a href="https://homeschool.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
-                <article class="work-card">
-                    <img src="brands/bible_letters.png" alt="BFL Letter">
-                    <div class="work-body">
-                        <h3>BFL Letter</h3>
-                        <p>Kids learn their letters the biblical way — A is for Adam, spell the word, earn points. Gamified learning meets faith.</p>
-                        <span class="work-tag">Kids Game</span><span class="work-tag">Gamification</span>
-                        <br><a href="https://letter.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
-                <article class="work-card">
-                    <img src="brands/rhemanotes.png" alt="Rhema Notes">
-                    <div class="work-body">
-                        <h3>Rhema Notes</h3>
-                        <p>Deep-dive Bible study notes and revelatory insights. For seekers who want to go deeper in the Word.</p>
-                        <span class="work-tag">Bible Study</span><span class="work-tag">Content</span>
-                        <br><a href="https://rhemanotes.biblefunland.com/" target="_blank" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
-                <article class="work-card">
-                    <img src="brands/vesper.png" alt="Vesper evening devotional platform">
-                    <div class="work-body">
-                        <h3>Vesper</h3>
-                        <p>Evening reflections and meditative content for winding down in faith. Peaceful, purposeful, personal.</p>
-                        <span class="work-tag">Devotional</span><span class="work-tag">Wellness</span>
-                        <br><a href="https://vesper.biblefunland.com/" target="_blank" rel="noopener noreferrer" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
-                <article class="work-card">
-                    <img src="brands/Verse-Verse.png" alt="Verse Verse daily devotional platform">
-                    <div class="work-body">
-                        <h3>Verse Verse</h3>
-                        <p>Daily inspirational verses and devotions for strength, comfort, and encouragement — a quick touchpoint with Scripture every day.</p>
-                        <span class="work-tag">Devotional</span><span class="work-tag">Daily Content</span>
-                        <br><a href="https://verse-verse.biblefunland.com/" target="_blank" rel="noopener noreferrer" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
+            <div class="accordion-carousel" id="workBrandsCarousel" data-accordion-carousel data-interval="5000" aria-label="BibleFunLand family of brands">
+                <ul class="accordion-carousel__list" role="list">
+                    <li class="accordion-carousel__item" tabindex="0" data-active>
+                        <a class="accordion-carousel__box" href="https://www.biblefunland.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit BibleFunLand">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/biblefunland.png" alt="BibleFunLand"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Web Platform</p>
+                                <h3 class="accordion-carousel__title">BibleFunLand</h3>
+                                <p class="accordion-carousel__desc">The flagship interactive Bible learning platform. Built from the ground up to make Scripture engaging and accessible for all ages.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://junior.biblefunland.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit BFL Junior">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/jr.biblefunland.png" alt="BFL Junior"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Kids</p>
+                                <h3 class="accordion-carousel__title">BFL Junior</h3>
+                                <p class="accordion-carousel__desc">A dedicated platform for young believers. Age-appropriate content designed to plant seeds of faith early.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://homeschool.biblefunland.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit BFL Homeschool">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/homeschool.png" alt="BFL Homeschool"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Education</p>
+                                <h3 class="accordion-carousel__title">BFL Homeschool</h3>
+                                <p class="accordion-carousel__desc">Complete faith-integrated curriculum for homeschooling families. Structured learning with biblical foundations.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://letter.biblefunland.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit BFL Letter">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/bible_letters.png" alt="BFL Letter"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Kids Game</p>
+                                <h3 class="accordion-carousel__title">BFL Letter</h3>
+                                <p class="accordion-carousel__desc">Kids learn their letters the biblical way — A is for Adam, spell the word, earn points. Gamified learning meets faith.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://rhemanotes.biblefunland.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Rhema Notes">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/rhemanotes.png" alt="Rhema Notes"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Bible Study</p>
+                                <h3 class="accordion-carousel__title">Rhema Notes</h3>
+                                <p class="accordion-carousel__desc">Deep-dive Bible study notes and revelatory insights. For seekers who want to go deeper in the Word.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://vesper.biblefunland.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Vesper">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/vesper.png" alt="Vesper evening devotional platform"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Devotional</p>
+                                <h3 class="accordion-carousel__title">Vesper</h3>
+                                <p class="accordion-carousel__desc">Evening reflections and meditative content for winding down in faith. Peaceful, purposeful, personal.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://verse-verse.biblefunland.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Verse Verse">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/Verse-Verse.png" alt="Verse Verse daily devotional platform"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Daily Devotional</p>
+                                <h3 class="accordion-carousel__title">Verse Verse</h3>
+                                <p class="accordion-carousel__desc">Daily inspirational verses and devotions for strength, comfort, and encouragement — a quick touchpoint with Scripture every day.</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="accordion-carousel__nav">
+                    <button type="button" class="accordion-carousel__prev" aria-label="Previous brand">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z"></path></svg>
+                        <span>Prev</span>
+                    </button>
+                    <button type="button" class="accordion-carousel__next" aria-label="Next brand">
+                        <span>Next</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -207,34 +217,49 @@
                 <h2 id="work-partners-heading">Partner &amp; Ministry Projects</h2>
                 <p>We also design and develop for churches, wellness organizations, and ministry teams that need a trusted digital partner. These client projects demonstrate our ability to translate vision into secure, professional web experiences — from public-facing church sites to private member platforms.</p>
             </div>
-            <div class="work-grid">
-                <article class="work-card">
-                    <img src="brands/awc_main.png" alt="AWC Main church website">
-                    <div class="work-body">
-                        <h3>AWC — Anointed Worship Center</h3>
-                        <p>The official website for Anointed Worship Center. Their digital front door to the community — designed and built by us.</p>
-                        <span class="work-tag">Church</span><span class="work-tag">Web Design</span><span class="work-tag">Partner</span>
-                        <br><a href="https://anointedworshipcenter.com" target="_blank" rel="noopener noreferrer" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
-                <article class="work-card">
-                    <img src="brands/awc_vault.png" alt="AWC Vault">
-                    <div class="work-body">
-                        <h3>AWC Vault</h3>
-                        <p>A secure members-only platform for resources, media, and ministry content. Built for the AWC community.</p>
-                        <span class="work-tag">Members App</span><span class="work-tag">Secure</span><span class="work-tag">Partner</span>
-                        <br><a href="https://awc-connect.vercel.app/welcome" target="_blank" rel="noopener noreferrer" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
-                <article class="work-card">
-                    <img src="brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness">
-                    <div class="work-body">
-                        <h3>MindShift Plus Wellness</h3>
-                        <p>A wellness organization empowering mental health and holistic well-being through faith and community.</p>
-                        <span class="work-tag">Wellness</span><span class="work-tag">Web Design</span><span class="work-tag">Partner</span>
-                        <br><a href="https://www.mindshiftwellnessclinic.org/" target="_blank" rel="noopener noreferrer" class="work-link">Visit Site →</a>
-                    </div>
-                </article>
+            <div class="accordion-carousel accordion-carousel--compact" id="workPartnersCarousel" data-accordion-carousel data-interval="5500" aria-label="Partner and ministry projects">
+                <ul class="accordion-carousel__list" role="list">
+                    <li class="accordion-carousel__item" tabindex="0" data-active>
+                        <a class="accordion-carousel__box" href="https://anointedworshipcenter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Anointed Worship Center">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/awc_main.png" alt="AWC Main church website"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Church</p>
+                                <h3 class="accordion-carousel__title">AWC — Anointed Worship Center</h3>
+                                <p class="accordion-carousel__desc">The official website for Anointed Worship Center. Their digital front door to the community — designed and built by us.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://awc-connect.vercel.app/welcome" target="_blank" rel="noopener noreferrer" aria-label="Visit AWC Vault">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/awc_vault.png" alt="AWC Vault"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Members App</p>
+                                <h3 class="accordion-carousel__title">AWC Vault</h3>
+                                <p class="accordion-carousel__desc">A secure members-only platform for resources, media, and ministry content. Built for the AWC community.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://www.mindshiftwellnessclinic.org/" target="_blank" rel="noopener noreferrer" aria-label="Visit MindShift Plus Wellness">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Wellness</p>
+                                <h3 class="accordion-carousel__title">MindShift Plus Wellness</h3>
+                                <p class="accordion-carousel__desc">A wellness organization empowering mental health and holistic well-being through faith and community.</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="accordion-carousel__nav">
+                    <button type="button" class="accordion-carousel__prev" aria-label="Previous partner project">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z"></path></svg>
+                        <span>Prev</span>
+                    </button>
+                    <button type="button" class="accordion-carousel__next" aria-label="Next partner project">
+                        <span>Next</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -266,6 +291,7 @@
         </div>
     </footer>
 
+    <script src="/accordion-carousel.js"></script>
     <script>
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');

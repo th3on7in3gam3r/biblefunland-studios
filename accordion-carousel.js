@@ -14,14 +14,21 @@ function initAccordionCarousel(root) {
     const autoplay = root.getAttribute('data-autoplay') !== 'false';
     const interval = Number(root.getAttribute('data-interval')) || 4500;
 
+    items.forEach((item) => {
+        if (!item.hasAttribute('tabindex')) item.setAttribute('tabindex', '0');
+    });
+    list.setAttribute('tabindex', '0');
+
     function setActive(index) {
         activeIndex = (index + items.length) % items.length;
         items.forEach((item, i) => {
-            if (i === activeIndex) {
+            const isActive = i === activeIndex;
+            if (isActive) {
                 item.setAttribute('data-active', '');
             } else {
                 item.removeAttribute('data-active');
             }
+            item.setAttribute('aria-selected', isActive ? 'true' : 'false');
         });
     }
 

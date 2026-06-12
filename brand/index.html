@@ -156,14 +156,46 @@
         </div>
     </section>
 
-    <footer class="footer" data-site-footer data-base="../"></footer>
-    <script src="../site-footer.js"></script>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <span class="logo-icon">✦</span>
+                        <span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span>
+                    </a>
+                    <p>Faith-inspired creative media that brings stories to life.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html#about">About</a>
+                    <a href="index.html">Brands</a>
+                    <a href="../services.html">Services</a>
+                    <a href="../work.html">Work</a>
+                    <a href="../case-studies.html">Case Studies</a>
+                    <a href="../blog.html">Blog</a>
+                    <a href="../index.html#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">
+                    &copy; 2026 BibleFunLand Studios. All rights reserved.
+                    <a href="https://biblefunland.com" id="easter-game" target="_blank" rel="noopener noreferrer">Bored? Play a game →</a>
+                </p>
+            </div>
+        </div>
+    </footer>
     <script>
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
         if (navToggle && navLinks) {
             navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
             navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+        const copyright = document.querySelector('.copyright');
+        const gameLink = document.getElementById('easter-game');
+        if (copyright && gameLink) {
+            copyright.addEventListener('mouseenter', () => { gameLink.style.opacity = '1'; });
+            copyright.addEventListener('mouseleave', () => { gameLink.style.opacity = '0.25'; });
         }
     </script>
 </body>

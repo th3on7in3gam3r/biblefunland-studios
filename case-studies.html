@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="pages.css">
     <link rel="stylesheet" href="themes.css">
 </head>
-<body>
+<body class="case-studies-page">
     <script src="theme-loader.js"></script>
 
     <nav class="navbar scrolled" id="navbar">
@@ -38,8 +38,21 @@
         <div class="container">
             <span class="section-tag">Portfolio Stories</span>
             <h1 style="margin-top:16px;">Case <span class="highlight">Studies</span></h1>
-            <p class="section-desc">Real projects. Real problems solved. Real outcomes for ministries we serve.</p>
-            <p class="page-hero-lead">Every case study walks through the challenge our partner faced, the approach we took, and what changed after launch. These are the stories behind the work — the kind of detail that helps you decide if we're the right studio for your next project.</p>
+            <p class="section-desc">From children's Bible apps to church partner portals — every project here is live, maintained, and built for real ministry impact.</p>
+            <div class="page-stats-bar" role="list" aria-label="Studio highlights">
+                <div class="page-stat" role="listitem">
+                    <strong>7</strong>
+                    <span>Live Platforms</span>
+                </div>
+                <div class="page-stat" role="listitem">
+                    <strong>50+</strong>
+                    <span>Projects</span>
+                </div>
+                <div class="page-stat" role="listitem">
+                    <strong>4</strong>
+                    <span>Case Studies</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -48,12 +61,12 @@
             <div class="case-studies-grid">
                 <a href="case-studies/awc-vault.html" class="case-study-card case-study-card--featured">
                     <div class="case-study-card__image">
-                        <img src="brands/awc_vault.png" alt="AWC Vault member platform" loading="lazy">
+                        <img src="brands/awc_vault.png" alt="AWC Vault member platform" loading="eager">
                     </div>
                     <div class="case-study-card__body">
                         <span class="case-study-card__tag">Platform · Ministry</span>
                         <h3>AWC Vault — A Secure Home for Ministry Resources</h3>
-                        <p>Anointed Worship Center needed a members-only hub for sermons, media, and resources — scattered across drives and group chats. We designed and built AWC Vault (AWC Connect) as a centralized, secure platform their community actually uses.</p>
+                        <p>Anointed Worship Center needed a members-only hub for sermons, media, and resources — scattered across drives and group chats. We designed and built AWC Vault as a centralized, secure platform their community actually uses.</p>
                         <div class="case-study-card__meta">
                             <span><strong>Client:</strong> Anointed Worship Center</span>
                             <span><strong>Services:</strong> Web & Digital</span>
@@ -115,7 +128,7 @@
             <h2>Want Results Like <span class="highlight">These</span>?</h2>
             <p>Share your project goals and we'll put together a proposal tailored to your ministry's scope, timeline, and budget.</p>
             <a href="index.html#contact" class="btn btn-primary">Start a Project →</a>
-            <p style="margin-top:20px; font-size:0.9rem;"><a href="services.html">Explore our services →</a></p>
+            <p style="margin-top:20px; font-size:0.9rem;"><a href="services.html">Explore our services →</a> · <a href="work.html">Browse all work →</a></p>
         </div>
     </section>
 
@@ -139,14 +152,5 @@
             <div class="footer-bottom"><p>&copy; 2026 BibleFunLand Studios. All rights reserved.</p></div>
         </div>
     </footer>
-
-    <script>
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        if (navToggle && navLinks) {
-            navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
-        }
-    </script>
 </body>
 </html>

@@ -45,29 +45,15 @@
     }
     </script>
     <style>
-        .work-hero { padding: 160px 0 60px; text-align: center; }
-        .work-hero .section-desc { max-width: 720px; margin: 0 auto 20px; }
-        .work-hero-lead { max-width: 760px; margin: 0 auto; font-size: 1.05rem; color: var(--text-light); line-height: 1.75; }
-        .work-section { padding: 0 0 80px; }
         .work-section-header { max-width: 760px; margin-bottom: 40px; }
         .work-section-header h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 14px; }
         .work-section-header p { color: var(--text-light); line-height: 1.75; font-size: 1rem; }
-        .work-philosophy { padding: 0 0 80px; background: var(--bg-alt); }
-        .work-philosophy-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-        .work-philosophy-copy h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 18px; }
-        .work-philosophy-copy p { color: var(--text-light); line-height: 1.75; margin-bottom: 16px; font-size: 1rem; }
-        .work-philosophy-list { list-style: none; padding: 0; margin: 0; }
-        .work-philosophy-list li { background: var(--bg-card); border-radius: var(--radius-sm); padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); }
-        .work-philosophy-list h3 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
-        .work-philosophy-list p { margin: 0; font-size: 0.92rem; color: var(--text-light); line-height: 1.65; }
-        .work-section:last-of-type { padding-bottom: 100px; }
         .work-cta { padding: 80px 0 120px; text-align: center; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
         .work-cta h2 { margin-bottom: 14px; }
         .work-cta p { max-width: 620px; margin: 0 auto 28px; color: var(--text-light); line-height: 1.75; }
-        @media (max-width: 900px) { .work-philosophy-inner { grid-template-columns: 1fr; gap: 32px; } }
     </style>
 </head>
-<body>
+<body class="work-page">
     <script src="theme-loader.js"></script>
     <nav class="navbar scrolled" id="navbar">
         <div class="container nav-container">
@@ -85,32 +71,112 @@
         <div class="container">
             <span class="section-tag">Our Work</span>
             <h1 style="margin-top:16px;">Projects We've <span class="highlight">Built</span></h1>
-            <p class="section-desc">Real brands, real platforms, real impact — from interactive Bible learning to ministry partner websites.</p>
-            <p class="work-hero-lead">BibleFunLand Studios designs and ships digital products that help people encounter Scripture, grow in faith, and stay connected to their communities. Every project on this page is live, maintained, and built with the same care we bring to our own family of brands. Whether you are exploring what we have created in-house or reviewing work we have delivered for ministry partners, this page reflects our commitment to clarity, accessibility, and purpose-driven design.</p>
+            <p class="section-desc">Every project on this page is live, maintained, and built for real ministry impact — from children's Bible apps to church partner portals.</p>
+            <div class="page-stats-bar" role="list" aria-label="Studio highlights">
+                <div class="page-stat" role="listitem">
+                    <strong>7</strong>
+                    <span>Live Platforms</span>
+                </div>
+                <div class="page-stat" role="listitem">
+                    <strong>50+</strong>
+                    <span>Projects</span>
+                </div>
+                <div class="page-stat" role="listitem">
+                    <strong>🌍</strong>
+                    <span>Worldwide</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="work-philosophy" aria-labelledby="work-philosophy-heading">
-        <div class="container work-philosophy-inner">
-            <div class="work-philosophy-copy">
-                <h2 id="work-philosophy-heading">How We Build Faith-Centered Digital Products</h2>
-                <p>Our work begins with a simple question: who needs to be served, and how can technology remove friction from their spiritual journey? We do not treat faith-based projects as generic web builds. We research the audience, define the outcome, and choose tools that scale — from content platforms and curriculum sites to secure member portals and devotional apps.</p>
-                <p>Each deliverable is structured for discoverability, mobile use, and long-term maintenance. That means semantic HTML, fast load times, thoughtful information architecture, and copy that welcomes first-time visitors while still rewarding people who return daily. The result is work that feels polished on launch day and remains dependable years later.</p>
+    <section class="work-featured" aria-labelledby="work-featured-heading">
+        <div class="container">
+            <div class="work-featured-header">
+                <h2 id="work-featured-heading">Featured <span class="highlight">Projects</span></h2>
+                <p>See the work first — then read how we built it.</p>
             </div>
-            <ul class="work-philosophy-list">
-                <li>
-                    <h3>Audience-First Strategy</h3>
-                    <p>We map user needs before pixels — children, parents, pastors, and seekers each get experiences tuned to how they learn and engage.</p>
-                </li>
-                <li>
-                    <h3>Accessible, Inclusive Design</h3>
-                    <p>Readable typography, responsive layouts, and clear navigation help every visitor find what they need without confusion or clutter.</p>
-                </li>
-                <li>
-                    <h3>Built to Grow With You</h3>
-                    <p>Modular architecture and maintainable codebases make it easier to add brands, content, and new ministry features over time.</p>
-                </li>
-            </ul>
+            <div class="work-featured-grid">
+                <a href="case-studies/awc-vault.html" class="work-featured-card">
+                    <img src="brands/awc_vault.png" alt="AWC Vault platform" loading="eager">
+                    <div class="work-featured-card__body">
+                        <p class="work-featured-card__tag">Ministry Platform</p>
+                        <h3>AWC Vault</h3>
+                        <p>Secure members-only hub for sermons, media, and ministry resources.</p>
+                        <span class="work-featured-card__link">Read case study →</span>
+                    </div>
+                </a>
+                <a href="case-studies/bfl-junior.html" class="work-featured-card">
+                    <img src="brands/jr.biblefunland.png" alt="BFL Junior kids platform" loading="eager">
+                    <div class="work-featured-card__body">
+                        <p class="work-featured-card__tag">Kids Platform</p>
+                        <h3>BFL Junior</h3>
+                        <p>Faith-based Bible learning designed for young hearts and minds.</p>
+                        <span class="work-featured-card__link">Read case study →</span>
+                    </div>
+                </a>
+                <a href="case-studies/anointed-worship-center.html" class="work-featured-card">
+                    <img src="brands/awc_main.png" alt="Anointed Worship Center website" loading="eager">
+                    <div class="work-featured-card__body">
+                        <p class="work-featured-card__tag">Church Website</p>
+                        <h3>Anointed Worship Center</h3>
+                        <p>A welcoming digital front door for a growing ministry community.</p>
+                        <span class="work-featured-card__link">Read case study →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="work-section" aria-labelledby="work-partners-heading">
+        <div class="container">
+            <div class="work-section-header">
+                <h2 id="work-partners-heading">Partner &amp; Ministry Projects</h2>
+                <p>Churches, wellness organizations, and ministry teams that trust us with their digital presence.</p>
+            </div>
+            <div class="accordion-carousel accordion-carousel--compact" id="workPartnersCarousel" data-accordion-carousel data-interval="5500" aria-label="Partner and ministry projects">
+                <ul class="accordion-carousel__list" role="list">
+                    <li class="accordion-carousel__item" tabindex="0" data-active>
+                        <a class="accordion-carousel__box" href="https://anointedworshipcenter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Anointed Worship Center">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/awc_main.png" alt="AWC Main church website"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Church</p>
+                                <h3 class="accordion-carousel__title">AWC — Anointed Worship Center</h3>
+                                <p class="accordion-carousel__desc">The official website for Anointed Worship Center. Their digital front door to the community — designed and built by us.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://awc-connect.vercel.app/welcome" target="_blank" rel="noopener noreferrer" aria-label="Visit AWC Vault">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/awc_vault.png" alt="AWC Vault"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Members App</p>
+                                <h3 class="accordion-carousel__title">AWC Vault</h3>
+                                <p class="accordion-carousel__desc">A secure members-only platform for resources, media, and ministry content. Built for the AWC community.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="accordion-carousel__item" tabindex="0">
+                        <a class="accordion-carousel__box" href="https://www.mindshiftwellnessclinic.org/" target="_blank" rel="noopener noreferrer" aria-label="Visit MindShift Plus Wellness">
+                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness"></div>
+                            <div class="accordion-carousel__contents">
+                                <p class="accordion-carousel__tag">Wellness</p>
+                                <h3 class="accordion-carousel__title">MindShift Plus Wellness</h3>
+                                <p class="accordion-carousel__desc">A wellness organization empowering mental health and holistic well-being through faith and community.</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="accordion-carousel__nav">
+                    <button type="button" class="accordion-carousel__prev" aria-label="Previous partner project">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z"></path></svg>
+                        <span>Prev</span>
+                    </button>
+                    <button type="button" class="accordion-carousel__next" aria-label="Next partner project">
+                        <span>Next</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z"></path></svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -207,56 +273,31 @@
         </div>
     </section>
 
-    <section class="work-section" aria-labelledby="work-partners-heading">
-        <div class="container">
-            <div class="work-section-header">
-                <h2 id="work-partners-heading">Partner &amp; Ministry Projects</h2>
-                <p>We also design and develop for churches, wellness organizations, and ministry teams that need a trusted digital partner. These client projects demonstrate our ability to translate vision into secure, professional web experiences — from public-facing church sites to private member platforms.</p>
+    <section class="work-philosophy" aria-labelledby="work-philosophy-heading">
+        <div class="container work-philosophy-inner">
+            <div class="work-philosophy-copy">
+                <h2 id="work-philosophy-heading">How We Build Faith-Centered Digital Products</h2>
+                <p>Our work begins with a simple question: who needs to be served, and how can technology remove friction from their spiritual journey? We research the audience, define the outcome, and choose tools that scale — from content platforms to secure member portals.</p>
+                <p>Each deliverable is structured for discoverability, mobile use, and long-term maintenance — polished on launch day and dependable years later.</p>
             </div>
-            <div class="accordion-carousel accordion-carousel--compact" id="workPartnersCarousel" data-accordion-carousel data-interval="5500" aria-label="Partner and ministry projects">
-                <ul class="accordion-carousel__list" role="list">
-                    <li class="accordion-carousel__item" tabindex="0" data-active>
-                        <a class="accordion-carousel__box" href="https://anointedworshipcenter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Anointed Worship Center">
-                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/awc_main.png" alt="AWC Main church website"></div>
-                            <div class="accordion-carousel__contents">
-                                <p class="accordion-carousel__tag">Church</p>
-                                <h3 class="accordion-carousel__title">AWC — Anointed Worship Center</h3>
-                                <p class="accordion-carousel__desc">The official website for Anointed Worship Center. Their digital front door to the community — designed and built by us.</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="accordion-carousel__item" tabindex="0">
-                        <a class="accordion-carousel__box" href="https://awc-connect.vercel.app/welcome" target="_blank" rel="noopener noreferrer" aria-label="Visit AWC Vault">
-                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/awc_vault.png" alt="AWC Vault"></div>
-                            <div class="accordion-carousel__contents">
-                                <p class="accordion-carousel__tag">Members App</p>
-                                <h3 class="accordion-carousel__title">AWC Vault</h3>
-                                <p class="accordion-carousel__desc">A secure members-only platform for resources, media, and ministry content. Built for the AWC community.</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="accordion-carousel__item" tabindex="0">
-                        <a class="accordion-carousel__box" href="https://www.mindshiftwellnessclinic.org/" target="_blank" rel="noopener noreferrer" aria-label="Visit MindShift Plus Wellness">
-                            <div class="accordion-carousel__image"><img loading="lazy" src="brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness"></div>
-                            <div class="accordion-carousel__contents">
-                                <p class="accordion-carousel__tag">Wellness</p>
-                                <h3 class="accordion-carousel__title">MindShift Plus Wellness</h3>
-                                <p class="accordion-carousel__desc">A wellness organization empowering mental health and holistic well-being through faith and community.</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <div class="accordion-carousel__nav">
-                    <button type="button" class="accordion-carousel__prev" aria-label="Previous partner project">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z"></path></svg>
-                        <span>Prev</span>
-                    </button>
-                    <button type="button" class="accordion-carousel__next" aria-label="Next partner project">
-                        <span>Next</span>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z"></path></svg>
-                    </button>
-                </div>
-            </div>
+            <ul class="work-philosophy-list">
+                <li>
+                    <h3>Audience-First Strategy</h3>
+                    <p>We map user needs before pixels — children, parents, pastors, and seekers each get experiences tuned to how they learn and engage.</p>
+                </li>
+                <li>
+                    <h3>Accessible, Inclusive Design</h3>
+                    <p>Readable typography, responsive layouts, and clear navigation help every visitor find what they need without confusion or clutter.</p>
+                </li>
+                <li>
+                    <h3>Built to Grow With You</h3>
+                    <p>Modular architecture and maintainable codebases make it easier to add brands, content, and new ministry features over time.</p>
+                </li>
+            </ul>
+        </div>
+        <div class="container work-philosophy-cta">
+            <a href="index.html#contact" class="btn btn-primary">Want to Build Something Like This? →</a>
+            <a href="case-studies.html" class="btn btn-secondary">Read Case Studies</a>
         </div>
     </section>
 
@@ -291,11 +332,5 @@
     </footer>
 
     <script src="/accordion-carousel.js"></script>
-    <script>
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
-    </script>
 </body>
 </html>

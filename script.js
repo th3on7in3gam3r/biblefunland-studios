@@ -68,32 +68,36 @@ const themeData = {
 const savedTheme = localStorage.getItem('bfl-theme') || 'premium';
 applyTheme(savedTheme);
 
+function setThemeDropdownOpen(isOpen) {
+    if (!themeDropdown || !themeToggle) return;
+    themeDropdown.classList.toggle('open', isOpen);
+    themeToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
 // Toggle dropdown
 if (themeToggle && themeDropdown) {
     themeToggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        themeDropdown.classList.toggle('open');
+        setThemeDropdownOpen(!themeDropdown.classList.contains('open'));
     });
 }
 
 // Close dropdown on outside click (desktop)
 document.addEventListener('click', () => {
-    if (themeDropdown) themeDropdown.classList.remove('open');
+    setThemeDropdownOpen(false);
 });
 
 // Close button
 const themeDropdownClose = document.getElementById('themeDropdownClose');
 if (themeDropdownClose) {
     themeDropdownClose.addEventListener('click', () => {
-        themeDropdown.classList.remove('open');
+        setThemeDropdownOpen(false);
     });
 }
 
 if (themeDropdown) {
     themeDropdown.addEventListener('click', (e) => {
-        if (e.target === themeDropdown) {
-            themeDropdown.classList.remove('open');
-        }
+        e.stopPropagation();
     });
 }
 
@@ -104,7 +108,7 @@ if (themeOptions) {
             const theme = option.dataset.theme;
             applyTheme(theme);
             localStorage.setItem('bfl-theme', theme);
-            if (themeDropdown) themeDropdown.classList.remove('open');
+            setThemeDropdownOpen(false);
             // Also close mobile nav if open
             const navLinks = document.getElementById('navLinks');
             if (navLinks) navLinks.classList.remove('active');
@@ -141,9 +145,6 @@ function applyTheme(theme) {
     const heroSubtitle = document.querySelector('.hero-subtitle');
     if (heroSubtitle) heroSubtitle.textContent = data.subtitle;
 
-    // Update banner image
-    const heroBanner = document.querySelector('.hero-image img');
-    if (heroBanner) heroBanner.src = data.banner;
 }
 
 // ===== NAVBAR SCROLL EFFECT =====

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Brands | BibleFunLand Studios</title>
+    <meta name="description" content="Seven faith-based brands by BibleFunLand Studios — BibleFunLand, BFL Junior, BFL Homeschool, BFL Letter, Rhema Notes, Vesper, and Verse Verse.">
+    <link rel="canonical" href="https://biblefunlandstudios.com/brand/index.html">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../pages.css">
+    <link rel="stylesheet" href="../themes.css">
+</head>
+<body>
+    <script src="../theme-loader.js"></script>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo"><span class="logo-icon">✦</span><span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="index.html" class="active">Brands</a></li>
+                <li><a href="../services.html">Services</a></li>
+                <li><a href="../work.html">Work</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../index.html#contact" class="btn btn-nav">Get In Touch</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="page-hero">
+        <div class="container">
+            <span class="section-tag">Our Family of Brands</span>
+            <h1 style="margin-top:16px;">Seven Brands. <span class="highlight">One Mission.</span></h1>
+            <p class="section-desc">Each brand serves a unique audience — united by a shared purpose: making faith accessible, engaging, and transformative.</p>
+        </div>
+    </section>
+    <section class="page-section">
+        <div class="container">
+            <div class="brand-hub-grid">
+                <a href="biblefunland.html" class="brand-hub-card">
+                    <img src="../brands/biblefunland.png" alt="BibleFunLand" loading="lazy">
+                    <div class="brand-hub-card__body">
+                        <p class="brand-hub-card__tag">Flagship</p>
+                        <h3>BibleFunLand</h3>
+                        <p>The flagship interactive Bible learning platform — making Scripture engaging and accessible for everyone.</p>
+                    </div>
+                </a>
+                <a href="bfl-junior.html" class="brand-hub-card">
+                    <img src="../brands/jr.biblefunland.png" alt="BFL Junior" loading="lazy">
+                    <div class="brand-hub-card__body">
+                        <p class="brand-hub-card__tag">Kids</p>
+                        <h3>BFL Junior</h3>
+                        <p>Faith-based content designed specifically for young hearts and minds.</p>
+                    </div>
+                </a>
+                <a href="bfl-homeschool.html" class="brand-hub-card">
+                    <img src="../brands/homeschool.png" alt="BFL Homeschool" loading="lazy">
+                    <div class="brand-hub-card__body">
+                        <p class="brand-hub-card__tag">Education</p>
+                        <h3>BFL Homeschool</h3>
+                        <p>Complete faith-integrated curriculum for homeschooling families.</p>
+                    </div>
+                </a>
+                <a href="bfl-letter.html" class="brand-hub-card">
+                    <img src="../brands/bible_letters.png" alt="BFL Letter" loading="lazy">
+                    <div class="brand-hub-card__body">
+                        <p class="brand-hub-card__tag">Kids Game</p>
+                        <h3>BFL Letter</h3>
+                        <p>Learn letters the biblical way — A is for Adam, spell the word, earn points!</p>
+                    </div>
+                </a>
+                <a href="rhema-notes.html" class="brand-hub-card">
+                    <img src="../brands/rhemanotes.png" alt="Rhema Notes" loading="lazy">
+                    <div class="brand-hub-card__body">
+                        <p class="brand-hub-card__tag">Bible Study</p>
+                        <h3>Rhema Notes</h3>
+                        <p>Deep-dive Bible study notes and revelatory insights for seekers.</p>
+                    </div>
+                </a>
+                <a href="vesper.html" class="brand-hub-card">
+                    <img src="../brands/vesper.png" alt="Vesper" loading="lazy">
+                    <div class="brand-hub-card__body">
+                        <p class="brand-hub-card__tag">Devotional</p>
+                        <h3>Vesper</h3>
+                        <p>Evening reflections and meditative content for winding down in faith.</p>
+                    </div>
+                </a>
+                <a href="verse-verse.html" class="brand-hub-card">
+                    <img src="../brands/Verse-Verse.png" alt="Verse Verse" loading="lazy">
+                    <div class="brand-hub-card__body">
+                        <p class="brand-hub-card__tag">Daily Devotional</p>
+                        <h3>Verse Verse</h3>
+                        <p>Daily inspirational verses and devotions for strength, comfort, and encouragement.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2026 BibleFunLand Studios. <a href="../index.html">Studios Home</a></p></div>
+        </div>
+    </footer>
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+    </script>
+</body>
+</html>

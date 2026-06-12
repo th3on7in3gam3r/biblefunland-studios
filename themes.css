@@ -1,7 +1,9 @@
 /* ===== NEW THEME SWITCHER UI ===== */
-.theme-switcher-wrapper {
-    position: relative;
-    display: inline-block;
+.theme-switcher-fixed {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    z-index: 9000;
 }
 
 .theme-toggle-btn {
@@ -9,27 +11,43 @@
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-card, #fff);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 50px;
-    color: var(--text-main);
+    color: var(--text-main, var(--primary));
     cursor: pointer;
     font-family: inherit;
     font-size: 0.85rem;
     font-weight: 600;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle-btn--icon {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.theme-toggle-btn--icon .theme-btn-icon {
+    font-size: 1.2rem;
+    line-height: 1;
 }
 
 .theme-toggle-btn:hover {
     background: var(--primary);
     color: white;
     border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .theme-dropdown-menu {
     position: absolute;
-    top: calc(100% + 15px);
-    right: 0;
+    bottom: calc(100% + 12px);
+    left: 0;
     width: 260px;
     background: #ffffff;
     border-radius: 16px;
@@ -66,12 +84,15 @@
 
 /* Mobile Adjustments */
 @media (max-width: 968px) {
+    .theme-switcher-fixed {
+        bottom: 20px;
+        left: 20px;
+    }
+
     .theme-dropdown-menu {
-        position: absolute;
-        top: calc(100% + 10px);
-        right: auto;
+        bottom: calc(100% + 10px);
         left: 0;
-        width: 100%;
+        width: 260px;
         min-width: 240px;
     }
 }

@@ -50,6 +50,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
     <link rel="stylesheet" href="/accordion-carousel.css">
     <link rel="stylesheet" href="themes.css">
     <script type="application/ld+json">
@@ -142,37 +143,12 @@
             <ul class="nav-links" id="navLinks">
                 <button class="nav-close" id="navClose" aria-label="Close navigation">✕</button>
                 <li><a href="#about">About</a></li>
-                <li><a href="#brands">Brands</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="brand/index.html">Brands</a></li>
+                <li><a href="services.html">Services</a></li>
                 <li><a href="work.html">Work</a></li>
+                <li><a href="case-studies.html">Case Studies</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="work.html">Work</a></li>
                 <li><a href="/blog.html">Blog</a></li>
-                <li>
-                    <div class="theme-switcher-wrapper">
-                        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme settings">
-                            <span class="theme-btn-icon">🎨</span>
-                            <span class="theme-btn-text">Themes</span>
-                        </button>
-                        
-                        <div id="themeDropdown" class="theme-dropdown-menu">
-                            <div class="theme-dropdown-header">
-                                <span>Site Aesthetic</span>
-                                <button id="themeDropdownClose" class="theme-close-btn">✕</button>
-                            </div>
-                            <div class="theme-options-list">
-                                <button class="theme-option active" data-theme="premium">✨ Premium (Default)</button>
-                                <button class="theme-option" data-theme="stained-glass">⛪ Stained Glass</button>
-                                <button class="theme-option" data-theme="dark">🌙 Midnight Dark</button>
-                                <button class="theme-option" data-theme="neon">🌈 Neon Cyber</button>
-                                <button class="theme-option" data-theme="comic">💥 Action Comic</button>
-                                <button class="theme-option" data-theme="retro">📻 Retro Vintage</button>
-                                <button class="theme-option" data-theme="kids">🎈 BFL Kids</button>
-                                <button class="theme-option" data-theme="minimal">◻️ Clean Minimal</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
                 <li><a href="#contact" class="btn btn-nav">Get In Touch</a></li>
             </ul>
         </div>
@@ -201,17 +177,46 @@
                     <a href="#brands" class="btn btn-primary">Explore Our Brands</a>
                     <a href="#contact" class="btn btn-secondary">Start a Project →</a>
                 </div>
-                <div class="hero-trust">
-                    <span>7 brands</span>
-                    <span class="trust-dot">•</span>
-                    <span>50+ projects</span>
-                    <span class="trust-dot">•</span>
-                    <span>12+ ministry partners</span>
+                <div class="hero-stats" role="list" aria-label="Studio highlights">
+                    <div class="hero-stat" role="listitem">
+                        <span class="hero-stat-num">7</span>
+                        <span class="hero-stat-label">Live Platforms</span>
+                    </div>
+                    <div class="hero-stat" role="listitem">
+                        <span class="hero-stat-num">50+</span>
+                        <span class="hero-stat-label">Projects Delivered</span>
+                    </div>
+                    <div class="hero-stat" role="listitem">
+                        <span class="hero-stat-num">🌍</span>
+                        <span class="hero-stat-label">Worldwide Reach</span>
+                    </div>
+                </div>
+                <div class="hero-proof">
+                    <p class="hero-proof-label">Trusted by ministry partners</p>
+                    <div class="hero-proof-logos">
+                        <img src="brands/awc_main.png" alt="Anointed Worship Center" width="120" height="40" loading="eager">
+                        <img src="brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness" width="120" height="40" loading="eager">
+                        <img src="brands/awc_vault.png" alt="AWC Vault" width="120" height="40" loading="eager">
+                    </div>
+                    <blockquote class="hero-proof-quote">
+                        <p>"The quality and attention to faith details are unmatched."</p>
+                        <cite>— Pastor Michael Thompson, Anointed Worship Center</cite>
+                    </blockquote>
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="hero-image">
-                    <img src="banner_image.png" alt="Faith-inspired creative media — cross, camera, clapperboard, microphone, and design tools">
+                <div class="hero-showcase" aria-label="Selected studio work">
+                    <a class="hero-showcase__main" href="https://www.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="brands/biblefunland.png" alt="BibleFunLand — flagship interactive Bible learning platform" loading="eager">
+                    </a>
+                    <div class="hero-showcase__stack">
+                        <a href="https://junior.biblefunland.com/" target="_blank" rel="noopener noreferrer">
+                            <img src="brands/jr.biblefunland.png" alt="BFL Junior — faith-based content for kids" loading="eager">
+                        </a>
+                        <a href="https://anointedworshipcenter.com" target="_blank" rel="noopener noreferrer">
+                            <img src="brands/awc_main.png" alt="Anointed Worship Center — ministry partner website" loading="eager">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -257,7 +262,7 @@
             <div class="section-header">
                 <span class="section-tag">Our Family of Brands</span>
                 <h2 id="brands-heading">Seven Brands. <span class="highlight">One Mission.</span></h2>
-                <p class="section-desc">Each brand serves a unique audience, united by a shared purpose: making faith accessible, engaging, and transformative.</p>
+                <p class="section-desc">Each brand serves a unique audience, united by a shared purpose: making faith accessible, engaging, and transformative. <a href="brand/index.html">Explore all brand pages →</a></p>
             </div>
             <div class="accordion-carousel" id="brandsCarousel" data-accordion-carousel data-interval="5000">
                 <ul class="accordion-carousel__list" role="list" aria-label="BibleFunLand family of brands">
@@ -460,6 +465,7 @@
             <div class="section-header">
                 <span class="section-tag">What We Do</span>
                 <h2 id="services-heading">Creative Services That <span class="highlight">Inspire</span></h2>
+                <p class="section-desc"><a href="services.html">View full services, process &amp; pricing →</a></p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
@@ -768,6 +774,27 @@
         </div>
     </section>
 
+    <!-- Faith + Design Newsletter -->
+    <section class="newsletter-section" aria-labelledby="newsletter-heading">
+        <div class="container newsletter-inner">
+            <h2 id="newsletter-heading">Faith + Design</h2>
+            <p>Monthly tips for church leaders on branding, website clarity, and children's ministry UX — from the studio behind BibleFunLand.</p>
+            <form class="newsletter-form" action="https://formspree.io/f/mnnnyrvz" method="POST">
+                <input type="hidden" name="_subject" value="Faith + Design Newsletter Signup">
+                <input type="hidden" name="signup_type" value="newsletter">
+                <input type="email" name="email" placeholder="Your email address" required autocomplete="email">
+                <button type="submit">Subscribe Free</button>
+            </form>
+            <div class="newsletter-success" role="status">You're in! Check your inbox for a welcome note soon.</div>
+            <div class="newsletter-topics">
+                <span>Church branding</span>
+                <span>Website clarity</span>
+                <span>Kids ministry UX</span>
+                <span>Faithful creativity</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Final CTA Banner -->
     <section class="final-cta">
         <div class="container">
@@ -790,9 +817,11 @@
                 </div>
                 <div class="footer-links">
                     <a href="#about">About</a>
-                    <a href="#brands">Brands</a>
-                    <a href="#services">Services</a>
+                    <a href="brand/index.html">Brands</a>
+                    <a href="services.html">Services</a>
                     <a href="work.html">Work</a>
+                    <a href="case-studies.html">Case Studies</a>
+                    <a href="blog.html">Blog</a>
                     <a href="#contact">Contact</a>
                 </div>
             </div>
@@ -804,6 +833,30 @@
             </div>
         </div>
     </footer>
+
+    <!-- Theme Switcher (fixed corner) -->
+    <div class="theme-switcher-fixed">
+        <button id="themeToggle" class="theme-toggle-btn theme-toggle-btn--icon" aria-label="Toggle theme settings" aria-expanded="false" aria-controls="themeDropdown">
+            <span class="theme-btn-icon" id="themeIcon">🎨</span>
+            <span class="visually-hidden" id="themeLabel">Themes</span>
+        </button>
+        <div id="themeDropdown" class="theme-dropdown-menu">
+            <div class="theme-dropdown-header">
+                <span>Site Aesthetic</span>
+                <button id="themeDropdownClose" class="theme-close-btn" type="button">✕</button>
+            </div>
+            <div class="theme-options-list">
+                <button type="button" class="theme-option active" data-theme="premium">✨ Premium (Default)</button>
+                <button type="button" class="theme-option" data-theme="stained-glass">⛪ Stained Glass</button>
+                <button type="button" class="theme-option" data-theme="dark">🌙 Midnight Dark</button>
+                <button type="button" class="theme-option" data-theme="neon">🌈 Neon Cyber</button>
+                <button type="button" class="theme-option" data-theme="comic">💥 Action Comic</button>
+                <button type="button" class="theme-option" data-theme="retro">📻 Retro Vintage</button>
+                <button type="button" class="theme-option" data-theme="kids">🎈 BFL Kids</button>
+                <button type="button" class="theme-option" data-theme="minimal">◻️ Clean Minimal</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Back to Top -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
@@ -827,6 +880,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="newsletter.js"></script>
     <script src="accordion-carousel.js"></script>
 
     <script>

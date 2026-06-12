@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFL Junior Case Study | BibleFunLand Studios</title>
+    <meta name="description" content="How BibleFunLand Studios designed BFL Junior — a faith-based kids platform with age-appropriate UX, engaging content, and design parents trust.">
+    <link rel="canonical" href="https://biblefunlandstudios.com/case-studies/bfl-junior.html">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../pages.css">
+    <link rel="stylesheet" href="../themes.css">
+</head>
+<body>
+    <script src="../theme-loader.js"></script>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo"><span class="logo-icon">✦</span><span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../brand/bfl-junior.html">Brands</a></li>
+                <li><a href="../case-studies.html" class="active">Case Studies</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../index.html#contact" class="btn btn-nav">Get In Touch</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="case-detail-hero page-hero">
+        <div class="container">
+            <a href="../case-studies.html" class="studios-back-link">← All case studies</a>
+            <span class="section-tag">Platform · Kids</span>
+            <h1 style="margin-top:16px;">BFL Junior</h1>
+            <p class="section-desc">Bible learning designed specifically for young hearts and minds.</p>
+            <div class="case-meta">
+                <span><strong>Client:</strong> In-house brand (BibleFunLand Studios)</span>
+                <span><strong>Services:</strong> Product Design, Web Development</span>
+                <span><strong>Live at:</strong> <a href="https://junior.biblefunland.com/" target="_blank" rel="noopener noreferrer">junior.biblefunland.com</a></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="case-detail-grid">
+                <div class="case-block">
+                    <h3>The Challenge</h3>
+                    <p>BibleFunLand's flagship platform served all ages, but parents and kids ministry leaders wanted something built specifically for children — not a scaled-down adult experience. Young learners need bigger touch targets, simpler navigation, brighter visuals, and content paced for shorter attention spans.</p>
+                    <p>The goal was a standalone kids brand that felt fun and safe while teaching Scripture with integrity.</p>
+                </div>
+                <div class="case-block">
+                    <h3>Our Approach</h3>
+                    <p>We researched how children ages 4–12 interact with learning apps — then designed BFL Junior around discovery, play, and reward loops that reinforce biblical learning without gimmicks.</p>
+                    <ul>
+                        <li>Age-appropriate information architecture</li>
+                        <li>Colorful, character-driven visual language</li>
+                        <li>Parent-trusted content curation</li>
+                        <li>Responsive design for tablets and phones</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-before-after">
+                <div class="case-ba-panel">
+                    <div class="case-ba-label">Before</div>
+                    <div style="padding:32px; background:var(--bg-alt); color:var(--text-light); font-size:0.95rem; line-height:1.7;">
+                        Kids used the general BibleFunLand platform with UI not optimized for young learners. Parents wanted a dedicated, kid-safe environment with content designed for their children's developmental stage.
+                    </div>
+                </div>
+                <div class="case-ba-panel">
+                    <div class="case-ba-label">After</div>
+                    <img src="../brands/jr.biblefunland.png" alt="BFL Junior platform">
+                </div>
+            </div>
+
+            <div class="case-outcomes">
+                <div class="case-outcome">
+                    <strong>Kids</strong>
+                    <span>First UX</span>
+                </div>
+                <div class="case-outcome">
+                    <strong>Dedicated</strong>
+                    <span>Brand Identity</span>
+                </div>
+                <div class="case-outcome">
+                    <strong>Parent</strong>
+                    <span>Trusted Content</span>
+                </div>
+            </div>
+
+            <p style="margin-top:32px; text-align:center;"><a href="../blog/designing-for-kids-lessons-from-bfl-junior">Read: Designing for Kids — Lessons from BFL Junior →</a></p>
+        </div>
+    </section>
+
+    <section class="page-cta">
+        <div class="container">
+            <h2>Building for <span class="highlight">Kids Ministry</span>?</h2>
+            <p>We specialize in children's UX, curriculum visuals, and faith-based learning platforms.</p>
+            <a href="../index.html#contact" class="btn btn-primary">Let's Talk →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2026 BibleFunLand Studios. <a href="../brand/bfl-junior.html">BFL Junior</a> · <a href="../case-studies.html">Case Studies</a></p></div>
+        </div>
+    </footer>
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+    </script>
+</body>
+</html>

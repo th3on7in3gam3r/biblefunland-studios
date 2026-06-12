@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindShift Plus Wellness Case Study | BibleFunLand Studios</title>
+    <meta name="description" content="How BibleFunLand Studios built the MindShift Plus Wellness website — a calming, trustworthy online presence for a faith-based mental health clinic.">
+    <link rel="canonical" href="https://biblefunlandstudios.com/case-studies/mindshift-wellness.html">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../pages.css">
+    <link rel="stylesheet" href="../themes.css">
+</head>
+<body>
+    <script src="../theme-loader.js"></script>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo"><span class="logo-icon">✦</span><span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../services.html">Services</a></li>
+                <li><a href="../case-studies.html" class="active">Case Studies</a></li>
+                <li><a href="../index.html#contact" class="btn btn-nav">Get In Touch</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="case-detail-hero page-hero">
+        <div class="container">
+            <a href="../case-studies.html" class="studios-back-link">← All case studies</a>
+            <span class="section-tag">Website · Wellness</span>
+            <h1 style="margin-top:16px;">MindShift Plus Wellness</h1>
+            <p class="section-desc">A calming digital presence for faith-integrated mental health care.</p>
+            <div class="case-meta">
+                <span><strong>Client:</strong> MindShift Plus Wellness</span>
+                <span><strong>Services:</strong> Web Design, UX</span>
+                <span><strong>Live at:</strong> <a href="https://www.mindshiftwellnessclinic.org/" target="_blank" rel="noopener noreferrer">mindshiftwellnessclinic.org</a></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="case-detail-grid">
+                <div class="case-block">
+                    <h3>The Challenge</h3>
+                    <p>MindShift Plus Wellness serves people at vulnerable moments — seeking help for mental health while integrating faith into their healing journey. Their website needed to feel safe, professional, and approachable — not clinical or overwhelming.</p>
+                    <p>Visitors needed to quickly understand what services are offered, who the team is, and how to take the first step toward care.</p>
+                </div>
+                <div class="case-block">
+                    <h3>Our Approach</h3>
+                    <p>We prioritized emotional design: soft color palettes, generous whitespace, clear typography, and language that speaks with compassion rather than jargon.</p>
+                    <ul>
+                        <li>Service pages structured for clarity and trust</li>
+                        <li>Prominent contact and intake pathways</li>
+                        <li>Accessible, readable layout on all devices</li>
+                        <li>Brand visuals that reflect holistic wellness</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-before-after">
+                <div class="case-ba-panel">
+                    <div class="case-ba-label">Before</div>
+                    <div style="padding:32px; background:var(--bg-alt); color:var(--text-light); font-size:0.95rem; line-height:1.7;">
+                        Limited online presence that didn't convey the clinic's warmth or faith-integrated approach. Potential clients couldn't easily understand services or how to reach out.
+                    </div>
+                </div>
+                <div class="case-ba-panel">
+                    <div class="case-ba-label">After</div>
+                    <img src="../brands/mindshiftpluswellness.png" alt="MindShift Plus Wellness website">
+                </div>
+            </div>
+
+            <div class="case-outcomes">
+                <div class="case-outcome">
+                    <strong>Trust</strong>
+                    <span>First Design</span>
+                </div>
+                <div class="case-outcome">
+                    <strong>Clear</strong>
+                    <span>Service Paths</span>
+                </div>
+                <div class="case-outcome">
+                    <strong>Faith</strong>
+                    <span>Integrated Tone</span>
+                </div>
+            </div>
+
+            <blockquote class="case-quote">
+                <p>"Professional, responsive, and deeply committed to ministry impact. Highly recommend for any faith-based project."</p>
+                <cite>— Dr. David Kim, MindShift Plus Wellness</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <section class="page-cta">
+        <div class="container">
+            <h2>Building a <span class="highlight">Wellness</span> or Clinic Site?</h2>
+            <p>We understand the balance between professionalism, compassion, and faith — and we design accordingly.</p>
+            <a href="../index.html#contact" class="btn btn-primary">Start a Conversation →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2026 BibleFunLand Studios. <a href="../index.html">Home</a> · <a href="../case-studies.html">Case Studies</a></p></div>
+        </div>
+    </footer>
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+    </script>
+</body>
+</html>

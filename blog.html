@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
     <link rel="stylesheet" href="themes.css">
     <link rel="stylesheet" href="blog.css">
     <script src="sanity.js"></script>
@@ -68,8 +69,9 @@
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="/blog.html" class="active">Blog</a></li>
-                <li><a href="/#about">About</a></li>
-                <li><a href="/#brands">Brands</a></li>
+                <li><a href="/brand/index.html">Brands</a></li>
+                <li><a href="/services.html">Services</a></li>
+                <li><a href="/case-studies.html">Case Studies</a></li>
                 <li><a href="/#contact" class="btn btn-nav">Get In Touch</a></li>
             </ul>
         </div>
@@ -160,18 +162,22 @@
         </div>
     </section>
 
-    <!-- Newsletter -->
-    <section class="blog-newsletter">
-        <div class="container">
-            <div class="newsletter-card animate-up">
-                <div class="newsletter-content">
-                    <h3>Stay Inspired</h3>
-                    <p>Get devotionals, creative insights, and studio updates. No spam — just purpose.</p>
-                </div>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your email address" required>
-                    <button type="submit" class="btn btn-primary">Subscribe</button>
-                </form>
+    <!-- Faith + Design Newsletter -->
+    <section class="newsletter-section" aria-labelledby="blog-newsletter-heading">
+        <div class="container newsletter-inner">
+            <h2 id="blog-newsletter-heading">Faith + Design</h2>
+            <p>Monthly tips on church branding, website clarity, and children's ministry UX — plus devotionals and studio updates. No spam, just purpose.</p>
+            <form class="newsletter-form" action="https://formspree.io/f/mnnnyrvz" method="POST">
+                <input type="hidden" name="_subject" value="Faith + Design Newsletter Signup">
+                <input type="hidden" name="signup_type" value="newsletter">
+                <input type="email" name="email" placeholder="Your email address" required autocomplete="email">
+                <button type="submit">Subscribe Free</button>
+            </form>
+            <div class="newsletter-success" role="status">You're in! Check your inbox soon.</div>
+            <div class="newsletter-topics">
+                <span>Church branding</span>
+                <span>Website clarity</span>
+                <span>Kids ministry UX</span>
             </div>
         </div>
     </section>
@@ -185,6 +191,7 @@
         </div>
     </footer>
 
+    <script src="newsletter.js"></script>
     <script>
         // Reading Progress Bar
         window.addEventListener('scroll', () => {

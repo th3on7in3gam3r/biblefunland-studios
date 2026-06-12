@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWC Vault Case Study | BibleFunLand Studios</title>
+    <meta name="description" content="How BibleFunLand Studios built AWC Vault — a secure members-only platform for Anointed Worship Center to centralize sermons, media, and ministry resources.">
+    <link rel="canonical" href="https://biblefunlandstudios.com/case-studies/awc-vault.html">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../pages.css">
+    <link rel="stylesheet" href="../themes.css">
+</head>
+<body>
+    <script src="../theme-loader.js"></script>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo"><span class="logo-icon">✦</span><span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../services.html">Services</a></li>
+                <li><a href="../work.html">Work</a></li>
+                <li><a href="../case-studies.html" class="active">Case Studies</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../index.html#contact" class="btn btn-nav">Get In Touch</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="case-detail-hero page-hero">
+        <div class="container">
+            <a href="../case-studies.html" class="studios-back-link">← All case studies</a>
+            <span class="section-tag">Platform · Ministry</span>
+            <h1 style="margin-top:16px;">AWC Vault</h1>
+            <p class="section-desc">A secure members-only hub for sermons, media, and ministry resources.</p>
+            <div class="case-meta">
+                <span><strong>Client:</strong> Anointed Worship Center</span>
+                <span><strong>Services:</strong> Web & Digital, UX Strategy</span>
+                <span><strong>Live at:</strong> <a href="https://awc-connect.vercel.app/welcome" target="_blank" rel="noopener noreferrer">AWC Vault</a></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="case-detail-grid">
+                <div class="case-block">
+                    <h3>The Challenge</h3>
+                    <p>Anointed Worship Center's teaching content, media files, and member resources lived across Google Drive folders, WhatsApp groups, and email threads. New members didn't know where to look. Leaders spent time re-sharing the same links. There was no single, secure place for the congregation to access everything the church had built.</p>
+                    <p>They needed a private platform — not a public website page — that felt professional, was easy to navigate on mobile, and could grow as their media library expanded.</p>
+                </div>
+                <div class="case-block">
+                    <h3>Our Approach</h3>
+                    <p>We started with a discovery session mapping every resource type AWC wanted to host: sermon archives, event media, study materials, and announcements. From there we designed an information architecture around how members actually search — by series, topic, and date — not how files were stored internally.</p>
+                    <ul>
+                        <li>Secure member authentication and role-based access</li>
+                        <li>Mobile-first layout for on-the-go listening and reading</li>
+                        <li>Clean categorization for sermons, resources, and media</li>
+                        <li>Scalable structure for future content types</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-before-after">
+                <div class="case-ba-panel">
+                    <div class="case-ba-label">Before</div>
+                    <div style="padding:32px; background:var(--bg-alt); color:var(--text-light); font-size:0.95rem; line-height:1.7;">
+                        Resources scattered across drives and chat groups. No clear entry point for new members. Leaders manually re-shared links every week.
+                    </div>
+                </div>
+                <div class="case-ba-panel">
+                    <div class="case-ba-label">After</div>
+                    <img src="../brands/awc_vault.png" alt="AWC Vault platform after launch">
+                </div>
+            </div>
+
+            <div class="case-outcomes">
+                <div class="case-outcome">
+                    <strong>1</strong>
+                    <span>Centralized Hub</span>
+                </div>
+                <div class="case-outcome">
+                    <strong>24/7</strong>
+                    <span>Member Access</span>
+                </div>
+                <div class="case-outcome">
+                    <strong>Mobile</strong>
+                    <span>First Design</span>
+                </div>
+            </div>
+
+            <blockquote class="case-quote">
+                <p>"BibleFunLand Studios delivered a website that exceeded our expectations. The quality and attention to faith details are unmatched."</p>
+                <cite>— Pastor Michael Thompson, Anointed Worship Center</cite>
+            </blockquote>
+
+            <p style="margin-top:32px; text-align:center;"><a href="../blog/building-awc-connect">Read the behind-the-scenes blog post →</a></p>
+        </div>
+    </section>
+
+    <section class="page-cta">
+        <div class="container">
+            <h2>Need a Platform Like <span class="highlight">This</span>?</h2>
+            <p>We build secure member portals, resource hubs, and ministry apps tailored to your community.</p>
+            <a href="../index.html#contact" class="btn btn-primary">Start a Project →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2026 BibleFunLand Studios. <a href="../index.html">Home</a> · <a href="../case-studies.html">Case Studies</a></p></div>
+        </div>
+    </footer>
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+    </script>
+</body>
+</html>

@@ -1,6 +1,21 @@
 {
   "redirects": [
     {
+      "source": "/services",
+      "destination": "/services.html",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies",
+      "destination": "/case-studies.html",
+      "permanent": true
+    },
+    {
+      "source": "/brands",
+      "destination": "/brand/index.html",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true

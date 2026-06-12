@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anointed Worship Center Case Study | BibleFunLand Studios</title>
+    <meta name="description" content="How BibleFunLand Studios designed the Anointed Worship Center church website — a clear digital front door for visitors, members, and ministry discovery.">
+    <link rel="canonical" href="https://biblefunlandstudios.com/case-studies/anointed-worship-center.html">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../pages.css">
+    <link rel="stylesheet" href="../themes.css">
+</head>
+<body>
+    <script src="../theme-loader.js"></script>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo"><span class="logo-icon">✦</span><span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../services.html">Services</a></li>
+                <li><a href="../work.html">Work</a></li>
+                <li><a href="../case-studies.html" class="active">Case Studies</a></li>
+                <li><a href="../index.html#contact" class="btn btn-nav">Get In Touch</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="case-detail-hero page-hero">
+        <div class="container">
+            <a href="../case-studies.html" class="studios-back-link">← All case studies</a>
+            <span class="section-tag">Website · Church</span>
+            <h1 style="margin-top:16px;">Anointed Worship Center</h1>
+            <p class="section-desc">A welcoming digital front door for a growing ministry community.</p>
+            <div class="case-meta">
+                <span><strong>Client:</strong> Anointed Worship Center</span>
+                <span><strong>Services:</strong> Web Design, Branding</span>
+                <span><strong>Live at:</strong> <a href="https://anointedworshipcenter.com" target="_blank" rel="noopener noreferrer">anointedworshipcenter.com</a></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="case-detail-grid">
+                <div class="case-block">
+                    <h3>The Challenge</h3>
+                    <p>AWC needed a public-facing website that answered the questions every first-time visitor has: Who are you? When do you meet? How do I get involved? Their previous online presence was outdated and didn't reflect the energy and heart of the congregation.</p>
+                    <p>The site also needed to serve existing members — pointing them to events, ministries, and the AWC Vault member platform without overwhelming newcomers.</p>
+                </div>
+                <div class="case-block">
+                    <h3>Our Approach</h3>
+                    <p>We designed around two user journeys: the curious visitor and the connected member. Clear calls-to-action, service information above the fold, and ministry pages that tell stories rather than list bullet points.</p>
+                    <ul>
+                        <li>Visitor-first homepage with clear next steps</li>
+                        <li>Ministry and events sections built for discovery</li>
+                        <li>Mobile-responsive layout for on-the-go access</li>
+                        <li>Visual identity aligned with AWC's worship culture</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-before-after">
+                <div class="case-ba-panel">
+                    <div class="case-ba-label">Before</div>
+                    <div style="padding:32px; background:var(--bg-alt); color:var(--text-light); font-size:0.95rem; line-height:1.7;">
+                        Outdated site that didn't reflect the church's vision. Visitors struggled to find service times and connection pathways. No cohesive visual identity online.
+                    </div>
+                </div>
+                <div class="case-ba-panel">
+                    <div class="case-ba-label">After</div>
+                    <img src="../brands/awc_main.png" alt="Anointed Worship Center website after redesign">
+                </div>
+            </div>
+
+            <div class="case-outcomes">
+                <div class="case-outcome">
+                    <strong>Clear</strong>
+                    <span>Visitor Pathways</span>
+                </div>
+                <div class="case-outcome">
+                    <strong>Modern</strong>
+                    <span>Brand Presence</span>
+                </div>
+                <div class="case-outcome">
+                    <strong>Connected</strong>
+                    <span>to AWC Vault</span>
+                </div>
+            </div>
+
+            <blockquote class="case-quote">
+                <p>"The quality and attention to faith details are unmatched."</p>
+                <cite>— Pastor Michael Thompson, Anointed Worship Center</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <section class="page-cta">
+        <div class="container">
+            <h2>Ready for a New <span class="highlight">Church Website</span>?</h2>
+            <p>We design sites that welcome visitors and serve your congregation — with clarity, speed, and heart.</p>
+            <a href="../index.html#contact" class="btn btn-primary">Get In Touch →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2026 BibleFunLand Studios. <a href="../index.html">Home</a> · <a href="../case-studies.html">Case Studies</a></p></div>
+        </div>
+    </footer>
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+    </script>
+</body>
+</html>

@@ -351,6 +351,16 @@ img {
     line-height: 1.3;
 }
 
+.answer-capsule__block--divider {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(26, 46, 90, 0.08);
+}
+
+.answer-capsule__block--divider .answer-capsule__heading {
+    font-size: 0.98rem;
+}
+
 .answer-capsule__text {
     font-size: 0.92rem;
     color: var(--text);

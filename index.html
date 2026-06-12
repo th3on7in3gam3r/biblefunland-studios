@@ -1100,37 +1100,18 @@
     <script src="accordion-carousel.js"></script>
 
     <script>
-      // GEO panel: one accordion section open at a time
+      // GEO panel: opening one section closes the others; all can be collapsed
       (function () {
         const geo = document.getElementById('hero-geo');
         if (!geo) return;
 
         const items = geo.querySelectorAll('details.answer-capsule');
-        if (!items.length) return;
-
-        let openIndex = Array.from(items).findIndex((item) => item.hasAttribute('open'));
-        if (openIndex < 0) openIndex = 0;
-
-        const setOpenItem = (index) => {
-          items.forEach((item, i) => {
-            if (i === index) item.setAttribute('open', '');
-            else item.removeAttribute('open');
-          });
-          openIndex = index;
-        };
-
-        setOpenItem(openIndex);
-
-        items.forEach((item, index) => {
+        items.forEach((item) => {
           item.addEventListener('toggle', () => {
-            if (item.open) {
-              openIndex = index;
-              items.forEach((other, otherIndex) => {
-                if (otherIndex !== index) other.removeAttribute('open');
-              });
-            } else if (openIndex === index) {
-              item.setAttribute('open', '');
-            }
+            if (!item.open) return;
+            items.forEach((other) => {
+              if (other !== item) other.removeAttribute('open');
+            });
           });
         });
       })();

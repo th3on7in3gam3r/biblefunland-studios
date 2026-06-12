@@ -71,29 +71,39 @@
     <script src="site-nav.js"></script>
 
     <section class="blog-hero">
-        <div class="container hero-content">
-            <div class="hero-text">
+        <div class="blog-hero__bg" aria-hidden="true">
+            <div class="blog-hero__glow"></div>
+        </div>
+        <div class="container blog-hero__inner">
+            <div class="blog-hero__copy">
                 <span class="section-tag">Faith + Design</span>
-                <h1 class="animate-up">Where <span class="highlight">Faith</span><br>Meets the <span class="highlight">Page</span></h1>
-                <p class="animate-up" style="animation-delay: 0.1s;">Devotionals, studio insights, and practical guidance for church leaders, parents, and creators building something meaningful in faith.</p>
-                <a href="#posts" class="btn btn-primary animate-up" style="animation-delay: 0.15s;">Read Latest Posts</a>
+                <h1>Where <span class="highlight">Faith</span> Meets the <span class="highlight">Page</span></h1>
+                <p class="blog-hero__lead">Devotionals, studio insights, and practical guidance for church leaders, parents, and creators.</p>
+                <div class="blog-hero__actions">
+                    <a href="#posts" class="btn btn-primary">Read Latest Posts</a>
+                    <a href="#catalog" class="blog-hero__browse">Browse by topic →</a>
+                </div>
             </div>
-            <div class="blog-hero-visual animate-up" style="animation-delay: 0.2s;" aria-hidden="true">
-                <div class="blog-hero-mosaic">
-                    <div class="blog-hero-mosaic__tile blog-hero-mosaic__tile--main">
-                        <img src="brands/biblefunland.png" alt="">
-                    </div>
-                    <div class="blog-hero-mosaic__tile">
-                        <img src="brands/jr.biblefunland.png" alt="">
-                    </div>
-                    <div class="blog-hero-mosaic__tile blog-hero-mosaic__tile--photo">
-                        <img src="me.jpg" alt="">
-                    </div>
-                    <div class="blog-hero-mosaic__tile">
-                        <img src="5-branding-mistakes-churches-make.png" alt="">
+            <div class="blog-hero__showcase" aria-label="Studio work featured on the blog">
+                <div class="blog-showcase">
+                    <figure class="blog-showcase__frame blog-showcase__frame--main">
+                        <div class="blog-showcase__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+                        <img src="brands/biblefunland.png" alt="BibleFunLand platform screenshot" width="640" height="800" loading="eager">
+                        <figcaption>Platforms</figcaption>
+                    </figure>
+                    <div class="blog-showcase__stack">
+                        <figure class="blog-showcase__frame">
+                            <div class="blog-showcase__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+                            <img src="brands/jr.biblefunland.png" alt="BFL Junior kids platform" width="400" height="300" loading="eager">
+                            <figcaption>Kids UX</figcaption>
+                        </figure>
+                        <figure class="blog-showcase__frame">
+                            <div class="blog-showcase__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+                            <img src="5-branding-mistakes-churches-make.png" alt="Church branding article graphic" width="400" height="300" loading="eager">
+                            <figcaption>Ministry branding</figcaption>
+                        </figure>
                     </div>
                 </div>
-                <p class="blog-hero-visual-caption">Real work from the studio — platforms, partner sites, and articles we publish.</p>
             </div>
         </div>
     </section>

@@ -333,13 +333,29 @@ img {
 /* GEO answer capsule — extractable summary for AI crawlers */
 .answer-capsule {
     max-width: 540px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     padding: 20px 22px;
     background: rgba(255, 255, 255, 0.88);
     border: 1px solid rgba(26, 46, 90, 0.08);
     border-left: 4px solid var(--accent);
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow);
+}
+
+.answer-capsule--apps {
+    border-left-color: var(--primary);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.answer-capsule--apps .answer-capsule__facts a {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.answer-capsule--apps .answer-capsule__facts a:hover {
+    color: var(--accent-dark, var(--accent));
+    text-decoration: underline;
 }
 
 .answer-capsule__heading {
@@ -1534,6 +1550,10 @@ img {
         margin-left: auto;
         margin-right: auto;
         text-align: left;
+    }
+
+    .answer-capsule--apps .answer-capsule__facts {
+        justify-content: flex-start;
     }
 
     .hero-cta {

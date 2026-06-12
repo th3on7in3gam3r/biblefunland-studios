@@ -296,20 +296,6 @@ document.querySelectorAll('.testimonials-grid .testimonial-card').forEach((card,
 });
 
 
-// ===== BACK TO TOP =====
-const backToTop = document.getElementById('backToTop');
-
-if (backToTop) {
-    window.addEventListener('scroll', () => {
-        backToTop.classList.toggle('visible', window.scrollY > 600);
-    });
-
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
-
 // ===== PAGE LOADER =====
 const loader = document.getElementById('pageLoader');
 

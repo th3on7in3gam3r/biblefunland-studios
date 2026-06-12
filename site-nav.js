@@ -44,3 +44,24 @@
         });
     }
 })();
+
+(function initBackToTop() {
+    let backToTop = document.getElementById('backToTop');
+
+    if (!backToTop) {
+        backToTop = document.createElement('button');
+        backToTop.className = 'back-to-top';
+        backToTop.id = 'backToTop';
+        backToTop.setAttribute('aria-label', 'Back to top');
+        backToTop.textContent = '↑';
+        document.body.appendChild(backToTop);
+    }
+
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+})();

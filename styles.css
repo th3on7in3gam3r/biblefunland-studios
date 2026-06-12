@@ -358,6 +358,22 @@ img {
     text-decoration: underline;
 }
 
+.answer-capsule--animation {
+    border-left-color: var(--accent);
+    background: rgba(255, 252, 245, 0.95);
+}
+
+.answer-capsule--animation .answer-capsule__facts a {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.answer-capsule--animation .answer-capsule__facts a:hover {
+    color: var(--accent-dark, var(--accent));
+    text-decoration: underline;
+}
+
 .answer-capsule__heading {
     font-family: 'Playfair Display', serif;
     font-size: 1.05rem;
@@ -1552,7 +1568,8 @@ img {
         text-align: left;
     }
 
-    .answer-capsule--apps .answer-capsule__facts {
+    .answer-capsule--apps .answer-capsule__facts,
+    .answer-capsule--animation .answer-capsule__facts {
         justify-content: flex-start;
     }
 

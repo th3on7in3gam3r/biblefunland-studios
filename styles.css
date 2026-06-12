@@ -373,6 +373,17 @@ img {
     font-weight: 700;
 }
 
+.answer-capsule__text a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.answer-capsule__text a:hover {
+    color: var(--accent-dark, var(--accent));
+}
+
 .answer-capsule__facts {
     display: flex;
     flex-wrap: wrap;

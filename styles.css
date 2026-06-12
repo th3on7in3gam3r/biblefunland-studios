@@ -325,9 +325,62 @@ img {
 .hero-subtitle {
     font-size: 1.15rem;
     color: var(--text-light);
-    margin-bottom: 40px;
+    margin-bottom: 24px;
     max-width: 500px;
     line-height: 1.8;
+}
+
+/* GEO answer capsule — extractable summary for AI crawlers */
+.answer-capsule {
+    max-width: 540px;
+    margin-bottom: 28px;
+    padding: 20px 22px;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(26, 46, 90, 0.08);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+}
+
+.answer-capsule__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.answer-capsule__text {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.65;
+    margin-bottom: 12px;
+}
+
+.answer-capsule__text strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.answer-capsule__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.answer-capsule__facts li {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-light);
+    background: var(--bg-alt);
+    padding: 6px 10px;
+    border-radius: 6px;
 }
 
 .hero-cta {
@@ -1453,6 +1506,13 @@ img {
     .hero-subtitle {
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .answer-capsule {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
     }
 
     .hero-cta {

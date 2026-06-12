@@ -1,0 +1,9 @@
+# Local IDE
+*.code-workspace
+
+# Secrets
+.env
+.env.local
+
+# macOS
+.DS_Store

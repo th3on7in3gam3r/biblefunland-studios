@@ -579,52 +579,129 @@
 
 /* ===== SERVICES PAGE ===== */
 
+.services-page .page-hero {
+    padding: 140px 0 0;
+}
+
+.services-page .page-section--services {
+    padding: 28px 0 56px;
+}
+
+.services-page .page-section-header {
+    margin-bottom: 28px;
+    text-align: center;
+    max-width: 100%;
+}
+
+.services-page .page-section-header h2 {
+    margin-bottom: 8px;
+}
+
+.services-page .page-section-header p {
+    margin: 0 auto;
+    max-width: 560px;
+}
+
+.services-pricing-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px 28px;
+    margin-top: 28px;
+    padding: 16px 24px;
+    background: var(--bg-card);
+    border: 1px solid rgba(26, 46, 90, 0.08);
+    border-radius: var(--radius-sm, 12px);
+    box-shadow: var(--shadow);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.services-pricing-bar span {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.services-pricing-bar strong {
+    color: var(--primary);
+    font-size: 1.05rem;
+}
+
+.services-pricing-bar a {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
 .services-detail-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .service-detail-card {
     background: var(--bg-card);
     border-radius: var(--radius);
-    padding: 36px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(26, 46, 90, 0.06);
+    border: 1px solid rgba(26, 46, 90, 0.08);
+    display: flex;
+    flex-direction: column;
 }
 
-.service-detail-card .service-icon {
-    font-size: 2rem;
-    margin-bottom: 16px;
+.service-detail-card__icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    background: var(--accent-light);
+    border-radius: 12px;
+    border: 1px solid rgba(232, 168, 56, 0.2);
+}
+
+.service-detail-card__icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: var(--primary);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .service-detail-card h3 {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .service-detail-card > p {
+    font-size: 0.88rem;
     color: var(--text-light);
-    line-height: 1.7;
-    margin-bottom: 20px;
+    line-height: 1.65;
+    margin-bottom: 14px;
 }
 
 .service-detail-card ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 14px;
+    flex: 1;
 }
 
 .service-detail-card li {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     color: var(--text-light);
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    padding-left: 20px;
+    padding: 6px 0 6px 18px;
     position: relative;
+    line-height: 1.5;
 }
 
 .service-detail-card li::before {
@@ -633,10 +710,32 @@
     left: 0;
     color: var(--accent);
     font-weight: 700;
+    font-size: 0.75rem;
 }
 
-.service-detail-card li:last-child {
-    border-bottom: none;
+.service-detail-example {
+    margin: 0;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.service-detail-example a {
+    color: var(--primary);
+}
+
+.service-detail-example a:hover {
+    color: var(--accent-dark);
+}
+
+.services-mid-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 40px;
+    padding-top: 8px;
 }
 
 /* ===== NEWSLETTER ===== */
@@ -779,7 +878,10 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .brand-hub-grid,
+    .brand-hub-grid {
+        grid-template-columns: 1fr;
+    }
+
     .services-detail-grid {
         grid-template-columns: 1fr;
     }
@@ -792,11 +894,22 @@
         padding-top: 120px;
     }
 
+    .services-pricing-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+
     .newsletter-form {
         flex-direction: column;
     }
 
     .newsletter-form button {
         width: 100%;
+    }
+}
+
+@media (max-width: 1100px) and (min-width: 769px) {
+    .services-detail-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

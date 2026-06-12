@@ -35,7 +35,7 @@
     }
     </script>
 </head>
-<body>
+<body class="services-page">
     <script src="theme-loader.js"></script>
 
     <nav class="navbar scrolled" id="navbar">
@@ -45,141 +45,127 @@
                 <span class="logo-text">BibleFunLand<span class="logo-accent">Studios</span></span>
             </a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="brand/index.html">Brands</a></li>
-                <li><a href="services.html" class="active">Services</a></li>
-                <li><a href="work.html">Work</a></li>
-                <li><a href="case-studies.html">Case Studies</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="index.html#contact" class="btn btn-nav">Get In Touch</a></li>
-            </ul>
+            <ul class="nav-links" id="navLinks" data-site-nav data-active="services" data-base=""></ul>
         </div>
     </nav>
+    <script src="site-nav.js"></script>
 
     <section class="page-hero">
         <div class="container">
             <span class="section-tag">What We Do</span>
             <h1 style="margin-top:16px;">Creative Services for <span class="highlight">Ministry</span></h1>
-            <p class="section-desc">We build brands, craft animations, design experiences, and ship digital products — with a process and pricing model built for churches, schools, and faith-based organizations.</p>
-            <p class="page-hero-lead">Before you reach out, you should know exactly what we offer, how we work, and what to expect. This page covers our full service scope, delivery process, and starting investment tiers so you can plan with confidence.</p>
+            <p class="section-desc">We build brands, craft animations, design experiences, and ship digital products for churches, schools, and faith-based organizations — with clear scope, process, and starting tiers from <strong>$500</strong> so you can plan with confidence.</p>
+            <div class="services-pricing-bar" aria-label="Starting price tiers">
+                <span>Starter from <strong>$500</strong></span>
+                <span>Growth from <strong>$2,000</strong></span>
+                <span>Custom partnerships available</span>
+                <a href="#pricing">See full pricing →</a>
+            </div>
         </div>
     </section>
 
-    <section class="page-section">
+    <section class="page-section page-section--services">
         <div class="container">
             <div class="page-section-header">
                 <span class="section-tag">Scope</span>
                 <h2>Six Core <span class="highlight">Services</span></h2>
-                <p>Every engagement is tailored to your ministry's goals. These are the disciplines we bring to each project.</p>
+                <p>Every engagement is tailored to your ministry's goals.</p>
             </div>
             <div class="services-detail-grid">
                 <article class="service-detail-card">
-                    <div class="service-icon">🎨</div>
+                    <div class="service-detail-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 5l2-1 1 3"/></svg>
+                    </div>
                     <h3>Graphic Design & Branding</h3>
                     <p>Visual identities that communicate your mission clearly — from first impression to every touchpoint.</p>
                     <ul>
                         <li>Logo and brand mark design</li>
-                        <li>Full identity systems (color, type, guidelines)</li>
-                        <li>Print materials — bulletins, banners, event kits</li>
-                        <li>Social media template packs</li>
+                        <li>Full identity systems</li>
+                        <li>Print and event materials</li>
+                        <li>Social template packs</li>
                     </ul>
+                    <p class="service-detail-example"><a href="case-studies/anointed-worship-center.html">See an example →</a></p>
                 </article>
+
                 <article class="service-detail-card">
-                    <div class="service-icon">🎬</div>
+                    <div class="service-detail-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5V3h10v2M9 14l2-2 2 2 3-3"/></svg>
+                    </div>
                     <h3>Animation & Motion Graphics</h3>
                     <p>2D animation and motion design that makes biblical stories and curriculum engaging for every age.</p>
                     <ul>
-                        <li>Explainer and teaching animations</li>
-                        <li>Children's ministry motion content</li>
-                        <li>Sermon series openers and bumpers</li>
-                        <li>Social clips and promotional loops</li>
+                        <li>Teaching animations</li>
+                        <li>Kids ministry motion content</li>
+                        <li>Sermon series openers</li>
+                        <li>Social clips and loops</li>
                     </ul>
+                    <p class="service-detail-example"><a href="case-studies/bfl-junior.html">See an example →</a></p>
                 </article>
+
                 <article class="service-detail-card">
-                    <div class="service-icon">📹</div>
+                    <div class="service-detail-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 7h2l2-3h8l2 3h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="3.5"/></svg>
+                    </div>
                     <h3>Video Production</h3>
                     <p>Cinematic storytelling and post-production for ministries that need more than a slideshow.</p>
                     <ul>
-                        <li>Promotional and testimonial videos</li>
-                        <li>Event recaps and highlight reels</li>
-                        <li>Multi-camera sermon support graphics</li>
-                        <li>Editing, color, and sound finishing</li>
+                        <li>Promotional videos</li>
+                        <li>Event recaps and reels</li>
+                        <li>Sermon support graphics</li>
+                        <li>Editing and finishing</li>
                     </ul>
+                    <p class="service-detail-example"><a href="case-studies.html">See an example →</a></p>
                 </article>
+
                 <article class="service-detail-card">
-                    <div class="service-icon">🌐</div>
+                    <div class="service-detail-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/><path d="M8 9h8M8 13h5"/></svg>
+                    </div>
                     <h3>Web & Digital Products</h3>
                     <p>Websites, apps, and platforms designed for clarity, speed, and long-term ministry use.</p>
                     <ul>
-                        <li>Church and ministry websites</li>
-                        <li>Member portals and resource hubs</li>
-                        <li>Learning platforms and devotional apps</li>
-                        <li>SEO, accessibility, and mobile-first builds</li>
+                        <li>Church and ministry sites</li>
+                        <li>Member portals and hubs</li>
+                        <li>Learning and devotional apps</li>
+                        <li>SEO and accessibility</li>
                     </ul>
+                    <p class="service-detail-example"><a href="case-studies/awc-vault.html">See an example →</a></p>
                 </article>
+
                 <article class="service-detail-card">
-                    <div class="service-icon">🎵</div>
+                    <div class="service-detail-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 14v4M8 10v8M12 6v12M16 10v8M20 14v4"/></svg>
+                    </div>
                     <h3>Audio & Music</h3>
                     <p>Sound that sets the tone — from podcast production to original scores for your content.</p>
                     <ul>
-                        <li>Podcast editing and mastering</li>
-                        <li>Voiceover direction and production</li>
-                        <li>Original music and sound design</li>
-                        <li>Worship resource audio assets</li>
+                        <li>Podcast editing</li>
+                        <li>Voiceover production</li>
+                        <li>Original music and SFX</li>
+                        <li>Worship audio assets</li>
                     </ul>
+                    <p class="service-detail-example"><a href="case-studies.html">See an example →</a></p>
                 </article>
+
                 <article class="service-detail-card">
-                    <div class="service-icon">📖</div>
+                    <div class="service-detail-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M6 4h10a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V6a2 2 0 0 1 2-2z"/><path d="M8 8h6M8 12h6"/></svg>
+                    </div>
                     <h3>Curriculum & Educational Design</h3>
                     <p>Illustrated materials and interactive content for Sunday school, homeschool, and Bible study.</p>
                     <ul>
-                        <li>Lesson plan design and layout</li>
-                        <li>Activity books and printable resources</li>
-                        <li>Kids ministry curriculum visuals</li>
-                        <li>Interactive learning experiences</li>
+                        <li>Lesson plan design</li>
+                        <li>Activity books and printables</li>
+                        <li>Kids curriculum visuals</li>
+                        <li>Interactive learning</li>
                     </ul>
+                    <p class="service-detail-example"><a href="brand/bfl-homeschool.html">See an example →</a></p>
                 </article>
             </div>
-        </div>
-    </section>
 
-    <section class="page-section page-section--alt process" id="process">
-        <div class="container">
-            <div class="section-header" style="text-align:left; max-width:760px;">
-                <span class="section-tag">How We Work</span>
-                <h2>Our 4-Step <span class="highlight">Process</span></h2>
-                <p class="section-desc">A clear path from first conversation to launch — so you always know where your project stands.</p>
-            </div>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-number">01</div>
-                    <div class="step-content">
-                        <h3>Discovery & Vision</h3>
-                        <p>We learn your mission, audience, constraints, and success metrics. You leave with shared clarity on what we're building and why.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">02</div>
-                    <div class="step-content">
-                        <h3>Creative Strategy</h3>
-                        <p>Moodboards, wireframes, and a project roadmap align our creative direction with your faith-driven goals before production begins.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">03</div>
-                    <div class="step-content">
-                        <h3>Expert Production</h3>
-                        <p>Design, development, animation, or video — built with revision rounds built in so you're confident at every milestone.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">04</div>
-                    <div class="step-content">
-                        <h3>Ministry Launch</h3>
-                        <p>We deliver final assets, help you launch, and provide post-launch support so your team can run with confidence.</p>
-                    </div>
-                </div>
+            <div class="services-mid-cta">
+                <a href="index.html#contact" class="btn btn-primary">Start a Project →</a>
+                <a href="case-studies.html" class="btn btn-secondary">View Case Studies</a>
             </div>
         </div>
     </section>
@@ -247,6 +233,46 @@
         </div>
     </section>
 
+    <section class="page-section page-section--alt process" id="process">
+        <div class="container">
+            <div class="section-header" style="text-align:left; max-width:760px;">
+                <span class="section-tag">How We Work</span>
+                <h2>Our 4-Step <span class="highlight">Process</span></h2>
+                <p class="section-desc">A clear path from first conversation to launch — so you always know where your project stands.</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Discovery & Vision</h3>
+                        <p>We learn your mission, audience, constraints, and success metrics. You leave with shared clarity on what we're building and why.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Creative Strategy</h3>
+                        <p>Moodboards, wireframes, and a project roadmap align our creative direction with your faith-driven goals before production begins.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Expert Production</h3>
+                        <p>Design, development, animation, or video — built with revision rounds built in so you're confident at every milestone.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Ministry Launch</h3>
+                        <p>We deliver final assets, help you launch, and provide post-launch support so your team can run with confidence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="newsletter-section" aria-labelledby="newsletter-heading">
         <div class="container newsletter-inner">
             <h2 id="newsletter-heading">Faith + Design</h2>
@@ -299,13 +325,5 @@
 
     <script src="script.js"></script>
     <script src="newsletter.js"></script>
-    <script>
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        if (navToggle && navLinks) {
-            navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
-        }
-    </script>
 </body>
 </html>

@@ -10,13 +10,13 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Blog & Devotionals | BibleFunLand Studios">
     <meta property="og:description" content="Read BibleFunLand Studios blog — devotionals, creative insights, ministry branding tips, and behind-the-scenes stories from our faith-based digital studio.">
-    <meta property="og:image" content="https://biblefunlandstudios.com/faith-meets-the-page.png">
+    <meta property="og:image" content="https://biblefunlandstudios.com/brands/biblefunland.png">
     <meta property="og:url" content="https://biblefunlandstudios.com/blog.html">
     <meta property="og:site_name" content="BibleFunLand Studios">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Blog & Devotionals | BibleFunLand Studios">
     <meta name="twitter:description" content="Read BibleFunLand Studios blog — devotionals, creative insights, ministry branding tips, and behind-the-scenes stories from our faith-based digital studio.">
-    <meta name="twitter:image" content="https://biblefunlandstudios.com/faith-meets-the-page.png">
+    <meta name="twitter:image" content="https://biblefunlandstudios.com/brands/biblefunland.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +34,7 @@
       "headline": "Blog & Devotionals",
       "description": "Read BibleFunLand Studios blog — devotionals, creative insights, ministry branding tips, and behind-the-scenes stories from our faith-based digital studio.",
       "url": "https://biblefunlandstudios.com/blog.html",
-      "image": "https://biblefunlandstudios.com/faith-meets-the-page.png",
+      "image": "https://biblefunlandstudios.com/brands/biblefunland.png",
       "publisher": {
         "@type": "Organization",
         "name": "BibleFunLand Studios",
@@ -50,12 +50,10 @@
 <body>
     <script src="theme-loader.js"></script>
 
-    <!-- Reading Progress Bar -->
     <div class="reading-progress-container">
         <div class="reading-progress-bar" id="readingProgress"></div>
     </div>
 
-    <!-- Navigation -->
     <nav class="navbar scrolled" id="navbar">
         <div class="container nav-container">
             <a href="/" class="logo">
@@ -72,96 +70,102 @@
     </nav>
     <script src="site-nav.js"></script>
 
-    <!-- Blog Hero -->
     <section class="blog-hero">
         <div class="container hero-content">
             <div class="hero-text">
+                <span class="section-tag">Faith + Design</span>
                 <h1 class="animate-up">Where <span class="highlight">Faith</span><br>Meets the <span class="highlight">Page</span></h1>
-                <p class="animate-up" style="animation-delay: 0.1s;">Reflections, insights, and behind-the-scenes from the studio — where creativity meets calling.</p>
-                <p class="animate-up hero-lead" style="animation-delay: 0.15s;">The BibleFunLand Studios blog is a growing library of devotionals, design lessons, and ministry-focused articles written for creators, church leaders, parents, and anyone building something meaningful in faith. We share what we are learning as we design platforms, launch brands, and serve partners across the Kingdom.</p>
-                <a href="#posts" class="btn btn-primary animate-up" style="animation-delay: 0.2s; background: var(--accent); color: var(--primary); padding: 14px 35px; border-radius: 12px;">Browse Posts</a>
+                <p class="animate-up" style="animation-delay: 0.1s;">Devotionals, studio insights, and practical guidance for church leaders, parents, and creators building something meaningful in faith.</p>
+                <a href="#posts" class="btn btn-primary animate-up" style="animation-delay: 0.15s;">Read Latest Posts</a>
             </div>
-            <div class="hero-image-wrapper animate-up" style="animation-delay: 0.3s;">
-                <img src="faith-meets-the-page.png" alt="Faith Meets the Page">
+            <div class="blog-hero-visual animate-up" style="animation-delay: 0.2s;" aria-hidden="true">
+                <div class="blog-hero-mosaic">
+                    <div class="blog-hero-mosaic__tile blog-hero-mosaic__tile--main">
+                        <img src="brands/biblefunland.png" alt="">
+                    </div>
+                    <div class="blog-hero-mosaic__tile">
+                        <img src="brands/jr.biblefunland.png" alt="">
+                    </div>
+                    <div class="blog-hero-mosaic__tile blog-hero-mosaic__tile--photo">
+                        <img src="me.jpg" alt="">
+                    </div>
+                    <div class="blog-hero-mosaic__tile">
+                        <img src="5-branding-mistakes-churches-make.png" alt="">
+                    </div>
+                </div>
+                <p class="blog-hero-visual-caption">Real work from the studio — platforms, partner sites, and articles we publish.</p>
             </div>
         </div>
     </section>
 
-    <!-- Search & Stats Row -->
     <section class="search-section">
         <div class="container">
-            <div class="search-row animate-up" style="animation-delay: 0.4s;">
+            <div class="search-row animate-up">
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="blogSearch" placeholder="Search for inspiration...">
+                    <span class="search-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+                    </span>
+                    <input type="search" id="blogSearch" placeholder="Search posts by title or topic…" aria-label="Search blog posts">
                 </div>
-                <div class="stats-row">
-                    <div><span>12</span> Posts</div>
-                    <div><span>4</span> Categories</div>
-                    <div><span>Weekly</span> New Content</div>
+                <div class="stats-row" id="blogStats" aria-live="polite">
+                    <div><span id="postCountStat">—</span> Posts</div>
+                    <div><span>4</span> Topics</div>
+                    <div>Fresh Content Regularly</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Blog About — substantive index copy -->
-    <section class="blog-about" aria-labelledby="blog-about-heading">
-        <div class="container blog-about-inner">
-            <div class="blog-about-copy animate-up" style="animation-delay: 0.45s;">
-                <h2 id="blog-about-heading">What You'll Find on This Blog</h2>
-                <p>Every article here is written with purpose: to encourage your walk with God, sharpen your creative work, and offer practical guidance for ministry in a digital age. Some posts are short devotional reflections you can read in a few minutes. Others go deeper into product design, branding, and the decisions behind the platforms we build for families, churches, and partner organizations.</p>
-                <p>Whether you are a pastor planning your next website refresh, a parent exploring faith-based learning tools, or a creator wondering how to steward your gifts well, you will find honest stories and actionable ideas — not fluff. We publish regularly so you can return for fresh inspiration, studio updates, and lessons learned along the way.</p>
-            </div>
-            <ul class="blog-about-topics animate-up" style="animation-delay: 0.5s;">
-                <li>
-                    <h3>Devotionals &amp; Reflection</h3>
-                    <p>Scripture-centered encouragement for creators and ministry leaders — short reads to anchor your day before you build, teach, or serve.</p>
-                </li>
-                <li>
-                    <h3>Studio Insights</h3>
-                    <p>Thoughts on UX, content strategy, accessibility, and brand clarity — applied to faith-based products that need to welcome everyone.</p>
-                </li>
-                <li>
-                    <h3>Behind the Scenes</h3>
-                    <p>Case studies and process notes from BibleFunLand brands and partner projects, from first wireframe to launch and beyond.</p>
-                </li>
-                <li>
-                    <h3>Tutorials &amp; How-To Guides</h3>
-                    <p>Practical tips for churches and ministries — branding mistakes to avoid, messaging that connects, and tools that actually help your team.</p>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Featured Post -->
-    <section class="blog-featured" id="posts">
-        <div class="container" id="featuredContainer">
-            <!-- Featured post injected here -->
-        </div>
-    </section>
-
-    <!-- Blog Grid -->
-    <section class="blog-posts">
+    <section class="blog-latest" id="posts">
         <div class="container">
-            <div class="blog-grid" id="blogGrid">
-                <!-- Posts will be injected here -->
+            <div class="blog-section-head">
+                <h2>Latest Posts</h2>
             </div>
-            
-            <!-- Empty Search State -->
-            <div id="emptySearch" class="empty-search animate-up" style="display: none;">
-                <div class="empty-icon">🏜️</div>
-                <h3>No inspiration found</h3>
-                <p>Try a different keyword or category!</p>
-                <button class="btn btn-primary" onclick="resetSearch()" style="background: var(--accent); color: var(--primary);">View All Posts</button>
+            <div id="latestContainer" class="blog-latest-grid"></div>
+        </div>
+    </section>
+
+    <section class="blog-subscribe-inline" aria-labelledby="blog-inline-subscribe-heading">
+        <div class="container">
+            <div class="blog-subscribe-bar">
+                <div class="blog-subscribe-bar__copy">
+                    <h2 id="blog-inline-subscribe-heading">Get new posts in your inbox</h2>
+                    <p>Devotionals, studio updates, and ministry design tips — free, no spam.</p>
+                </div>
+                <form class="newsletter-form newsletter-form--inline" action="https://formspree.io/f/mnnnyrvz" method="POST">
+                    <input type="hidden" name="_subject" value="Faith + Design Newsletter Signup">
+                    <input type="hidden" name="signup_type" value="newsletter">
+                    <input type="email" name="email" placeholder="Your email address" required autocomplete="email" aria-label="Email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+                <div class="newsletter-success" role="status">You're in! Check your inbox soon.</div>
             </div>
         </div>
     </section>
 
-    <!-- Faith + Design Newsletter -->
+    <section class="blog-catalog" id="catalog">
+        <div class="container">
+            <div id="catalogContainer"></div>
+            <div id="searchResultsContainer" class="blog-search-results" hidden>
+                <div class="blog-section-head">
+                    <h2>Search Results</h2>
+                    <p id="searchResultsLabel"></p>
+                </div>
+                <div class="blog-grid" id="searchResultsGrid"></div>
+            </div>
+            <div id="emptySearch" class="empty-search" style="display: none;">
+                <div class="empty-icon" aria-hidden="true">🔍</div>
+                <h3>No posts found</h3>
+                <p>Try a different keyword — devotionals, branding, kids UX, or ministry apps.</p>
+                <button type="button" class="btn btn-primary" onclick="resetSearch()">View All Posts</button>
+            </div>
+        </div>
+    </section>
+
     <section class="newsletter-section" aria-labelledby="blog-newsletter-heading">
         <div class="container newsletter-inner">
             <h2 id="blog-newsletter-heading">Faith + Design</h2>
-            <p>Monthly tips on church branding, website clarity, and children's ministry UX — plus devotionals and studio updates. No spam, just purpose.</p>
+            <p>Monthly tips on church branding, website clarity, and children's ministry UX — plus devotionals and studio updates.</p>
             <form class="newsletter-form" action="https://formspree.io/f/mnnnyrvz" method="POST">
                 <input type="hidden" name="_subject" value="Faith + Design Newsletter Signup">
                 <input type="hidden" name="signup_type" value="newsletter">
@@ -177,7 +181,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-bottom">
@@ -188,17 +191,39 @@
 
     <script src="newsletter.js"></script>
     <script>
-        // Reading Progress Bar
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('readingProgress').style.width = scrolled + "%";
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
         });
 
-        const blogGrid = document.getElementById('blogGrid');
         const searchInput = document.getElementById('blogSearch');
         const emptySearch = document.getElementById('emptySearch');
+        const catalogContainer = document.getElementById('catalogContainer');
+        const searchResultsContainer = document.getElementById('searchResultsContainer');
+        const searchResultsGrid = document.getElementById('searchResultsGrid');
+        const searchResultsLabel = document.getElementById('searchResultsLabel');
+        const postCountStat = document.getElementById('postCountStat');
+
+        const AUTHOR = 'BibleFunLand Studios';
+        const FALLBACK_IMAGE = 'brands/biblefunland.png';
+
+        const CATEGORY_LABELS = {
+            devotional: 'Devotionals & Reflection',
+            insight: 'Studio Insights',
+            behind: 'Behind the Scenes',
+            tutorial: 'Tutorials & How-To Guides'
+        };
+
+        const CATEGORY_DESC = {
+            devotional: 'Scripture-centered encouragement for creators and ministry leaders — short reads to anchor your day.',
+            insight: 'UX, content strategy, accessibility, and brand clarity for faith-based products.',
+            behind: 'Process notes from BibleFunLand brands and partner projects, from wireframe to launch.',
+            tutorial: 'Practical tips for churches — branding, messaging, and tools that help your team.'
+        };
+
+        const CATEGORY_ORDER = ['devotional', 'insight', 'behind', 'tutorial'];
 
         function slugify(value) {
             return String(value || '')
@@ -219,19 +244,20 @@
             return `post.html?id=${encodeURIComponent(post.id)}`;
         }
 
-        // Static fallback posts (shown if Sanity has no content yet)
+        function getCategoryLabel(category) {
+            return CATEGORY_LABELS[category] || category;
+        }
+
         const staticPosts = [
-            { id: '1', slug: 'designing-for-kids-lessons-from-bfl-junior', category: 'insight', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min', content: 'What we learned building a platform for young believers...', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800' },
-            { id: '2', slug: 'creating-with-purpose-colossians-3-23', category: 'devotional', title: 'Creating with Purpose: Colossians 3:23', date: 'April 15, 2026', readTime: '3 min', content: 'Whatever you do, work at it with all your heart...', image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800' },
-            { id: '3', slug: 'from-one-idea-to-six-brands', category: 'behind', title: 'From One Idea to Six Brands', date: 'March 30, 2026', readTime: '6 min', content: 'The story of how BibleFunLand Studios grew...', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800' },
-            { id: '4', slug: '5-branding-mistakes-churches-make', category: 'tutorial', title: '5 Branding Mistakes Churches Make', date: 'March 15, 2026', readTime: '7 min', content: 'Practical solutions for your ministry\'s visual identity...', image: '5-branding-mistakes-churches-make.png' },
-            { id: '5', slug: 'vision-bigger-than-your-skill', category: 'devotional', title: 'Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min', content: 'Trusting the process when God calls you to more...', image: 'vision-bigger-than-your-skill.png' },
-            { id: '6', slug: 'building-awc-connect', category: 'behind', title: 'Building AWC Connect', date: 'Feb 14, 2026', readTime: '8 min', content: 'A ministry app case study from wireframe to launch...', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800' }
+            { id: '1', slug: 'designing-for-kids-lessons-from-bfl-junior', category: 'insight', title: 'Designing for Kids: Lessons from BFL Junior', date: 'April 28, 2026', readTime: '4 min', content: 'What we learned building a platform for young believers — touch targets, pacing, and content parents trust.', image: 'brands/jr.biblefunland.png' },
+            { id: '2', slug: 'creating-with-purpose-colossians-3-23', category: 'devotional', title: 'Creating with Purpose: Colossians 3:23', date: 'April 15, 2026', readTime: '3 min', content: 'Whatever you do, work at it with all your heart — a reflection on excellence as worship.', image: 'vision-bigger-than-your-skill.png' },
+            { id: '3', slug: 'from-one-idea-to-six-brands', category: 'behind', title: 'From One Idea to Six Brands', date: 'March 30, 2026', readTime: '6 min', content: 'The story of how BibleFunLand Studios grew from one platform into a family of faith-based brands.', image: 'brands/biblefunland.png' },
+            { id: '4', slug: '5-branding-mistakes-churches-make', category: 'tutorial', title: '5 Branding Mistakes Churches Make', date: 'March 15, 2026', readTime: '7 min', content: 'Practical fixes for inconsistent logos, unclear messaging, and websites that confuse first-time visitors.', image: '5-branding-mistakes-churches-make.png' },
+            { id: '5', slug: 'vision-bigger-than-your-skill', category: 'devotional', title: 'Vision Bigger Than Your Skill', date: 'March 1, 2026', readTime: '4 min', content: 'Trusting the process when God calls you to more than your current ability can deliver.', image: 'vision-bigger-than-your-skill.png' },
+            { id: '6', slug: 'building-awc-connect', category: 'behind', title: 'Building AWC Connect', date: 'February 14, 2026', readTime: '8 min', content: 'A ministry app case study from wireframe to launch — designing for how congregations actually connect.', image: 'brands/awc_vault.png' }
         ];
 
-        // Normalize a Sanity post to the same shape as a static post
         function normalizeSanityPost(p) {
-            // Decode HTML entities and strip any remaining tags for clean preview text
             const textarea = document.createElement('textarea');
             textarea.innerHTML = p.excerpt || '';
             const cleanExcerpt = textarea.value.replace(/<[^>]+>/g, '').slice(0, 160);
@@ -244,93 +270,105 @@
                 date: p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
                 readTime: p.readTime || '3 min',
                 content: cleanExcerpt,
-                image: p.imageUrl || 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800',
+                image: p.imageUrl || FALLBACK_IMAGE,
                 isFeatured: !!p.isFeatured,
-                likes: p.likes || 0
+                likes: p.likes || 0,
+                author: p.author || AUTHOR
             };
         }
 
-        let allPosts = [];
-        let featuredPost = null;
+        function normalizeStaticPost(post) {
+            return { ...post, author: AUTHOR, likes: post.likes || 0 };
+        }
 
-        function renderFeatured(post) {
-            const container = document.getElementById('featuredContainer');
-            if (!post) {
+        let allPosts = [];
+
+        function buildCardHtml(post, options = {}) {
+            const { large = false, featured = false } = options;
+            const postUrl = getPostUrl(post);
+            const liked = localStorage.getItem('liked_' + post.id);
+            const categoryLabel = getCategoryLabel(post.category);
+            const cardClass = large ? 'blog-card blog-card--large' : 'blog-card';
+            const thumbClass = large ? 'blog-thumb-sm blog-thumb-sm--large' : 'blog-thumb-sm';
+
+            return `
+                <article class="${cardClass}">
+                    <a href="${postUrl}" class="blog-card-link" aria-label="Read ${post.title}">
+                        <div class="${thumbClass}">
+                            <img src="${post.image}" alt="" loading="lazy" onerror="this.src='${FALLBACK_IMAGE}'">
+                        </div>
+                        <div class="blog-card-body">
+                            <div class="blog-meta">
+                                <span class="blog-category cat-${post.category}">${categoryLabel}</span>
+                                ${featured ? '<span class="blog-featured-tag">Featured</span>' : ''}
+                            </div>
+                            <h3>${post.title}</h3>
+                            <p class="blog-byline">By ${post.author || AUTHOR} · ${post.date}</p>
+                            <p>${post.content}</p>
+                            <div class="blog-card-footer">
+                                <span class="blog-read-time">${post.readTime} read</span>
+                                <span class="blog-link">Read article →</span>
+                            </div>
+                        </div>
+                    </a>
+                    <button type="button" class="blog-like-btn" onclick="event.preventDefault(); handleLike('${post.id}', 'like-btn-${post.id}', 'like-count-${post.id}')" id="like-btn-${post.id}" aria-label="Like this post">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="${liked ? '#ef4444' : 'none'}" stroke="${liked ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        <span id="like-count-${post.id}">${post.likes || 0}</span>
+                    </button>
+                </article>
+            `;
+        }
+
+        function renderLatest() {
+            const container = document.getElementById('latestContainer');
+            const latest = allPosts.slice(0, 3);
+            if (!latest.length) {
                 container.innerHTML = '';
                 return;
             }
-            const postUrl = getPostUrl(post);
-            const liked = localStorage.getItem('liked_' + post.id);
+
+            const [featured, ...rest] = latest;
             container.innerHTML = `
-                <article class="featured-card animate-up">
-                    <div class="featured-thumb">
-                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'">
-                    </div>
-                    <div class="featured-body">
-                        <div class="featured-meta">
-                            <span class="blog-category cat-${post.category}" style="text-transform: uppercase;">${post.category}</span>
-                            <span class="blog-date">${post.date}</span>
-                        </div>
-                        <div style="font-size: 0.65rem; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px;">Featured Post</div>
-                        <h2>${post.title}</h2>
-                        <p>${post.content}</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                            <a class="blog-link blog-read-link" style="font-size: 1rem;">Read More ›</a>
-                            <button onclick="handleLike('${post.id}', 'like-btn-feat', 'like-count-feat')" id="like-btn-feat" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:6px; font-size:1rem; font-weight:700; color:var(--text-light); padding:0; transition: transform 0.2s;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="${liked ? '#ef4444' : 'none'}" stroke="${liked ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                <span id="like-count-feat">${post.likes || 0}</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
+                <div class="blog-latest-primary">${buildCardHtml(featured, { large: true, featured: true })}</div>
+                <div class="blog-latest-secondary">${rest.map(p => buildCardHtml(p)).join('')}</div>
             `;
-            const readLink = container.querySelector('.blog-read-link');
-            if (readLink) readLink.href = postUrl;
+            container.querySelectorAll('.blog-card').forEach(card => observer.observe(card));
         }
 
-        function renderPosts(filteredPosts) {
-            blogGrid.innerHTML = '';
-            filteredPosts.forEach(post => {
-                const card = document.createElement('article');
-                card.className = 'blog-card';
-                const postUrl = getPostUrl(post);
-                const liked = localStorage.getItem('liked_' + post.id);
-                card.innerHTML = `
-                    <div class="blog-thumb-sm">
-                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800'">
-                    </div>
-                    <div class="blog-card-body">
-                        <div class="blog-meta">
-                            <span class="blog-category cat-${post.category}">${post.category}</span>
-                            <span style="font-size: 0.75rem; color: var(--text-light); font-weight: 500;">${post.date}</span>
-                        </div>
-                        <h3>${post.title}</h3>
-                        <p>${post.content}</p>
-                        <div class="blog-card-footer">
-                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-light);">${post.readTime} read</span>
-                            <div style="display:flex; gap:12px; align-items:center;">
-                                <button onclick="handleLike('${post.id}', 'like-btn-${post.id}', 'like-count-${post.id}')" id="like-btn-${post.id}" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:4px; font-size:0.8rem; font-weight:700; color:var(--text-light); padding:0; transition: transform 0.2s;">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="${liked ? '#ef4444' : 'none'}" stroke="${liked ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                    <span id="like-count-${post.id}">${post.likes || 0}</span>
-                                </button>
-                                <a class="blog-link blog-read-link">Read More →</a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                const readLink = card.querySelector('.blog-read-link');
-                if (readLink) readLink.href = postUrl;
-                blogGrid.appendChild(card);
-                observer.observe(card);
+        function renderCatalog(excludeIds = []) {
+            const excluded = new Set(excludeIds);
+            const postsByCategory = {};
+
+            CATEGORY_ORDER.forEach(cat => { postsByCategory[cat] = []; });
+
+            allPosts.forEach(post => {
+                if (excluded.has(post.id)) return;
+                const cat = CATEGORY_ORDER.includes(post.category) ? post.category : 'insight';
+                if (!postsByCategory[cat]) postsByCategory[cat] = [];
+                postsByCategory[cat].push(post);
             });
 
-            if (filteredPosts.length === 0) {
-                emptySearch.style.display = 'block';
-                blogGrid.style.display = 'none';
-            } else {
-                emptySearch.style.display = 'none';
-                blogGrid.style.display = 'grid';
-            }
+            catalogContainer.innerHTML = CATEGORY_ORDER
+                .filter(cat => postsByCategory[cat] && postsByCategory[cat].length)
+                .map(cat => `
+                    <section class="blog-category-section" aria-labelledby="cat-${cat}">
+                        <div class="blog-section-head">
+                            <h2 id="cat-${cat}">${CATEGORY_LABELS[cat]}</h2>
+                            <p>${CATEGORY_DESC[cat]}</p>
+                        </div>
+                        <div class="blog-grid">${postsByCategory[cat].map(p => buildCardHtml(p)).join('')}</div>
+                    </section>
+                `).join('');
+
+            catalogContainer.querySelectorAll('.blog-card').forEach(card => observer.observe(card));
+        }
+
+        function renderSearchResults(posts, term) {
+            searchResultsGrid.innerHTML = posts.map(p => buildCardHtml(p)).join('');
+            searchResultsLabel.textContent = posts.length
+                ? `${posts.length} result${posts.length === 1 ? '' : 's'} for “${term}”`
+                : '';
+            searchResultsGrid.querySelectorAll('.blog-card').forEach(card => observer.observe(card));
         }
 
         const observer = new IntersectionObserver((entries) => {
@@ -343,70 +381,87 @@
         }, { threshold: 0.1 });
 
         function filterPosts() {
-            const term = searchInput.value.toLowerCase();
-            let filtered = allPosts.filter(p => p.title.toLowerCase().includes(term) || p.content.toLowerCase().includes(term));
-            
-            // If searching, hide featured, else show featured and remove it from grid
-            if (term) {
-                document.getElementById('posts').style.display = 'none';
-            } else {
-                document.getElementById('posts').style.display = 'block';
-                if (featuredPost) {
-                    filtered = filtered.filter(p => p.id !== featuredPost.id);
-                }
+            const term = searchInput.value.trim().toLowerCase();
+
+            if (!term) {
+                catalogContainer.hidden = false;
+                searchResultsContainer.hidden = true;
+                emptySearch.style.display = 'none';
+                const latestIds = allPosts.slice(0, 3).map(p => p.id);
+                renderCatalog(latestIds);
+                return;
             }
-            
-            renderPosts(filtered);
+
+            const filtered = allPosts.filter(post => {
+                const haystack = [
+                    post.title,
+                    post.content,
+                    post.category,
+                    getCategoryLabel(post.category),
+                    post.author || AUTHOR
+                ].join(' ').toLowerCase();
+                return haystack.includes(term);
+            });
+
+            catalogContainer.hidden = true;
+            searchResultsContainer.hidden = false;
+
+            if (filtered.length === 0) {
+                searchResultsContainer.hidden = true;
+                emptySearch.style.display = 'block';
+                searchResultsGrid.innerHTML = '';
+            } else {
+                emptySearch.style.display = 'none';
+                renderSearchResults(filtered, searchInput.value.trim());
+            }
         }
 
         function resetSearch() {
             searchInput.value = '';
             filterPosts();
+            searchInput.focus();
         }
 
         searchInput.addEventListener('input', filterPosts);
 
-        // Load posts: try Sanity first, fall back to static
+        function updateStats() {
+            postCountStat.textContent = allPosts.length;
+        }
+
         async function loadPosts() {
             try {
                 const sanityPosts = await getAllPosts();
                 if (sanityPosts && sanityPosts.length > 0) {
                     allPosts = sanityPosts.map(normalizeSanityPost);
                 } else {
-                    // No Sanity content yet — show static demo posts
-                    allPosts = staticPosts;
+                    allPosts = staticPosts.map(normalizeStaticPost);
                 }
-                
-                // Find featured post (first marked, or fallback to latest)
-                featuredPost = allPosts.find(p => p.isFeatured) || allPosts[0];
-                renderFeatured(featuredPost);
-                filterPosts(); // Handles rendering the grid without the featured post
             } catch (err) {
                 console.error(err);
-                allPosts = staticPosts;
-                featuredPost = allPosts[0];
-                renderFeatured(featuredPost);
-                filterPosts();
+                allPosts = staticPosts.map(normalizeStaticPost);
             }
+
+            updateStats();
+            renderLatest();
+            filterPosts();
         }
 
         loadPosts();
 
         async function handleLike(postId, btnId, countId) {
-            if (localStorage.getItem('liked_' + postId)) return; // Already liked
-            
+            if (localStorage.getItem('liked_' + postId)) return;
+
             const btn = document.getElementById(btnId);
             const countSpan = document.getElementById(countId);
-            
-            // Optimistic UI update
+            if (!btn || !countSpan) return;
+
             btn.innerHTML = btn.innerHTML.replace(/fill="none"/, 'fill="#ef4444"').replace(/stroke="currentColor"/, 'stroke="#ef4444"');
             btn.style.transform = 'scale(1.2)';
-            setTimeout(() => btn.style.transform = 'scale(1)', 200);
-            
-            countSpan.textContent = parseInt(countSpan.textContent || '0') + 1;
+            setTimeout(() => { btn.style.transform = 'scale(1)'; }, 200);
+
+            countSpan.textContent = parseInt(countSpan.textContent || '0', 10) + 1;
             localStorage.setItem('liked_' + postId, 'true');
 
-            // API call
             try {
                 await fetch('/api/like', {
                     method: 'POST',

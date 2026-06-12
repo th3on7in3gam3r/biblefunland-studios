@@ -87,10 +87,14 @@
             letter-spacing: 1px; 
         }
 
-        .post-date, .post-read-time { 
+        .post-author, .post-date, .post-read-time { 
             font-size: 0.85rem; 
             color: var(--text-light); 
             font-weight: 500;
+        }
+
+        .post-author {
+            font-weight: 600;
         }
 
         .post-title { 
@@ -455,6 +459,7 @@
                 <article class="post-content-wrapper animate-up">
                     <div class="post-meta">
                         <span class="post-category ${catClass}">${post.category}</span>
+                        <span class="post-author">By BibleFunLand Studios</span>
                         <span class="post-date">${post.date || post.publishedAt ? new Date(post.publishedAt || post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</span>
                         <span class="post-read-time">${post.readTime}</span>
                     </div>

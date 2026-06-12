@@ -10,7 +10,7 @@ const themeData = {
         icon: '✨',
         label: 'Premium',
         headline: 'Bringing <span class="highlight">Faith</span> to Life Through <span class="highlight">Creative</span> Media',
-        subtitle: 'We build brands, craft animations, design experiences, and tell stories that move people closer to purpose — for churches, ministries, and faith-driven organizations worldwide.',
+        subtitle: 'We build brands, craft animations, design experiences, and tell stories that move people closer to purpose — for churches, ministries, and faith-based, values-driven organizations worldwide.',
         banner: 'banner_image.png'
     },
     comic: {

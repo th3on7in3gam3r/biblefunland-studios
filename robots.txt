@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /404.html
+Disallow: /blog-admin.html
 Disallow: /studio-portal.html
 Disallow: /game.html
 Disallow: /bfl-video-hero.html
@@ -9,41 +10,50 @@ Disallow: /api/
 User-agent: GPTBot
 Allow: /
 Disallow: /404.html
-Disallow: /studio-portal.html
+Disallow: /blog-admin.html
 Disallow: /game.html
-Disallow: /bfl-video-hero.html
-Disallow: /api/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /404.html
-Disallow: /studio-portal.html
+Disallow: /blog-admin.html
 Disallow: /game.html
-Disallow: /bfl-video-hero.html
-Disallow: /api/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /404.html
-Disallow: /studio-portal.html
+Disallow: /blog-admin.html
 Disallow: /game.html
-Disallow: /bfl-video-hero.html
-Disallow: /api/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /404.html
-Disallow: /studio-portal.html
+Disallow: /blog-admin.html
 Disallow: /game.html
-Disallow: /bfl-video-hero.html
-Disallow: /api/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /404.html
-Disallow: /studio-portal.html
+Disallow: /blog-admin.html
 Disallow: /game.html
-Disallow: /bfl-video-hero.html
-Disallow: /api/
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+Disallow: /blog-admin.html
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
 
 Sitemap: https://biblefunlandstudios.com/sitemap.xml

@@ -9,39 +9,33 @@ Disallow: /api/
 
 User-agent: GPTBot
 Allow: /
+Disallow: /404.html
+Disallow: /blog-admin.html
+Disallow: /game.html
 
 User-agent: ChatGPT-User
 Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
+Disallow: /404.html
+Disallow: /blog-admin.html
+Disallow: /game.html
 
 User-agent: ClaudeBot
 Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Anthropic-AI
-Allow: /
+Disallow: /404.html
+Disallow: /blog-admin.html
+Disallow: /game.html
 
 User-agent: PerplexityBot
 Allow: /
-
-User-agent: Perplexity-User
-Allow: /
+Disallow: /404.html
+Disallow: /blog-admin.html
+Disallow: /game.html
 
 User-agent: Google-Extended
 Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: cohere-ai
-Allow: /
+Disallow: /404.html
+Disallow: /blog-admin.html
+Disallow: /game.html
 
 User-agent: Applebot
 Allow: /
@@ -49,13 +43,17 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+Disallow: /blog-admin.html
+
+User-agent: cohere-ai
+Allow: /
+
 User-agent: Meta-ExternalAgent
 Allow: /
 
-User-agent: Bytespider
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
-Sitemap: https://www.biblefunlandstudios.com/sitemap.xml
+Sitemap: https://biblefunlandstudios.com/sitemap.xml

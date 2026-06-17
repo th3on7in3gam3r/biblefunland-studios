@@ -1,5 +1,5 @@
 var PostSeoHead = (function () {
-    var SITE = 'https://www.biblefunlandstudios.com';
+    var SITE = 'https://biblefunlandstudios.com';
     var BRAND = ' | BibleFunLand Studios';
 
     var postsBySlug = {

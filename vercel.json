@@ -21,6 +21,11 @@
       "permanent": true
     },
     {
+      "source": "/christian-web-design",
+      "destination": "/christian-web-design.html",
+      "permanent": true
+    },
+    {
       "source": "/bible-apps-for-kids",
       "destination": "/bible-apps-for-kids.html",
       "permanent": true

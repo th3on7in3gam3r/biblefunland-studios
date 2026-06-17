@@ -16,6 +16,31 @@
       "permanent": true
     },
     {
+      "source": "/church-website-design",
+      "destination": "/church-website-design.html",
+      "permanent": true
+    },
+    {
+      "source": "/bible-apps-for-kids",
+      "destination": "/bible-apps-for-kids.html",
+      "permanent": true
+    },
+    {
+      "source": "/church-branding",
+      "destination": "/church-branding.html",
+      "permanent": true
+    },
+    {
+      "source": "/ministry-animation",
+      "destination": "/ministry-animation.html",
+      "permanent": true
+    },
+    {
+      "source": "/homeschool-bible-curriculum",
+      "destination": "/homeschool-bible-curriculum.html",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true

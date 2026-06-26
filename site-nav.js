@@ -21,7 +21,7 @@
         { key: 'blog', label: 'Blog', href: blogHref }
     ];
 
-    const closeBtn = '<button class="nav-close" id="navClose" aria-label="Close navigation">✕</button>';
+    const closeBtn = '<button type="button" class="nav-close" id="navClose" aria-label="Close navigation">✕</button>';
     const links = items.map((item) => {
         const cls = item.key === active ? ' class="active"' : '';
         return `<li><a href="${item.href}"${cls}>${item.label}</a></li>`;
@@ -30,19 +30,53 @@
 
     navLinks.innerHTML = closeBtn + links + cta;
 
-    const navClose = document.getElementById('navClose');
-    const navToggle = document.getElementById('navToggle');
-
-    if (navClose && navLinks) {
-        navClose.addEventListener('click', () => navLinks.classList.remove('active'));
+    let navBackdrop = document.getElementById('navBackdrop');
+    if (!navBackdrop) {
+        navBackdrop = document.createElement('div');
+        navBackdrop.id = 'navBackdrop';
+        navBackdrop.className = 'nav-backdrop';
+        navBackdrop.hidden = true;
+        navBackdrop.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(navBackdrop);
     }
 
-    if (navToggle && navLinks) {
-        navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-        navLinks.querySelectorAll('a').forEach((link) => {
-            link.addEventListener('click', () => navLinks.classList.remove('active'));
+    const navToggle = document.getElementById('navToggle');
+    const navClose = document.getElementById('navClose');
+
+    function setNavOpen(isOpen) {
+        navLinks.classList.toggle('active', isOpen);
+        navBackdrop.hidden = !isOpen;
+        navBackdrop.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        document.body.classList.toggle('nav-open', isOpen);
+        if (navToggle) {
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+    }
+
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-controls', 'navLinks');
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setNavOpen(!navLinks.classList.contains('active'));
         });
     }
+
+    if (navClose) {
+        navClose.addEventListener('click', () => setNavOpen(false));
+    }
+
+    navBackdrop.addEventListener('click', () => setNavOpen(false));
+
+    navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setNavOpen(false));
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            setNavOpen(false);
+        }
+    });
 })();
 
 (function initBackToTop() {

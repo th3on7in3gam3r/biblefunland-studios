@@ -270,6 +270,12 @@ body.theme-dark h1, body.theme-dark h2, body.theme-dark h3, body.theme-dark h4 {
 body.theme-dark .navbar.scrolled { background: rgba(15, 23, 42, 0.92); border-bottom: 1px solid rgba(255,255,255,0.05); }
 body.theme-dark .nav-links a { color: var(--text-light); }
 body.theme-dark .nav-links a:hover { color: var(--text); }
+@media (max-width: 968px) {
+    body.theme-dark .nav-links {
+        background: #0f172a;
+        border-left-color: rgba(255, 255, 255, 0.08);
+    }
+}
 body.theme-dark .logo-text { color: var(--text); }
 body.theme-dark .highlight { color: var(--hero-highlight); }
 body.theme-dark .highlight::after { background: rgba(245, 158, 11, 0.15); }

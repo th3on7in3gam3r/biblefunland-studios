@@ -3958,3 +3958,86 @@ body.theme-dark .partner-logo:hover { filter: grayscale(0) invert(0) opacity(1);
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== PROJECT SPOTLIGHT (Kerygma Social) ===== */
+.project-spotlight {
+    padding: 72px 0;
+    background: linear-gradient(135deg, rgba(26, 46, 90, 0.04) 0%, rgba(232, 168, 56, 0.08) 100%);
+    border-top: 1px solid rgba(26, 46, 90, 0.06);
+    border-bottom: 1px solid rgba(26, 46, 90, 0.06);
+}
+
+.project-spotlight__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 48px;
+    align-items: center;
+}
+
+.project-spotlight__copy .section-tag {
+    margin-bottom: 12px;
+}
+
+.project-spotlight__copy h2 {
+    font-size: clamp(1.75rem, 3vw, 2.35rem);
+    margin-bottom: 8px;
+}
+
+.project-spotlight__tagline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+}
+
+.project-spotlight__desc {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: var(--text-light);
+    margin-bottom: 24px;
+    max-width: 34rem;
+}
+
+.project-spotlight__visual {
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 56px rgba(26, 46, 90, 0.14);
+    border: 1px solid rgba(26, 46, 90, 0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.project-spotlight__visual:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 64px rgba(26, 46, 90, 0.18);
+}
+
+.project-spotlight__visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 968px) {
+    .project-spotlight {
+        padding: 56px 0;
+    }
+
+    .project-spotlight__inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+    }
+
+    .project-spotlight__desc {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .project-spotlight__copy .btn {
+        width: 100%;
+        max-width: 320px;
+    }
+}

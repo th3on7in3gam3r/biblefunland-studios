@@ -413,70 +413,137 @@
 
     <!-- Growth Stack — studio SaaS products -->
     <section class="growth-stack" id="growth-stack" aria-labelledby="growth-stack-heading">
-        <div class="container">
-            <div class="section-header growth-stack__header">
+        <div class="growth-stack__backdrop" aria-hidden="true"></div>
+        <div class="container growth-stack__container">
+            <header class="growth-stack__intro">
                 <span class="section-tag">Growth Stack</span>
-                <h2 id="growth-stack-heading">Tools we built to <span class="highlight">grow your mission</span></h2>
-                <p class="section-desc">Studio-built SaaS for visibility, content, strategy, and security — from the team behind BibleFunLand Studios. Use one product or stack them as you scale.</p>
-            </div>
+                <h2 id="growth-stack-heading">Studio-built tools to <span class="highlight">grow your mission</span></h2>
+                <p class="section-desc growth-stack__lede">Four live products — social, AI visibility, marketing strategy, and secure shipping. Use one or stack them as you scale.</p>
+            </header>
+
+            <ol class="growth-stack__flow" aria-label="Growth stack pipeline">
+                <li><span class="growth-stack__flow-dot"></span>Social</li>
+                <li><span class="growth-stack__flow-dot"></span>AI visibility</li>
+                <li><span class="growth-stack__flow-dot"></span>Marketing</li>
+                <li><span class="growth-stack__flow-dot"></span>Security</li>
+            </ol>
+
             <div class="growth-stack__grid" role="list">
-                <a class="growth-stack__card" href="https://kerygmasocial.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit Kerygma Social">
-                    <div class="growth-stack__body">
-                        <span class="growth-stack__step" aria-hidden="true">01</span>
-                        <span class="growth-stack__category">Social</span>
+                <a class="growth-stack__card growth-stack__card--kerygma" href="https://kerygmasocial.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit Kerygma Social">
+                    <div class="growth-stack__preview">
+                        <div class="growth-stack__browser">
+                            <div class="growth-stack__browser-chrome" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                                <span class="growth-stack__browser-url">kerygmasocial.com</span>
+                            </div>
+                            <div class="growth-stack__browser-viewport">
+                                <img src="/brands/kerygma-social.png" alt="Kerygma Social homepage preview" loading="eager" width="640" height="360">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="growth-stack__content">
+                        <div class="growth-stack__meta">
+                            <span class="growth-stack__index">01</span>
+                            <span class="growth-stack__category">Social</span>
+                            <span class="growth-stack__live">Live</span>
+                        </div>
                         <h3 class="growth-stack__title">Kerygma Social</h3>
                         <p class="growth-stack__tagline">Proclaim. Publish. Multiply.</p>
-                        <p class="growth-stack__desc">A month of social posts from your URL — AI-powered content for trades, churches, and faith-aligned businesses.</p>
-                        <span class="growth-stack__cta">Visit Kerygma Social →</span>
-                    </div>
-                    <div class="growth-stack__thumb">
-                        <img src="/brands/kerygma-social.png" alt="Kerygma Social homepage preview" loading="eager" width="640" height="360">
+                        <p class="growth-stack__desc">A month of social posts from your URL — built for trades, churches, and faith-aligned businesses.</p>
+                        <span class="growth-stack__btn">Explore Kerygma Social</span>
                     </div>
                 </a>
-                <a class="growth-stack__card" href="https://getcitepilot.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit CitePilot">
-                    <div class="growth-stack__body">
-                        <span class="growth-stack__step" aria-hidden="true">02</span>
-                        <span class="growth-stack__category">AI Visibility</span>
+
+                <a class="growth-stack__card growth-stack__card--citepilot" href="https://getcitepilot.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit CitePilot">
+                    <div class="growth-stack__preview">
+                        <div class="growth-stack__browser">
+                            <div class="growth-stack__browser-chrome" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                                <span class="growth-stack__browser-url">getcitepilot.com</span>
+                            </div>
+                            <div class="growth-stack__browser-viewport">
+                                <img src="/brands/citepilot.png" alt="CitePilot homepage preview" loading="lazy" width="640" height="360">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="growth-stack__content">
+                        <div class="growth-stack__meta">
+                            <span class="growth-stack__index">02</span>
+                            <span class="growth-stack__category">AI Visibility</span>
+                            <span class="growth-stack__live">Live</span>
+                        </div>
                         <h3 class="growth-stack__title">CitePilot</h3>
                         <p class="growth-stack__tagline">Track citations in AI answers.</p>
-                        <p class="growth-stack__desc">GEO audits, money-prompt monitoring, and proof reports across ChatGPT, Perplexity, and Google AI Overviews.</p>
-                        <span class="growth-stack__cta">Visit CitePilot →</span>
-                    </div>
-                    <div class="growth-stack__thumb">
-                        <img src="/brands/citepilot.png" alt="CitePilot homepage preview" loading="lazy" width="640" height="360">
+                        <p class="growth-stack__desc">GEO audits, money-prompt monitoring, and proof reports across ChatGPT, Perplexity, and Google AI.</p>
+                        <span class="growth-stack__btn">Explore CitePilot</span>
                     </div>
                 </a>
-                <a class="growth-stack__card" href="https://cadence.biblefunland.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit Cadence">
-                    <div class="growth-stack__body">
-                        <span class="growth-stack__step" aria-hidden="true">03</span>
-                        <span class="growth-stack__category">Marketing</span>
+
+                <a class="growth-stack__card growth-stack__card--cadence" href="https://cadence.biblefunland.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit Cadence">
+                    <div class="growth-stack__preview">
+                        <div class="growth-stack__browser">
+                            <div class="growth-stack__browser-chrome" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                                <span class="growth-stack__browser-url">cadence.biblefunland.com</span>
+                            </div>
+                            <div class="growth-stack__browser-viewport">
+                                <img src="/brands/cadence.png" alt="Cadence homepage preview" loading="lazy" width="640" height="360">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="growth-stack__content">
+                        <div class="growth-stack__meta">
+                            <span class="growth-stack__index">03</span>
+                            <span class="growth-stack__category">Marketing</span>
+                            <span class="growth-stack__live">Live</span>
+                        </div>
                         <h3 class="growth-stack__title">Cadence</h3>
                         <p class="growth-stack__tagline">Your marketing war room.</p>
-                        <p class="growth-stack__desc">SEO audits, campaign planning, and strategy workflows — built for teams who need clarity without the agency overhead.</p>
-                        <span class="growth-stack__cta">Visit Cadence →</span>
-                    </div>
-                    <div class="growth-stack__thumb">
-                        <img src="/brands/cadence.png" alt="Cadence homepage preview" loading="lazy" width="640" height="360">
+                        <p class="growth-stack__desc">SEO audits, campaign planning, and strategy workflows — clarity without agency overhead.</p>
+                        <span class="growth-stack__btn">Explore Cadence</span>
                     </div>
                 </a>
-                <a class="growth-stack__card" href="https://aegis-loop.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit Aegis Loop">
-                    <div class="growth-stack__body">
-                        <span class="growth-stack__step" aria-hidden="true">04</span>
-                        <span class="growth-stack__category">DevSecOps</span>
+
+                <a class="growth-stack__card growth-stack__card--aegis" href="https://aegis-loop.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit Aegis Loop">
+                    <div class="growth-stack__preview">
+                        <div class="growth-stack__browser">
+                            <div class="growth-stack__browser-chrome" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                                <span class="growth-stack__browser-url">aegis-loop.com</span>
+                            </div>
+                            <div class="growth-stack__browser-viewport">
+                                <img src="/brands/aegis-loop.png" alt="Aegis Loop homepage preview" loading="lazy" width="640" height="360">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="growth-stack__content">
+                        <div class="growth-stack__meta">
+                            <span class="growth-stack__index">04</span>
+                            <span class="growth-stack__category">DevSecOps</span>
+                            <span class="growth-stack__live">Live</span>
+                        </div>
                         <h3 class="growth-stack__title">Aegis Loop</h3>
                         <p class="growth-stack__tagline">Find it. Fix it. Ship it.</p>
-                        <p class="growth-stack__desc">Security scanning in your pull requests — catch vulnerabilities before they reach production.</p>
-                        <span class="growth-stack__cta">Visit Aegis Loop →</span>
-                    </div>
-                    <div class="growth-stack__thumb">
-                        <img src="/brands/aegis-loop.png" alt="Aegis Loop homepage preview" loading="lazy" width="640" height="360">
+                        <p class="growth-stack__desc">Security scanning in pull requests — catch vulnerabilities before they reach production.</p>
+                        <span class="growth-stack__btn">Explore Aegis Loop</span>
                     </div>
                 </a>
             </div>
-            <p class="growth-stack__bundle">
-                Bundle <strong>CitePilot + Cadence</strong> on one checkout —
-                <a href="https://cadence.biblefunland.com/app/settings?tab=billing&amp;bundle=growth" target="_blank" rel="noopener noreferrer">Growth Stack pricing →</a>
-            </p>
+
+            <aside class="growth-stack__bundle" aria-labelledby="growth-stack-bundle-heading">
+                <div class="growth-stack__bundle-glow" aria-hidden="true"></div>
+                <div class="growth-stack__bundle-inner">
+                    <div class="growth-stack__bundle-copy">
+                        <p class="growth-stack__bundle-eyebrow">Studio bundle</p>
+                        <h3 id="growth-stack-bundle-heading">Growth Stack — CitePilot + Cadence</h3>
+                        <p>Pair AI citation tracking with your marketing war room. One checkout on Cadence — entitlements sync when you use the same email.</p>
+                    </div>
+                    <div class="growth-stack__bundle-actions">
+                        <a href="https://cadence.biblefunland.com/app/settings?tab=billing&amp;bundle=growth" class="btn btn-primary" target="_blank" rel="noopener noreferrer">View bundle pricing</a>
+                        <a href="https://cadence.biblefunland.com" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Open Cadence</a>
+                    </div>
+                </div>
+            </aside>
         </div>
     </section>
 
@@ -1215,6 +1282,9 @@
             if (response.ok) {
               form.style.display = 'none';
               successMsg.style.display = 'block';
+              if (typeof window.Pulse !== 'undefined' && typeof window.Pulse.track === 'function') {
+                window.Pulse.track('conversion', { label: 'contact_form' });
+              }
             } else {
               throw new Error('Network error');
             }
@@ -1242,5 +1312,6 @@
       }
 
     </script>
+    <script defer src="http://localhost:3020/pulse.js" data-site="demo"></script>
 </body>
 </html>

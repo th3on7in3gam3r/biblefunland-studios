@@ -21,6 +21,9 @@ document.querySelectorAll('.newsletter-form').forEach((form) => {
 
             form.style.display = 'none';
             if (successEl) successEl.classList.add('visible');
+            if (typeof window.Pulse !== 'undefined' && typeof window.Pulse.track === 'function') {
+                window.Pulse.track('conversion', { label: 'newsletter_signup' });
+            }
         } catch {
             submitBtn.disabled = false;
             submitBtn.textContent = defaultLabel;

@@ -276,6 +276,15 @@ body.theme-dark .nav-links a:hover { color: var(--text); }
         border-left-color: rgba(255, 255, 255, 0.08);
     }
 }
+
+body.theme-dark .growth-stack__card {
+    background: var(--bg-card);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.theme-dark .growth-stack__bundle-inner {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
 body.theme-dark .logo-text { color: var(--text); }
 body.theme-dark .highlight { color: var(--hero-highlight); }
 body.theme-dark .highlight::after { background: rgba(245, 158, 11, 0.15); }
